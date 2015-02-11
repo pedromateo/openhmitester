@@ -20,40 +20,55 @@
  *   http://openhmitester.sourceforge.net
  *
  */
-#ifndef DEBUG_H
-#define DEBUG_H
+#ifndef OHTCONFIG_H
+#define OHTCONFIG_H
 
-#include <iostream>
-#include <cassert>
+#include <string>
+
+/// ///
+///
+/// Configuration file
+///
+/// ///
 
 ///
-/// custom debug
+///compilation config
 ///
 
-#define DEBUG_ENABLED 1
+/// windowing system
+#define QT_ENABLED 1
 
-#define DEBUGc(content)\
-if (DEBUG_ENABLED) std::cout << content << std::endl;
+/// DataModel Adapter
+#define DA_XML_ENABLED 1
+#define DA_XML "XML"
+
+/// Preloading Action
+#define PA_LINUX_ENABLED 1
 
 ///
-/// parameterized debug
+/// SO config
+///
+#define PATH_SEPARATOR "/"
+
+///
+///Comm configuration
+///
+#define SERVER_IP "127.0.0.1"
+#define TCP_PORT 1984
+
+///
+///Preload configuration
 ///
 
-//parameters
-#define D_ERROR 1
-#define D_PLAYBACK 0
-#define D_RECORDING 0
-#define D_BOTH 1
-#define D_PRELOAD 1
-#define D_EXECUTOR 0
-#define D_CONSUMER 0
-#define D_GUI 0
-#define D_COMM 0
-
-//method
-#define DEBUG(type,content)\
-if (type && DEBUG_ENABLED) std::cout << content << std::endl
+#define LIB_PRELOAD_PATH_1 "lib_preload/libOHTPreload.so"
+#define LIB_PRELOAD_PATH_2 "../lib_preload/libOHTPreload.so"
 
 
+///
+/// output files
+///
 
-#endif // DEBUG_H
+#define STANDARD_OUTPUT_FILE "./out.log"
+#define ERROR_OUTPUT_FILE "./error.log"
+
+#endif // OHTCONFIG_H

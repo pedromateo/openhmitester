@@ -20,52 +20,41 @@
  *   http://openhmitester.sourceforge.net
  *
  */
-#ifndef OHTCONFIG_H
-#define OHTCONFIG_H
+#ifndef DEBUG_H
+#define DEBUG_H
 
-/// ///
-///
-/// Configuration file
-///
-/// ///
+#include <iostream>
+#include <cassert>
 
 ///
-///compilation config
+/// custom debug
 ///
 
-/// windowing system
-#define QT_ENABLED 1
+#define DEBUG_ENABLED 1
 
-/// DataModel Adapter
-#define DA_XML_ENABLED 1
-#define DA_XML "XML"
-
-/// Preloading Action
-#define PA_LINUX_ENABLED 1
+#define DEBUGc(content)\
+if (DEBUG_ENABLED) std::cout << content << std::endl;
 
 ///
-/// SO config
+/// parameterized debug
 ///
-#define PATH_SEPARATOR "/"
 
-///
-///Comm configuration
-///
-#define SERVER_IP "127.0.0.1"
-#define TCP_PORT 1984
+//parameters
+#define D_ERROR 1
+#define D_PLAYBACK 0
+#define D_RECORDING 0
+#define D_BOTH 1
+#define D_PRELOAD 1
+#define D_EXECUTOR 0
+#define D_CONSUMER 0
+#define D_GUI 1
+#define D_COMM 0
 
-///
-///Preload configuration
-///
-#define LIB_PRELOAD "libPreload/libLibPreload.so.1.0.0"
+//method
+#define DEBUG(type,content)\
+if (type == D_ERROR) std::cerr << content << std::endl;\
+else if (type && DEBUG_ENABLED) std::cout << content << std::endl
 
-///
-///Example values
-///
-#define EXAMPLE_VALUES_ENABLED 0
-#define EXAMPLE_BINARY "/tmp/test"
-#define EXAMPLE_PATH "/tmp/testsuite"
-#define STANDARD_OUTPUT_FILE "/tmp/salida.txt"
-#define ERROR_OUTPUT_FILE "/tmp/error.txt"
 
-#endif // OHTCONFIG_H
+
+#endif // DEBUG_H
