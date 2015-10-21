@@ -1,9 +1,6 @@
 OHT: Open HMI Tester
 ====================
 
-"Open HMI Tester" is a GUI Testing tool following an open architecture that describes a non intrusive capture/replay tool based on GUI Events. It may be adapted to support different windowing systems and operating systems used in the testing environment.
-
-
 "Open HMI Tester" or OHT is an application framework for the development of GUI testing tools. It uses
 GUI introspection to capture and simulate real user interaction, which enhances
 robustness and tolerance to changes during testing stage. 
@@ -14,6 +11,8 @@ As a result, the framework provides an adaptable, extensible, scalable,
 and robust basis to support the automation of GUI testing processes. 
 
 OHT is open-source and ready to use.
+It can be adapted as well to support different GUI platforms and operating systems.
+
 
 
 # Content of this repository
@@ -36,4 +35,8 @@ OHT is open-source and ready to use.
 
 ## Further information at...
 
-http://www.catedrasaes.org/wiki/OHT
+Webpage: http://www.catedrasaes.org/wiki/OHT
+
+Videos: http://www.youtube.com/user/CatedraSaesUmu
+
+
