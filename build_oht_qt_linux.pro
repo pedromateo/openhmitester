@@ -32,10 +32,9 @@ OBJECTS_DIR = $${BUILD_DIR}/objs
 QT       += core gui
 CONFIG += qtestlib no_keywords
 
-# testsuite targets
-SUBDIRS += lib_preload/
-lib_preload/.file = lib_preload/LibPreload.pro
-SUBDIRS += hmi_tester/
-hmi_tester/.file = hmi_tester/HMITester.pro
+# targets
+#SUBDIRS += hmi_tester/
+SUBDIRS += qt_linux_hmi_tester
+SUBDIRS += qt_linux_lib_preload
 
 
