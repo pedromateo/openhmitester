@@ -33,7 +33,7 @@ It can be adapted as well to support different GUI platforms and operating syste
 * build_oht_qt_linux: Qt Creator project to build the Qt-Linux GUI testing tool.
 
 
-## Further information at...
+## Further information
 
 Webpage: http://www.catedrasaes.org/wiki/OHT
 
