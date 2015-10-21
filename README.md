@@ -11,7 +11,9 @@ As a result, the framework provides an adaptable, extensible, scalable,
 and robust basis to support the automation of GUI testing processes. 
 
 OHT is open-source and ready to use.
-It can be adapted as well to support different GUI platforms and operating systems.
+
+OHT can be adapted to support different GUI platforms and operating systems. An adaptation to Qt-Linux
+testing environments is provided in this repository.
 
 
 
