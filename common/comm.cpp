@@ -23,7 +23,6 @@
 
 #include "comm.h"
 
-#include <QTimer>
 #include <iostream>
 #include <cassert>
 #include <boost/archive/text_oarchive.hpp>

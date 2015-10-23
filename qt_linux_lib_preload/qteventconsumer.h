@@ -28,10 +28,13 @@
 #include <qtownevents.h>
 #include <QEvent>
 #include <QPoint>
+#include <QElapsedTimer>
 
 class QtEventConsumer : public EventConsumer
 {
+
 public:
+
     QtEventConsumer();
 
     ///
@@ -44,6 +47,7 @@ public:
     ///
     virtual void startCapture();
     virtual void pauseCapture();
+    virtual void resumeCapture();
     virtual void stopCapture();
 
 protected:
@@ -83,6 +87,13 @@ private:
     ///
     bool f_recording_;
     bool f_paused_;
+
+    ///
+    /// timing
+    ///
+
+    QElapsedTimer _timer;
+    int _cumulated_timer;
 
     ///
     ///widget adapters manager

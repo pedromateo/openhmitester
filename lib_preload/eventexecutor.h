@@ -44,6 +44,7 @@ public:
     ///
     virtual void startExecution() = 0;
     virtual void pauseExecution() = 0;
+    virtual void resumeExecution() = 0;
     virtual void stopExecution() = 0;
 };
 

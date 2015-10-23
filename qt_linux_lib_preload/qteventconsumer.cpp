@@ -28,9 +28,8 @@
 #include <QEvent>
 #include <QMouseEvent>
 #include <QKeyEvent>
-#include <boost/shared_ptr.hpp>
 
-QtEventConsumer::QtEventConsumer()
+QtEventConsumer::QtEventConsumer() : EventConsumer()
 {
     //update flags
     f_recording_ = false;
@@ -55,6 +54,10 @@ void QtEventConsumer::startCapture()
     //update flags
     f_recording_ = true;
     f_paused_ = false;
+
+    // timing stuff
+    _cumulated_timer = 0;
+    _timer.start();
 }
 
 void QtEventConsumer::pauseCapture()
@@ -62,6 +65,20 @@ void QtEventConsumer::pauseCapture()
     //update flags
     f_recording_ = true;
     f_paused_ = true;
+
+    // timing stuff
+    _cumulated_timer += _timer.elapsed();
+    _timer.invalidate();
+}
+
+void QtEventConsumer::resumeCapture()
+{
+    //update flags
+    f_recording_ = true;
+    f_paused_ = true;
+
+    // timing stuff
+    _timer.start();
 }
 
 void QtEventConsumer::stopCapture()
@@ -69,6 +86,9 @@ void QtEventConsumer::stopCapture()
     //update flags
     f_recording_ = false;
     f_paused_ = false;
+
+    // timing stuff
+    _timer.invalidate();
 }
 
 
@@ -149,6 +169,8 @@ void QtEventConsumer::handleMousePressEvent ( QObject *obj, QEvent *event )
     //create the event
     QOE::QOE_MousePress qoe;// = new QOE::QOE_MousePress();
     QWidget *widget = static_cast<QWidget*>(obj);
+
+    qoe.timestamp(_cumulated_timer + _timer.elapsed());
     qoe.widget(QWidgetUtils::getWidgetPath (widget).toStdString());
     qoe.button(me->button());
     qoe.buttons(me->buttons());
@@ -174,6 +196,8 @@ void QtEventConsumer::handleMouseReleaseEvent ( QObject *obj, QEvent *event )
     //create the event
     QOE::QOE_MouseRelease qoe;// = new QOE::QOE_MouseRelease();
     QWidget *widget = static_cast<QWidget*>(obj);
+
+    qoe.timestamp(_cumulated_timer + _timer.elapsed());
     qoe.widget(QWidgetUtils::getWidgetPath (widget).toStdString());
     qoe.button(me->button());
     qoe.buttons(me->buttons());
@@ -199,6 +223,8 @@ void QtEventConsumer::handleMouseDoubleEvent ( QObject *obj, QEvent *event )
     //create the event
     QOE::QOE_MouseDouble qoe;// = new QOE::QOE_MouseDouble();
     QWidget *widget = static_cast<QWidget*>(obj);
+
+    qoe.timestamp(_cumulated_timer + _timer.elapsed());
     qoe.widget(QWidgetUtils::getWidgetPath (widget).toStdString());
     qoe.button(me->button());
     qoe.buttons(me->buttons());
@@ -230,6 +256,7 @@ void QtEventConsumer::handleKeyPressEvent ( QObject *obj, QEvent *event )
         QPoint p ( widget->x(), widget->y() );
         QPoint g = widget->mapToGlobal ( p );
 
+        qoe.timestamp(_cumulated_timer + _timer.elapsed());
         qoe.widget(QWidgetUtils::getWidgetPath (widget).toStdString());
         qoe.key(keyEvent->key());
         qoe.text(keyEvent->text());
@@ -258,6 +285,7 @@ void QtEventConsumer::handleCloseEvent ( QObject *obj, QEvent *event )
     QPoint p ( widget->x(), widget->y() );
     QPoint g = widget->mapToGlobal ( p );
 
+    qoe.timestamp(_cumulated_timer + _timer.elapsed());
     qoe.widget(QWidgetUtils::getWidgetPath (widget).toStdString());
     qoe.x(p.x());
     qoe.y(p.y());
@@ -277,6 +305,8 @@ void QtEventConsumer::handleWheelEvent ( QObject *obj, QEvent *event )
     //create the event
     QOE::QOE_MouseWheel qoe;// = new QOE::QOE_MouseWheel();
     QWidget *widget = static_cast<QWidget*>(obj);
+
+    qoe.timestamp(_cumulated_timer + _timer.elapsed());
     qoe.widget(QWidgetUtils::getWidgetPath (widget).toStdString());
     qoe.delta(we->delta());
     qoe.orientation(we->orientation());

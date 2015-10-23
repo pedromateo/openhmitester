@@ -31,7 +31,7 @@
 #include <boost/archive/text_iarchive.hpp>
 #include <boost/lexical_cast.hpp>
 #include <sstream>
-#include "debug.h"
+#include <debug.h>
 
 using namespace DataModel;
 
@@ -48,28 +48,28 @@ TestSuite::~TestSuite()
 }
 
 const TestSuite::TestCaseList&
-        TestSuite::testCases() const
+TestSuite::testCases() const
 {
     return testCases_;
 }
 
 void
-        TestSuite::addTestCase(DataModel::TestCase* ti)
+TestSuite::addTestCase(DataModel::TestCase* ti)
 {
     testCases_.push_back(ti);
     tcMap_.insert (std::make_pair (ti->name(), ti));
 }
 
 void
-        TestSuite::addTestCase(TestCaseList::iterator pos,
-                               DataModel::TestCase* ti)
+TestSuite::addTestCase(TestCaseList::iterator pos,
+                       DataModel::TestCase* ti)
 {
     testCases_.insert(pos, ti);
     tcMap_.insert (std::make_pair (ti->name(), ti));
 }
 
 void
-        TestSuite::deleteTestCase(TestCaseList::iterator ti) throw (not_found)
+TestSuite::deleteTestCase(TestCaseList::iterator ti) throw (not_found)
 {
     try {
         testCases_.erase(ti);
@@ -114,8 +114,8 @@ void TestSuite::deleteTestCase(const std::string& name) throw (not_found)
             std::find_if (testCases_.begin(),
                           testCases_.end(),
                           bind<bool> (std::equal_to<uuid_t>(),
-                          bind<uuid_t> (&TestCase::uuid, _1),
-                          id));
+                                      bind<uuid_t> (&TestCase::uuid, _1),
+                                      id));
     testCases_.erase (it2);
 }
 
@@ -130,7 +130,7 @@ void TestSuite::deleteTestCase(const std::string& name) throw (not_found)
 // }
 
 DataModel::TestCase*
-        TestSuite::getTestCase(const std::string& name) throw (not_found)
+TestSuite::getTestCase(const std::string& name) throw (not_found)
 {
     // using namespace boost::lambda;
     // TestCaseList::iterator it =
@@ -160,7 +160,7 @@ DataModel::TestCase*
 // }
 
 DataModel::TestCase*
-        TestSuite::existsTestCase(const std::string& name)
+TestSuite::existsTestCase(const std::string& name)
 {
     DataModel::TestCase* tc;
     try {
@@ -215,34 +215,34 @@ TestCase::~TestCase()
 }
 
 uuid_t
-        TestCase::uuid() const
+TestCase::uuid() const
 {
     return uuid_;
 }
 
 const TestCase::TestItemList&
-        TestCase::testItemList() const
+TestCase::testItemList() const
 {
     return testItems_;
 }
 
 void
-        TestCase::addTestItem(DataModel::TestItem* ti)
+TestCase::addTestItem(DataModel::TestItem* ti)
 {
     testItems_.push_back(ti);
     itemMap_.insert (std::make_pair (ti->uuid(), ti));
 }
 
 void
-        TestCase::addTestItem(TestItemList::iterator pos,
-                              DataModel::TestItem* ti)
+TestCase::addTestItem(TestItemList::iterator pos,
+                      DataModel::TestItem* ti)
 {
     testItems_.insert(pos, ti);
     itemMap_.insert (std::make_pair (ti->uuid(), ti));
 }
 
 void
-        TestCase::deleteTestItem(TestItemList::iterator ti) throw (not_found)
+TestCase::deleteTestItem(TestItemList::iterator ti) throw (not_found)
 {
     try {
         testItems_.erase(ti);
@@ -253,31 +253,31 @@ void
 }
 
 size_t
-        TestCase::count() const
+TestCase::count() const
 {
     return testItems_.size();
 }
 
 std::string
-        TestCase::name() const
+TestCase::name() const
 {
     return name_;
 }
 
 void
-        TestCase::name(const std::string& s)
+TestCase::name(const std::string& s)
 {
     name_ = s;
 }
 
 void
-        TestCase::__syncMap()
+TestCase::__syncMap()
 {
     itemMap_.clear();
 
     for (TestItemList::iterator it = testItems_.begin();
-    it != testItems_.end();
-    ++it)
+         it != testItems_.end();
+         ++it)
         itemMap_.insert (std::make_pair (it->uuid(), &*it));
 }
 
@@ -290,8 +290,8 @@ TestItem::TestItem()
 {
 }
 
-TestItem::TestItem(int type, int subtype)
-    : uuid_ (U.uuid_new()), type_ (type), subtype_ (subtype)
+TestItem::TestItem(int type, int subtype, double timestamp = 0)
+    : uuid_ (U.uuid_new()), type_ (type), subtype_ (subtype), timestamp_(timestamp)
 {
 }
 
@@ -302,6 +302,7 @@ TestItem::TestItem(DataModel::TestItem* ti)
     ///type and subtype
     type(ti->type());
     subtype(ti->subtype());
+    timestamp(ti->timestamp());
 
     dataMap_ = ti->dataMap_;
     metadataMap_ = ti->metadataMap_;
@@ -313,25 +314,25 @@ TestItem::~TestItem()
 }
 
 uuid_t
-        TestItem::uuid() const
+TestItem::uuid() const
 {
     return uuid_;
 }
 
 int
-        TestItem::type() const
+TestItem::type() const
 {
     return type_;
 }
 
 void
-        TestItem::type(int i)
+TestItem::type(int i)
 {
     type_ = i;
 }
 
 int
-        TestItem::subtype() const
+TestItem::subtype() const
 {
     return subtype_;
 }
@@ -339,6 +340,17 @@ int
 void TestItem::subtype(int i)
 {
     subtype_ = i;
+}
+
+double
+TestItem::timestamp() const
+{
+    return timestamp_;
+}
+
+void TestItem::timestamp(double i)
+{
+    timestamp_ = i;
 }
 
 ///
@@ -349,6 +361,7 @@ void TestItem::copy(DataModel::TestItem* ti)
 
     type(ti->type());
     subtype(ti->subtype());
+    timestamp(ti->timestamp());
 
     dataMap_ = ti->dataMap_;
     metadataMap_ = ti->metadataMap_;
@@ -360,6 +373,7 @@ void TestItem::deepCopy(DataModel::TestItem* ti)
     ///type and subtype
     type(ti->type());
     subtype(ti->subtype());
+    timestamp(ti->timestamp());
 
     ///
     ///data and metadata maps
@@ -396,49 +410,48 @@ TestBase::~TestBase()
 
 // Access to the data map
 const TestBase::DataMap&
-        TestBase::dataMap() const
+TestBase::dataMap() const
 {
     return dataMap_;
 }
 
 TestBase::DataMap&
-        TestBase::dataMap()
+TestBase::dataMap()
 {
     return dataMap_;
 }
 
 const TestBase::MetadataMap&
-        TestBase::metadataMap() const
+TestBase::metadataMap() const
 {
     return metadataMap_;
 }
 
 TestBase::MetadataMap&
-        TestBase::metadataMap()
+TestBase::metadataMap()
 {
     return metadataMap_;
 }
 
-bool
-        TestBase::addData(const std::string& key, const std::string& value)
+bool TestBase::addData(const std::string& key, const std::string& value)
 {
     return addPair(dataMap_, key, value);
 }
 
 std::string
-        TestBase::getData(const std::string& key) const throw (not_found)
+TestBase::getData(const std::string& key) const throw (not_found)
 {
     return getValue(dataMap_, key);
 }
 
 bool
-        TestBase::addMetadata(const std::string& key, const std::string& value)
+TestBase::addMetadata(const std::string& key, const std::string& value)
 {
     return addPair(metadataMap_, key, value);
 }
 
 std::string
-        TestBase::getMetadata(const std::string& key) const throw (not_found)
+TestBase::getMetadata(const std::string& key) const throw (not_found)
 {
     return getValue(metadataMap_, key);
 }
@@ -446,16 +459,16 @@ std::string
 
 //private
 bool
-        TestBase::addPair(KeyValueMap& map,
-                          const std::string& key,
-                          const std::string& value)
+TestBase::addPair(KeyValueMap& map,
+                  const std::string& key,
+                  const std::string& value)
 {
     map[key] = value;
     return true;
 }
 
 const std::string&
-        TestBase::getValue(const KeyValueMap& map, const std::string& key) const throw (not_found)
+TestBase::getValue(const KeyValueMap& map, const std::string& key) const throw (not_found)
 {
     KeyValueMap::const_iterator it = map.find(key);
 

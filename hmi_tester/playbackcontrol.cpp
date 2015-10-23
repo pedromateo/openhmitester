@@ -30,7 +30,7 @@ PlaybackControl::PlaybackControl(Comm *c, ExecutionObserver* pc)
     : comm_ (c), observer_ (pc)
 {
     executionThread_ =
-        std::auto_ptr<ExecutionThread>(new ExecutionThread (comm_, observer_));
+            std::auto_ptr<ExecutionThread>(new ExecutionThread (comm_, observer_));
 }
 
 PlaybackControl::~PlaybackControl()
@@ -63,7 +63,7 @@ bool PlaybackControl::runTestCase(DataModel::TestCase* tc)
     assert(tc);
     executionThread_->currentTestCase (tc);
     executionThreadRef_ =
-	boost::thread (boost::ref (*(executionThread_.get())));
+            boost::thread (boost::ref (*(executionThread_.get())));
 
     return true;
 }
@@ -95,7 +95,7 @@ bool PlaybackControl::stopExecution()
 {
     //it should be running or paused
     if (executionThread_->isRunning()
-        || executionThread_->isPaused())
+            || executionThread_->isPaused())
     {
         DEBUG(D_PLAYBACK, "(PlaybackControl::stopExecution)");
         executionThread_->stop();
@@ -113,12 +113,12 @@ void PlaybackControl::applicationFinished()
 {
     //it should be running or paused
     if (executionThread_->isRunning()
-        || executionThread_->isPaused())
+            || executionThread_->isPaused())
     {
         executionThread_->applicationFinished();
 
-	// Wait the thread
-	executionThreadRef_.join();
+        // Wait the thread
+        executionThreadRef_.join();
     }
 }
 

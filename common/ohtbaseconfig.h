@@ -44,15 +44,31 @@
 ///
 ///Comm configuration
 ///
+
 #define SERVER_IP "127.0.0.1"
 #define TCP_PORT 1984
 
+///
+/// hmi tester look configuration
+///
+
+#define IDLE_OPACITY 1.0
+#define RUNNING_OPACITY 0.5
+
+///
+/// playback process
+///
+
+#define EXEC_PAUSE_AFTER_REPLAY 2000
+#define EXEC_SPEED 50
+#define EXEC_SPEED_PAUSE 150
+#define EXEC_SPEED_BASE 10
 
 ///
 /// output files
 ///
 
-#define STANDARD_OUTPUT_FILE "./out.log"
-#define ERROR_OUTPUT_FILE "./error.log"
+#define STANDARD_OUTPUT_FILE "./testing_lib_out.log"
+#define ERROR_OUTPUT_FILE "./testing_lib_error.log"
 
 #endif // OHTCONFIG_H

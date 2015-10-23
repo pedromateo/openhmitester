@@ -55,6 +55,7 @@ const QString TS_ID = "appId";
 const QString TSC_NAME = "name";
 const QString TI_TYPE = "type";
 const QString TI_SUBTYPE = "subtype";
+const QString TI_TIMESTAMP = "timestamp";
 const QString KEY = "key";
 const QString VALUE = "value";
 
@@ -184,6 +185,14 @@ DataModel::TestSuite*
                                         QString value = e3.text();
                                         bool ok = false;
                                         titem->subtype(value.toInt(&ok));
+                                        assert(ok);
+                                    }
+                                    //TestItem - timestamp
+                                    else if ( e3.tagName() == TI_TIMESTAMP )
+                                    {
+                                        QString value = e3.text();
+                                        bool ok = false;
+                                        titem->timestamp(value.toDouble(&ok));
                                         assert(ok);
                                     }
                                     //TestItem - data
@@ -386,6 +395,11 @@ QString XMLDataModelAdapter::visit_TestItem(const DataModel::TestItem& ti)
     xml += BEGo + TI_SUBTYPE + ENDo +
            QString::number(ti.subtype()) +
            BEGc + TI_SUBTYPE + ENDc;
+
+    //timestamp
+    xml += BEGo + TI_TIMESTAMP + ENDo +
+           QString::number(ti.timestamp()) +
+           BEGc + TI_TIMESTAMP + ENDc;
 
 
     xml += _visit_TestBase (ti);

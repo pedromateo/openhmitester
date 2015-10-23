@@ -52,6 +52,7 @@ public:
     virtual bool stopApplication ();
 
 private slots:
+
     ///
     ///output signals management
     ///

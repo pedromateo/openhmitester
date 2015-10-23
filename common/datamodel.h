@@ -23,7 +23,7 @@
 #ifndef DATAMODEL_H
 #define DATAMODEL_H
 
-#include "uuid.h"
+#include <uuid.h>
 #include <map>
 #include <boost/ptr_container/ptr_list.hpp>
 #include <string>
@@ -98,7 +98,7 @@ namespace DataModel
 
     public:
         TestItem();
-        TestItem(int type, int subtype);
+        TestItem(int type, int subtype, double timestamp);
         TestItem(DataModel::TestItem*);
         ~TestItem();
 
@@ -108,6 +108,8 @@ namespace DataModel
         void type(int);
         int subtype() const;
         void subtype(int);
+        double timestamp() const;
+        void timestamp(double);
 
 #ifdef WANT_SERIALIZE
         //serialization
@@ -121,6 +123,7 @@ namespace DataModel
             ar & uuid_;
             ar & type_;
             ar & subtype_;
+            ar & timestamp_;
         }
 #endif
 
@@ -131,6 +134,7 @@ namespace DataModel
     protected:
         int type_;
         int subtype_;
+        double timestamp_;
 
     private:
         //this class must be virtual

@@ -28,8 +28,10 @@
 
 class EventConsumer : public QObject
 {
+    Q_OBJECT
 
 public:
+
     EventConsumer();
 
     ///
@@ -41,16 +43,14 @@ public:
     /// this method is called when the consumer wants to
     /// send a new item to the HMI Tester
     ///
-    virtual void sendNewTestItem(DataModel::TestItem& ti)
-    {
-        emit newTestItem(ti);
-    }
+    void sendNewTestItem(DataModel::TestItem& ti);
 
     ///
-    ///capture process control methods
+    /// capture process control methods
     ///
     virtual void startCapture() = 0;
     virtual void pauseCapture() = 0;
+    virtual void resumeCapture() = 0;
     virtual void stopCapture() = 0;
 
 private:

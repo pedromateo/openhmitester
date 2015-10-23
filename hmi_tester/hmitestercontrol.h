@@ -26,7 +26,13 @@
 #include <ui_hmitestercontrol.h>
 #include <processcontrol.h>
 
+#if QT_VERSION >= 0x050000 // Qt5 code
+#include <QtWidgets>
+#else // Qt4 code
 #include <QtGui/QMainWindow>
+#endif
+
+
 
 
 class HMITesterControl : public QMainWindow
@@ -34,7 +40,7 @@ class HMITesterControl : public QMainWindow
     Q_OBJECT
 
 public:
-    HMITesterControl(PreloadingAction* pa, DataModelAdapter* dma, QWidget *parent = 0, Qt::WFlags flags = 0);
+    HMITesterControl(PreloadingAction* pa, DataModelAdapter* dma, QWidget *parent = 0);
     ~HMITesterControl();
 
 public:
@@ -56,10 +62,13 @@ public:
 
 
 private:
-    Ui::HMITesterControlClass ui;
+    Ui::HMITesterWindow ui;
 
-    //initialization
+    // initialization
     void _initializeForm();
+
+    // supporting
+    void _setEnableAndVisible(QWidget* target, bool b);
 
     //menus
     QMenu *mainMenu_;
@@ -74,7 +83,7 @@ private:
     QActionGroup *speedActionGroup_;
 
     // overall process controller
-    ProcessControl* processControl_;
+    ProcessControl* _processControl;
 
 private slots:
     //button handlers
@@ -82,7 +91,6 @@ private slots:
     void tb_pause_clicked();
     void tb_stop_clicked();
     void tb_rec_clicked();
-    void tb_screenshot_clicked();
 
     //menu actions handler
     void action_open_triggered();

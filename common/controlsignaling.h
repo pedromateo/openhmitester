@@ -23,7 +23,7 @@
 #ifndef CONTROLSIGNALING_H
 #define CONTROLSIGNALING_H
 
-#include "datamodel.h"
+#include <datamodel.h>
 
 namespace Control
 {

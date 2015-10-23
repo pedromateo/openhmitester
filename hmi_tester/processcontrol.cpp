@@ -76,17 +76,17 @@ void ProcessControl::initialize()
     /// checking preload library
 
     current_oht_path_ = QtUtils::getCurrentDir().toStdString() + PATH_SEPARATOR;
-    current_libPreload_path_ = preloading_action_->libPreloadPath();
+    current_libPreload_path_ = current_oht_path_ + preloading_action_->libPreloadPath();
 
-    DEBUG(D_GUI,"(HMITesterControl::initializeForm) Finding preload lib at: " << current_libPreload_path_);
+    DEBUG(D_GUI,"(ProcessControl::initializeForm) Finding preload lib at: " << current_libPreload_path_);
 
     if (QtUtils::fileExists(QString(current_libPreload_path_.c_str()))){
-        DEBUG(D_GUI,"(HMITesterControl::initializeForm) Preload lib found.");
+        DEBUG(D_GUI,"(ProcessControl::initializeForm) Preload lib found.");
     }
     else
     {
-        DEBUG(D_GUI,"(HMITesterControl::initializeForm) Failed Preload lib checking.");
-        DEBUG(D_GUI,"(HMITesterControl::initializeForm) libpath = " << current_libPreload_path_);
+        DEBUG(D_GUI,"(ProcessControl::initializeForm) Failed Preload lib checking.");
+        DEBUG(D_GUI,"(ProcessControl::initializeForm) libpath = " << current_libPreload_path_);
         QtUtils::newErrorDialog ( "Failed Preload Libraries checking.");
         assert ( 0 );
     }

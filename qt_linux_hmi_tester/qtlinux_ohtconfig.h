@@ -33,6 +33,10 @@
 /// libpreload path
 #define LIBPRELOAD_PATH "../qt_linux_lib_preload/libOHTPreload.so"
 
+///
+/// oreload environment variable
+#define PRELOAD_ENVVAR "LD_PRELOAD"
+
 
 
 #endif // QTLINUX_OHTCONFIG_H

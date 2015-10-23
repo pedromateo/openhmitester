@@ -96,6 +96,7 @@ private:
 
     void _sendStartPlayback();
     void _sendStopPlayback();
+    void _sleep(int ms);
 };
 
 

@@ -27,7 +27,7 @@
 #include <ohtbaseconfig.h>
 #include <QWidget>
 
-QtEventExecutor::QtEventExecutor()
+QtEventExecutor::QtEventExecutor() : EventExecutor()
 {
     //update flags
     f_executing_ = false;
@@ -46,14 +46,26 @@ void QtEventExecutor::install()
 ///
 ///execution process control methods
 ///
+
 void QtEventExecutor::startExecution()
 {
     //update flags
     f_executing_ = true;
     f_paused_ = false;
+
+    // execution starts with mouse at 0,0
+    lastPos_ = QApplication::activeWindow()->mapToGlobal(QPoint(0,0));
+    QCursor::setPos(lastPos_);
 }
 
 void QtEventExecutor::pauseExecution()
+{
+    //update flags
+    f_executing_ = true;
+    f_paused_ = true;
+}
+
+void QtEventExecutor::resumeExecution()
 {
     //update flags
     f_executing_ = true;

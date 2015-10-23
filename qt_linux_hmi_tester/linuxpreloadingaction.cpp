@@ -46,14 +46,6 @@ bool LinuxPreloadingAction::launchApplication ( const std::string &binaryPath,
                                                 const std::string &outputFile,
                                                 const std::string &errorFile) throw (bin_error_exception, lib_error_exception)
 {
-
-    DEBUG(D_PRELOAD,"==============================================================================================");
-    DEBUG(D_PRELOAD,"(LinuxPreloadingAction::launchApplication) Launching application with:");
-    DEBUG(D_PRELOAD,"(LinuxPreloadingAction::launchApplication) binaryPath = " << binaryPath);
-    DEBUG(D_PRELOAD,"(LinuxPreloadingAction::launchApplication) preloadLibraryPath = " << preloadLibraryPath);
-    DEBUG(D_PRELOAD,"(LinuxPreloadingAction::launchApplication) outputFile = " << outputFile);
-    DEBUG(D_PRELOAD,"(LinuxPreloadingAction::launchApplication) errorFile = " << errorFile);
-
     //checking if the binary exists
     if ( !QtUtils::isExecutable ( QString (binaryPath.c_str()) ) )
         throw bin_error_exception(binaryPath);
@@ -65,34 +57,53 @@ bool LinuxPreloadingAction::launchApplication ( const std::string &binaryPath,
     //create a new process
     process_.reset (new QProcess (this));
 
-    //redirect output
-    if (outputFile != "") redirectStandarOutputToFile(outputFile);
-    if (errorFile != "") redirectStandarErrorToFile(errorFile);
+    //redirect process output
+    if (outputFile != "")
+        assert(redirectStandarOutputToFile(outputFile));
+    if (errorFile != "")
+        assert(redirectStandarErrorToFile(errorFile));
 
-    //connecting signals...
-
-    //... output signals  //TODO
-    /*connect ( process_.get(), SIGNAL ( readyReadStandardOutput() ),
+    /*connect( process_.get(), SIGNAL ( readyReadStandardOutput() ),
               this, SIGNAL ( standardOutput(const QString&) ) );
-    connect ( process_.get(), SIGNAL ( readyReadStandardError() ),
+    connect( process_.get(), SIGNAL ( readyReadStandardError() ),
               this, SIGNAL ( standardError(const QString&) ) );*/
 
-    //... process signals
+    //connecting process signals
     connect ( process_.get(), SIGNAL ( finished ( int, QProcess::ExitStatus ) ),
               this, SIGNAL ( applicationFinished(int) ) );
 
     //setting preloading environment for the process
-    QStringList env = QProcess::systemEnvironment();
-    QString path = QtUtils::getCurrentDir();
-    path = QString ("LD_PRELOAD=") + QString (preloadLibraryPath.c_str());
-    env << path;
-    process_->setEnvironment ( env );
+
+    /*QStringList env = process_->systemEnvironment();
+    QString envvar(PRELOAD_ENVVAR);
+    envvar.append("=").append(preloadLibraryPath.c_str());
+    env << envvar;
+    process_->setEnvironment(env);*/
+
+    QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
+    //env.insert(PRELOAD_ENVVAR, QString(preloadLibraryPath.c_str()));
+    env.insert(PRELOAD_ENVVAR, "/home/pedro/svn_catedra/anotaciones/testing/imp_HMITester_github/openhmitester/build/qt_linux_lib_preload/libOHTPreload.so");
+    process_->setProcessEnvironment(env);
+
+    /*QStringList environment = process_->processEnvironment().toStringList();
+    for(int i=0; i < environment.size(); i++){
+        std::cout << environment.at(i).toLocal8Bit().constData() << std::endl;
+    }*/
+
+    DEBUG(D_PRELOAD,"==========================================");
+    DEBUG(D_PRELOAD,"(LinuxPreloadingAction::launchApplication) Launching application with:");
+    DEBUG(D_PRELOAD," - binaryPath = " << binaryPath);
+    DEBUG(D_PRELOAD," - preloadLibraryPath = " << preloadLibraryPath);
+    //DEBUG(D_PRELOAD," - envvar = " << envvar.toStdString());
+    DEBUG(D_PRELOAD," - outputFile = " << outputFile);
+    DEBUG(D_PRELOAD," - errorFile = " << errorFile);
+    DEBUG(D_PRELOAD,"==========================================");
 
     //process execution
-    process_->start ( QString (binaryPath.c_str()) );
+    process_->start(QString(binaryPath.c_str()));
     process_->waitForStarted();
 
-    std::cout << "(PreloadingAction::launchApp) Application launched." << std::endl;
+    std::cout << "(LinuxPreloadingAction::launchApplication) Application launched." << std::endl;
     return true;
 }
 
@@ -109,21 +120,25 @@ bool LinuxPreloadingAction::stopApplication ()
 /// private methods
 ///
 
-bool LinuxPreloadingAction::redirectStandarOutputToFile(const std::string &outputFile)
+bool LinuxPreloadingAction::redirectStandarOutputToFile(const std::string& outputFile)
 {
     if ( process_.get() && outputFile != "" )
     {
         process_->setStandardOutputFile ( QString ( outputFile.c_str()) );
+        DEBUG(D_PRELOAD,
+              "(LinuxPreloadingAction::launchApplication) std output redirected to file: " << outputFile);
         return true;
     }
     return false;
 }
 
-bool LinuxPreloadingAction::redirectStandarErrorToFile(const std::string &errorFile)
+bool LinuxPreloadingAction::redirectStandarErrorToFile(const std::string& errorFile)
 {
     if ( process_.get() && errorFile != "" )
     {
         process_->setStandardErrorFile ( QString (errorFile.c_str()) );
+        DEBUG(D_PRELOAD,
+              "(LinuxPreloadingAction::launchApplication) std error redirected to file: " << errorFile);
         return true;
     }
     return false;

@@ -35,12 +35,8 @@ TODO in future work:
 #include <string>
 #include <boost/lexical_cast.hpp>
 
-///
-/// constants
-///
-const int END_BIN_WAIT = 3000;
-const int EXEC_SPEED_PAUSE = 150;
-const int EXEC_SPEED_BASE = 10;
+#include <ohtbaseconfig.h>
+
 
 ///
 /// constructors
@@ -48,11 +44,12 @@ const int EXEC_SPEED_BASE = 10;
 ExecutionThread::ExecutionThread(Comm *c, ExecutionObserver* pc )
     : comm_ (c), observer_ (pc)
 {
-    //flags
+    // flags
     threadState_ = NONE;
     currentTestCase_ = NULL;
 
-    changeExecutionSpeed(50);
+    // set execution speed
+    changeExecutionSpeed(EXEC_SPEED);
 }
 
 ExecutionThread::~ExecutionThread()
@@ -64,90 +61,103 @@ ExecutionThread::~ExecutionThread()
 void ExecutionThread::operator()()
 {
     DEBUG(D_PLAYBACK, "(ExecutionThread::run)");
-    ///references checking
+
+    ///reference checking
     assert(comm_);
     assert(currentTestCase_);
 
     /// test case checking
     if (!currentTestCase_)
     {
-    threadState_= ERROR;
-    return;
+        DEBUG(D_ERROR, "(ExecutionThread::run) No testcase to play.");
+        threadState_= ERROR;
+        return;
     }
 
     DEBUG(D_PLAYBACK, "(ExecutionThread::run) TestCase " <<
-      currentTestCase_->name() << " OK.");
+          currentTestCase_->name() << " OK.");
 
     ///flags initialization (in running state)
     threadState_ = RUN;
     pendingState_ = NONE;
 
+    ///
+    /// start testcase execution
+    ///
+
     // Send start playback and wait for ACK.
     _sendStartPlayback();
 
+    // set counters
     int total = currentTestCase_->count();
     int counter = 0;
     DataModel::TestCase::TestItemList::const_iterator it;
     const DataModel::TestCase::TestItemList& il =
-    currentTestCase_->testItemList();
+            currentTestCase_->testItemList();
 
     /// for each testItem at the list...
     for (it = il.begin(); it != il.end(); ++it)
     {
         const DataModel::TestItem& ti = *it;
 
-    //counter control
-    counter++;
+        //counter control
+        counter++;
 
-    //sending test item to preload module
-    comm_->handleSendTestItem(ti);
-    DEBUG(D_PLAYBACK, "(ExecutionThread::run) Item sent.");
+        //sending test item to preload module
+        comm_->handleSendTestItem(ti);
+        DEBUG(D_PLAYBACK, "(ExecutionThread::run) Item sent.");
 
-    //debug
-    DEBUG(D_PLAYBACK, "(ExecutionThread::run) Executed testItem " <<
-          counter <<
-          " of "  <<
-          currentTestCase_->count() <<
-          ".");
+        //debug
+        DEBUG(D_PLAYBACK, "(ExecutionThread::run) Executed testItem " <<
+              counter <<
+              " of "  <<
+              currentTestCase_->count() <<
+              ".");
 
-    //completed percentage notification
-    observer_->completedPercentageNotification(counter * 100.0 / total);
+        //completed percentage notification
+        observer_->completedPercentageNotification(counter * 100.0 / total);
 
-    //wait before continuing with the next test
-    waitExecution();
+        //wait before continuing with the next test
+        waitExecution();
 
-    DEBUG(D_PLAYBACK, "(ExecutionThread::run) Continuing execution.");
+        DEBUG(D_PLAYBACK, "(ExecutionThread::run) Continuing execution.");
 
-    // Once the command executed, attend pending PAUSE or STOP
-    if (pendingState_ == PAUSED)
-    {
-        //sending "PAUSE PLAYBACK COMMAND"
-        comm_->handleSendTestItem(Control::CTI_PausePlayback());
-        threadState_  = PAUSED;
-        pendingState_ = NONE;
+        // Once the command executed, attend pending PAUSE or STOP
+        if (pendingState_ == PAUSED)
+        {
+            //sending "PAUSE PLAYBACK COMMAND"
+            comm_->handleSendTestItem(Control::CTI_PausePlayback());
+            threadState_  = PAUSED;
+            pendingState_ = NONE;
 
-        // lock the mutex
-        boost::unique_lock<boost::mutex> lock(pause_mutex_);
-        resume_pause_.wait(lock);
+            // lock the mutex
+            boost::unique_lock<boost::mutex> lock(pause_mutex_);
+            resume_pause_.wait(lock);
             DEBUG(D_PLAYBACK, "(ExecutionThread::run) Pause Mutex unlocked.");
-    } else if (pendingState_ == STOPPED)
-    {
-        threadState_ = STOPPED;
-        pendingState_ = NONE;
-        break; // exit
+        } else if (pendingState_ == STOPPED)
+        {
+            threadState_ = STOPPED;
+            pendingState_ = NONE;
+            break; // exit
 
-    } else if (threadState_ == WANT_TERMINATE)
-    {
-        break; // exit
-    } else
-    {
-        //sleep in order to simulate execution speed
-        boost::this_thread::
-        sleep (boost::posix_time::milliseconds( executionSpeed_ ));
-        DEBUG(D_PLAYBACK, "(ExecutionThread::run) Wait the execution speed.");
-    }
+        } else if (threadState_ == WANT_TERMINATE)
+        {
+            break; // exit
+        } else
+        {
+            //sleep in order to simulate execution speed
+            _sleep(executionSpeed_ );
+            DEBUG(D_PLAYBACK, "(ExecutionThread::run) Wait the execution speed.");
+        }
 
     } // for
+
+    // pause after replay
+    _sleep(EXEC_PAUSE_AFTER_REPLAY);
+
+    ///
+    /// finish testcase execution
+    ///
 
     DEBUG(D_PLAYBACK, "(ExecutionThread::run) Finishing thread.");
 
@@ -170,14 +180,14 @@ void ExecutionThread::operator()()
     currentTestCase_ = NULL;
 
     DEBUG(D_PLAYBACK, "(ExecutionThread::run) Finished."
-      "________________________________________________________________");
+          "________________________________________________________________");
 
     return;
 }
 
-void
-ExecutionThread::_sendStartPlayback()
+void ExecutionThread::_sendStartPlayback()
 {
+    DEBUG(D_PLAYBACK, "(ExecutionThread::run) Sending START PLAYBACK COMMAND");
     //sending "START PLAYBACK COMMAND"
     Control::CTI_StartPlayback cti;
     comm_->handleSendTestItem(cti);
@@ -186,15 +196,22 @@ ExecutionThread::_sendStartPlayback()
     //waitExecution();
 }
 
-void
-ExecutionThread::_sendStopPlayback()
+void ExecutionThread::_sendStopPlayback()
 {
+    DEBUG(D_PLAYBACK, "(ExecutionThread::run) Sending STOP PLAYBACK COMMAND");
     //sending "STOP PLAYBACK COMMAND"
     Control::CTI_StopPlayback cti2;
     comm_->handleSendTestItem(cti2);
 
     // Wait for execution
     //waitExecution();
+}
+
+
+void ExecutionThread::_sleep(int ms)
+{
+    boost::this_thread::sleep(
+                boost::posix_time::milliseconds(ms));
 }
 
 ///
@@ -206,7 +223,7 @@ void ExecutionThread::pause()
 
     // Signal the future wanted state
     if (threadState_ == RUN)
-    pendingState_ = PAUSED;
+        pendingState_ = PAUSED;
 }
 
 ///
@@ -219,16 +236,16 @@ void ExecutionThread::resume()
     // release the mutex, only if paused
     if (threadState_ == PAUSED)
     {
-    threadState_ = RUN;
+        threadState_ = RUN;
 
-    //sending "START PLAYBACK COMMAND"
-    Control::CTI_StartPlayback cti;
-    comm_->handleSendTestItem(cti);
+        //sending "START PLAYBACK COMMAND"
+        Control::CTI_StartPlayback cti;
+        comm_->handleSendTestItem(cti);
 
-    // notify resume
-    resume_pause_.notify_all();
+        // notify resume
+        resume_pause_.notify_all();
 
-    pendingState_ = NONE;
+        pendingState_ = NONE;
     }
     // FIXME: else throw?
 }

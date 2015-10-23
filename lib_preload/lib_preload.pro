@@ -24,6 +24,8 @@ HEADERS += preloadcontroller.h \
     eventexecutor.h \
     preloadingcontrol.h
 
+LIBS += -lboost_serialization
+
 #
 # HMITester and OHTLibPreload common sources
 #

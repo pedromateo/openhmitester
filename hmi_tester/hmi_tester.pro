@@ -2,8 +2,20 @@
 # Project created by QtCreator 2008-12-12T12:28:02
 # -------------------------------------------------
 
+
+equals(QT_MAJOR_VERSION, 5) {
+  message(" ================ QT 5 ================ ")
+   QT += widgets testlib
+   CONFIG +=
+}
+else {
+  message(" ================ QT 4 ================ ")
+   QT +=
+   CONFIG += qtestlib
+}
+
 QT += script network
-CONFIG += qtestlib debug
+#CONFIG += debug
 
 TARGET = HMITester
 TEMPLATE = lib
@@ -42,9 +54,7 @@ HEADERS += qtutils.h
 FORMS += hmitestercontrol.ui \
     generalinputdialog.ui
 
-LIBS += -lboost_thread \
-    -lboost_system \
-    -lboost_serialization
+LIBS += -lboost_thread -lboost_system -lboost_serialization
 
 OTHER_FILES += LICENSE.txt
 
@@ -58,16 +68,4 @@ RESOURCES += \
 INCLUDEPATH += ../common
 DEPENDPATH += ../common
 
-SOURCES += datamodel.cpp \
-           comm.cpp \
-           utilclasses.cpp \
-           uuid.cpp \
-           controlsignaling.cpp
-
-HEADERS += datamodel.h \
-           comm.h \
-           utilclasses.h \
-           uuid.h \
-           controlsignaling.h \
-           ohtbaseconfig.h \
-           debug.h
+include(../common/common.pro)

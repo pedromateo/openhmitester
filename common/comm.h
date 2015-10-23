@@ -24,7 +24,7 @@
 #define COMM_H
 
 #include "datamodel.h"
-#include "utilclasses.h"
+#include <utilclasses.h>
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <memory>

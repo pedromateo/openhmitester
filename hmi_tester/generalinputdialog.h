@@ -23,7 +23,7 @@
 #ifndef GENERALINPUTDIALOG_H
 #define GENERALINPUTDIALOG_H
 
-#include <QtGui/QDialog>
+#include <QDialog>
 #include <boost/ptr_container/ptr_map.hpp>
 #include <QLineEdit>
 #include <QString>
