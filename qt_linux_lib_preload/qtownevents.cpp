@@ -105,15 +105,6 @@ QPoint QOE_Base::globalPosition()
     return QPoint(globalX(), globalY());
 }
 
-int QOE_Base::executionMsWait()
-{
-    return boost::lexical_cast<int>(getData(QOE_Base_Ms));
-}
-void QOE_Base::executionMsWait(int n)
-{
-    addData(QOE_Base_Ms,boost::lexical_cast<std::string>(n));
-}
-
 bool QOE_Base::isSensitive()
 {
     return boost::lexical_cast<bool>(getData(QOE_Base_IsSensitive));
@@ -150,7 +141,6 @@ QOE_WindowClose::QOE_WindowClose()
 {
     type(QOE_WINDOW_CLOSE);
     subtype(QOE_DEFAULT);
-    executionMsWait(QOE_Wait_WindowClose);
 }
 
 void QOE_WindowClose::execute(QWidget* w)
@@ -203,7 +193,6 @@ QOE_MousePress::QOE_MousePress()
 {
     type(QOE_MOUSE_PRESS);
     subtype(QOE_DEFAULT);
-    executionMsWait(QOE_Wait_MousePress);
 }
 
 void QOE_MousePress::execute(QWidget* w)
@@ -222,7 +211,6 @@ QOE_MouseRelease::QOE_MouseRelease()
 {
     type(QOE_MOUSE_RELEASE);
     subtype(QOE_DEFAULT);
-    executionMsWait(QOE_Wait_MouseRelease);
 }
 
 void QOE_MouseRelease::execute(QWidget* w)
@@ -241,7 +229,6 @@ QOE_MouseDouble::QOE_MouseDouble()
 {
     type(QOE_MOUSE_DOUBLE);
     subtype(QOE_DEFAULT);
-    executionMsWait(QOE_Wait_MouseDouble);
 }
 
 void QOE_MouseDouble::execute(QWidget* w)
@@ -260,7 +247,6 @@ QOE_MouseWheel::QOE_MouseWheel()
 {
     type(QOE_MOUSE_WHEEL);
     subtype(QOE_DEFAULT);
-    executionMsWait(QOE_Wait_MouseWheel);
 }
 
 void QOE_MouseWheel::execute(QWidget* w)
@@ -332,7 +318,6 @@ QOE_KeyPress::QOE_KeyPress()
 {
     type(QOE_KEY_PRESS);
     subtype(QOE_DEFAULT);
-    executionMsWait(QOE_Wait_KeyPress);
 }
 
 void QOE_KeyPress::execute(QWidget* w)

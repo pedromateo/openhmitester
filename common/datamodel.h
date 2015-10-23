@@ -98,7 +98,7 @@ namespace DataModel
 
     public:
         TestItem();
-        TestItem(int type, int subtype, double timestamp);
+        TestItem(int type, int subtype, int timestamp);
         TestItem(DataModel::TestItem*);
         ~TestItem();
 
@@ -108,8 +108,8 @@ namespace DataModel
         void type(int);
         int subtype() const;
         void subtype(int);
-        double timestamp() const;
-        void timestamp(double);
+        int timestamp() const;
+        void timestamp(int);
 
 #ifdef WANT_SERIALIZE
         //serialization
@@ -134,7 +134,7 @@ namespace DataModel
     protected:
         int type_;
         int subtype_;
-        double timestamp_;
+        int timestamp_;
 
     private:
         //this class must be virtual

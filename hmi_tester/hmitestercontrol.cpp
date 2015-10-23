@@ -64,10 +64,10 @@ void HMITesterControl::_initializeForm()
     connect(ui.tb_rec,SIGNAL(clicked()),this,SLOT(tb_rec_clicked()));
 
     //menu
-    connect(ui.action100,SIGNAL(triggered(bool)),this,SLOT(action_speed100_triggered()));
-    connect(ui.action75,SIGNAL(triggered(bool)),this,SLOT(action_speed75_triggered()));
-    connect(ui.action50,SIGNAL(triggered(bool)),this,SLOT(action_speed50_triggered()));
-    connect(ui.action25,SIGNAL(triggered(bool)),this,SLOT(action_speed25_triggered()));
+    connect(ui.action1x,SIGNAL(triggered(bool)),this,SLOT(action_speed1x_triggered()));
+    connect(ui.action05x,SIGNAL(triggered(bool)),this,SLOT(action_speed05x_triggered()));
+    connect(ui.action2x,SIGNAL(triggered(bool)),this,SLOT(action_speed2x_triggered()));
+    connect(ui.action4x,SIGNAL(triggered(bool)),this,SLOT(action_speed4x_triggered()));
     connect(ui.actionKeepAlive,SIGNAL(triggered(bool)),this,SLOT(action_keepAlive_triggered(bool)));
     connect(ui.actionShowTesterOnTop,SIGNAL(triggered(bool)),this,SLOT(action_showTesterOnTop_triggered(bool)));
     connect(ui.action_Open,SIGNAL(triggered(bool)),this,SLOT(action_open_triggered()));
@@ -124,10 +124,10 @@ void HMITesterControl::_initializeForm()
     speedMenu_ = configMenu_->findChild<QMenu*> ( "menu_Speed" );
     assert ( speedMenu_ );
     speedActionGroup_ = new QActionGroup ( speedMenu_ );
-    speedActionGroup_->addAction ( ui.action100 );
-    speedActionGroup_->addAction ( ui.action75 );
-    speedActionGroup_->addAction ( ui.action50 );
-    speedActionGroup_->addAction ( ui.action25 );
+    speedActionGroup_->addAction( ui.action1x );
+    speedActionGroup_->addAction( ui.action05x );
+    speedActionGroup_->addAction( ui.action2x );
+    speedActionGroup_->addAction( ui.action4x );
 
     ///
     /// overall process controller settings
@@ -355,28 +355,28 @@ void HMITesterControl::action_exit_triggered()
     exit(0);
 }
 
-void HMITesterControl::action_speed100_triggered()
+void HMITesterControl::action_speed1x_triggered()
 {
-    DEBUG(D_GUI,"(HMITesterControl::action_speed100_triggered)");
-    _processControl->setExecutionSpeed(100);
+    DEBUG(D_GUI,"(HMITesterControl::action_speed1x_triggered)");
+    _processControl->setExecutionSpeed(1);
 }
 
-void HMITesterControl::action_speed75_triggered()
+void HMITesterControl::action_speed05x_triggered()
 {
-    DEBUG(D_GUI,"(HMITesterControl::action_speed75_triggered)");
-    _processControl->setExecutionSpeed(75);
+    DEBUG(D_GUI,"(HMITesterControl::action_speed05x_triggered)");
+    _processControl->setExecutionSpeed(0.5);
 }
 
-void HMITesterControl::action_speed50_triggered()
+void HMITesterControl::action_speed2x_triggered()
 {
-    DEBUG(D_GUI,"(HMITesterControl::action_speed50_triggered)");
-    _processControl->setExecutionSpeed(50);
+    DEBUG(D_GUI,"(HMITesterControl::action_speed2x_triggered)");
+    _processControl->setExecutionSpeed(2);
 }
 
-void HMITesterControl::action_speed25_triggered()
+void HMITesterControl::action_speed4x_triggered()
 {
-    DEBUG(D_GUI,"(HMITesterControl::action_speed25_triggered)");
-    _processControl->setExecutionSpeed(25);
+    DEBUG(D_GUI,"(HMITesterControl::action_speed4x_triggered)");
+    _processControl->setExecutionSpeed(4);
 }
 
 
@@ -607,7 +607,7 @@ void HMITesterControl::_form_playState()
     ui.menu_File->setEnabled(false);
     ui.menu_TestSuite->setEnabled(false);
     ui.menu_Config->setEnabled(false);
-    ui.menuBar->setVisible(false);
+    ui.menuBar->setVisible(true);
     //buttons
     _setEnableAndVisible(ui.tb_play,false);
     _setEnableAndVisible(ui.tb_pause,false);//TODO
@@ -634,7 +634,7 @@ void HMITesterControl::_form_recState()
     ui.menu_File->setEnabled(false);
     ui.menu_TestSuite->setEnabled(false);
     ui.menu_Config->setEnabled(false);
-    ui.menuBar->setVisible(false);
+    ui.menuBar->setVisible(true);
     //buttons
     _setEnableAndVisible(ui.tb_play,false);
     _setEnableAndVisible(ui.tb_pause,false);//TODO
@@ -660,7 +660,7 @@ void HMITesterControl::_form_pausePlayState()
     //menu
     ui.menu_File->setEnabled(false);
     ui.menu_TestSuite->setEnabled(false);
-    ui.menu_Config->setEnabled(true);
+    ui.menu_Config->setEnabled(false);// TODO allow this
     ui.menuBar->setVisible(true);
     //buttons
     _setEnableAndVisible(ui.tb_play,true);

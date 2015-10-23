@@ -38,7 +38,7 @@ class ExecutionThread
     enum thread_state_t { NONE, PAUSED, RUN, STOPPED, WANT_TERMINATE, ERROR };
 
 public:
-    ExecutionThread(Comm*, ExecutionObserver* );
+    ExecutionThread(Comm*, ExecutionObserver*, float speed );
     ~ExecutionThread();
 
 public:
@@ -56,9 +56,6 @@ public:
 
     //test case execution
     void currentTestCase(DataModel::TestCase*);
-
-    //execution speed
-    void changeExecutionSpeed(int);
 
     //execution semaphore
     void continueExecution();
@@ -86,13 +83,13 @@ private:
     DataModel::TestCase *currentTestCase_;
 
     //comm module reference
-    Comm *comm_;
+    Comm *_comm;
 
     // Control object
-    ExecutionObserver* observer_;
+    ExecutionObserver* _observer;
 
     //execution speed
-    int executionSpeed_;
+    float _executionSpeed;
 
     void _sendStartPlayback();
     void _sendStopPlayback();

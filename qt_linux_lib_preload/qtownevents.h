@@ -50,16 +50,6 @@ namespace QOE
     const int QOE_KEY_PRESS = 21;
 
     ///
-    ///EXECUTION WAIT (in miliseconds)
-    ///
-    const int QOE_Wait_WindowClose = 1250;//ms
-    const int QOE_Wait_MousePress = 750;//ms
-    const int QOE_Wait_MouseRelease = 30;//ms
-    const int QOE_Wait_MouseDouble = 750;//ms
-    const int QOE_Wait_MouseWheel = 350;//ms
-    const int QOE_Wait_KeyPress = 200;//ms
-
-    ///
     /// QOEvent test item base
     ///
     //constants
@@ -98,9 +88,6 @@ namespace QOE
         void globalY(int);
 
         QPoint globalPosition();
-
-        int executionMsWait();
-        void executionMsWait(int);
 
         bool isSensitive();
         void isSensitive(bool);

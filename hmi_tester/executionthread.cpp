@@ -41,15 +41,12 @@ TODO in future work:
 ///
 /// constructors
 ///
-ExecutionThread::ExecutionThread(Comm *c, ExecutionObserver* pc )
-    : comm_ (c), observer_ (pc)
+ExecutionThread::ExecutionThread(Comm *c, ExecutionObserver* pc , float speed)
+    : _comm (c), _observer (pc), _executionSpeed(speed)
 {
     // flags
     threadState_ = NONE;
     currentTestCase_ = NULL;
-
-    // set execution speed
-    changeExecutionSpeed(EXEC_SPEED);
 }
 
 ExecutionThread::~ExecutionThread()
@@ -63,7 +60,7 @@ void ExecutionThread::operator()()
     DEBUG(D_PLAYBACK, "(ExecutionThread::run)");
 
     ///reference checking
-    assert(comm_);
+    assert(_comm);
     assert(currentTestCase_);
 
     /// test case checking
@@ -104,7 +101,7 @@ void ExecutionThread::operator()()
         counter++;
 
         //sending test item to preload module
-        comm_->handleSendTestItem(ti);
+        _comm->handleSendTestItem(ti);
         DEBUG(D_PLAYBACK, "(ExecutionThread::run) Item sent.");
 
         //debug
@@ -115,7 +112,7 @@ void ExecutionThread::operator()()
               ".");
 
         //completed percentage notification
-        observer_->completedPercentageNotification(counter * 100.0 / total);
+        _observer->completedPercentageNotification(counter * 100.0 / total);
 
         //wait before continuing with the next test
         waitExecution();
@@ -126,7 +123,7 @@ void ExecutionThread::operator()()
         if (pendingState_ == PAUSED)
         {
             //sending "PAUSE PLAYBACK COMMAND"
-            comm_->handleSendTestItem(Control::CTI_PausePlayback());
+            _comm->handleSendTestItem(Control::CTI_PausePlayback());
             threadState_  = PAUSED;
             pendingState_ = NONE;
 
@@ -146,7 +143,7 @@ void ExecutionThread::operator()()
         } else
         {
             //sleep in order to simulate execution speed
-            _sleep(executionSpeed_ );
+            _sleep(_executionSpeed );
             DEBUG(D_PLAYBACK, "(ExecutionThread::run) Wait the execution speed.");
         }
 
@@ -170,7 +167,7 @@ void ExecutionThread::operator()()
     int result = 0;
     if (threadState_ == WANT_TERMINATE) result = 2;
     else if (threadState_ == ERROR) result = 1;
-    observer_->executionThreadTerminated(result);
+    _observer->executionThreadTerminated(result);
 
     ///
     ///
@@ -190,7 +187,7 @@ void ExecutionThread::_sendStartPlayback()
     DEBUG(D_PLAYBACK, "(ExecutionThread::run) Sending START PLAYBACK COMMAND");
     //sending "START PLAYBACK COMMAND"
     Control::CTI_StartPlayback cti;
-    comm_->handleSendTestItem(cti);
+    _comm->handleSendTestItem(cti);
 
     // Wait for execution
     //waitExecution();
@@ -201,7 +198,7 @@ void ExecutionThread::_sendStopPlayback()
     DEBUG(D_PLAYBACK, "(ExecutionThread::run) Sending STOP PLAYBACK COMMAND");
     //sending "STOP PLAYBACK COMMAND"
     Control::CTI_StopPlayback cti2;
-    comm_->handleSendTestItem(cti2);
+    _comm->handleSendTestItem(cti2);
 
     // Wait for execution
     //waitExecution();
@@ -240,7 +237,7 @@ void ExecutionThread::resume()
 
         //sending "START PLAYBACK COMMAND"
         Control::CTI_StartPlayback cti;
-        comm_->handleSendTestItem(cti);
+        _comm->handleSendTestItem(cti);
 
         // notify resume
         resume_pause_.notify_all();
@@ -313,29 +310,6 @@ void ExecutionThread::currentTestCase(DataModel::TestCase* tc)
     DEBUG(D_PLAYBACK, "(ExecutionThread::currentTestCase)");
     assert(tc);
     currentTestCase_ = tc;
-}
-
-
-///
-/// //execution speed
-///
-
-
-///
-/// changes execution speed
-///
-void ExecutionThread::changeExecutionSpeed(int speed)
-{
-    /*
-      it might receive:
-      - 100 - higher
-      - 75
-      - 50  - default
-      - 25  - lower
-    */
-    double speedInverseValue = (1/(speed/25.0))*2;
-    DEBUG(D_PLAYBACK, "(ExecutionThread::changeExecutionSpeed)");
-    executionSpeed_ = EXEC_SPEED_BASE + speedInverseValue * EXEC_SPEED_PAUSE;
 }
 
 

@@ -29,8 +29,6 @@
 PlaybackControl::PlaybackControl(Comm *c, ExecutionObserver* pc)
     : comm_ (c), observer_ (pc)
 {
-    executionThread_ =
-            std::auto_ptr<ExecutionThread>(new ExecutionThread (comm_, observer_));
 }
 
 PlaybackControl::~PlaybackControl()
@@ -43,7 +41,7 @@ PlaybackControl::~PlaybackControl()
 /// execution process control
 ///
 /// ///
-bool PlaybackControl::runTestCase(DataModel::TestCase* tc)
+bool PlaybackControl::runTestCase(DataModel::TestCase* tc, float speed)
 {
     // //execution thread should exist and be stoped
     // if (!executionThread_.get())
@@ -58,12 +56,14 @@ bool PlaybackControl::runTestCase(DataModel::TestCase* tc)
     //     return false;
     // }
 
+    // create a new execution thread for this testcase
+    executionThread_.reset(new ExecutionThread (comm_, observer_, speed));
+
 
     //execution thread
     assert(tc);
     executionThread_->currentTestCase (tc);
-    executionThreadRef_ =
-            boost::thread (boost::ref (*(executionThread_.get())));
+    _internal_thread = boost::thread (boost::ref (*(executionThread_.get())));
 
     return true;
 }
@@ -100,7 +100,7 @@ bool PlaybackControl::stopExecution()
         DEBUG(D_PLAYBACK, "(PlaybackControl::stopExecution)");
         executionThread_->stop();
         // Wait for it to finish
-        executionThreadRef_.join();
+        _internal_thread.join();
         return true;
     }
     return false;
@@ -118,7 +118,7 @@ void PlaybackControl::applicationFinished()
         executionThread_->applicationFinished();
 
         // Wait the thread
-        executionThreadRef_.join();
+        _internal_thread.join();
     }
 }
 
@@ -126,9 +126,4 @@ void PlaybackControl::handleEventExecutedOnPreloadModule()
 {
     //add a new item on the execution semaphore
     executionThread_->continueExecution();
-}
-
-void PlaybackControl::handleExecutionSpeedChanged(int s)
-{
-    executionThread_->changeExecutionSpeed(s);
 }

@@ -23,10 +23,10 @@
 #ifndef PLAYBACKCONTROL_H
 #define PLAYBACKCONTROL_H
 
-#include "datamodel.h"
-#include "datamodelmanager.h"
-#include "executionthread.h"
-#include "executionobserver.h"
+#include <datamodel.h>
+#include <datamodelmanager.h>
+#include <executionthread.h>
+#include <executionobserver.h>
 #include <boost/thread.hpp>
 #include <boost/shared_ptr.hpp>
 #include <memory>
@@ -40,7 +40,7 @@ public:
     ~PlaybackControl();
 
     ///execution process control
-    bool runTestCase(DataModel::TestCase*);
+    bool runTestCase(DataModel::TestCase*, float speed);
     bool pauseExecution();
     bool resumeExecution();
     bool stopExecution();
@@ -48,7 +48,6 @@ public:
     //some notification signal handlers
     void applicationFinished();
     void handleEventExecutedOnPreloadModule();
-    void handleExecutionSpeedChanged(int);
 
 private:
 
@@ -59,7 +58,7 @@ private:
 
     // Execution thread
     std::auto_ptr<ExecutionThread> executionThread_;
-    boost::thread executionThreadRef_;
+    boost::thread _internal_thread;
 };
 
 #endif // PLAYBACKCONTROL_H

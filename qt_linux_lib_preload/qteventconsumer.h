@@ -93,7 +93,6 @@ private:
     ///
 
     QElapsedTimer _timer;
-    int _cumulated_timer;
 
     ///
     ///widget adapters manager

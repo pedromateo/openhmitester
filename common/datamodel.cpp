@@ -290,7 +290,7 @@ TestItem::TestItem()
 {
 }
 
-TestItem::TestItem(int type, int subtype, double timestamp = 0)
+TestItem::TestItem(int type, int subtype, int timestamp = 0)
     : uuid_ (U.uuid_new()), type_ (type), subtype_ (subtype), timestamp_(timestamp)
 {
 }
@@ -342,13 +342,13 @@ void TestItem::subtype(int i)
     subtype_ = i;
 }
 
-double
+int
 TestItem::timestamp() const
 {
     return timestamp_;
 }
 
-void TestItem::timestamp(double i)
+void TestItem::timestamp(int i)
 {
     timestamp_ = i;
 }

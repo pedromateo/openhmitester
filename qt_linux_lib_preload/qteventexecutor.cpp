@@ -401,7 +401,7 @@ void QtEventExecutor::simulateMouseMove ( const QPoint& pBegin, const QPoint& pE
         int cy = static_cast<int> ( ( double ( dy - iy ) / double ( n ) ) * i + iy );
         QPoint current ( cx, cy );
         QCursor::setPos ( current );
-        QTest::qWait ( w );
+        QTest::qWait(1);//w);
     }
 
     //end moving
@@ -481,10 +481,12 @@ void QtEventExecutor::pre_execution(QOE::QOE_Base* qoe, QWidget* widget)
 {
     assert(qoe);
     assert(widget);
-    //wait the execution time
-    QTest::qWait (qoe->executionMsWait());
+
+    //wait elapsed time for this item
+    QTest::qWait(qoe->timestamp());
+
     //start simulation
-    widget->setUpdatesEnabled ( false );
+    widget->setUpdatesEnabled(false);
 }
 
 void QtEventExecutor::post_execution(QOE::QOE_Base* qoe, QWidget* widget)

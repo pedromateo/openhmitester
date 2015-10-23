@@ -64,7 +64,7 @@ public:
     typedef struct
     {
         bool keepAlive;
-        int speed;
+        float speed;
         bool showTesterOnTop;
     } ProcessContext;
 
@@ -126,7 +126,7 @@ public slots:
     ProcessContext& setContext();
 
     ///execution speed
-    void setExecutionSpeed(int);
+    void setExecutionSpeed(float);
 
     ///
     /// comm

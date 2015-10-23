@@ -187,7 +187,7 @@ void ProcessControl::onPlay_playClicked()
 
             DEBUG(D_PLAYBACK,"(ProcessControl::onPlay_playClicked) Starting playback process.");
             //start playback process
-            ok = playback_control_->runTestCase(current_testCase_);
+            ok = playback_control_->runTestCase(current_testCase_, context_.speed);
             if (!ok)
             {
                 //stop the app
@@ -604,14 +604,12 @@ ProcessControl::ProcessContext& ProcessControl::setContext()
     return context_;
 }
 
-///
+
+
 ///execution speed
-///
-void
-ProcessControl::setExecutionSpeed(int speed)
+void ProcessControl::setExecutionSpeed(float s)
 {
-    playback_control_->handleExecutionSpeedChanged(speed);
-    context_.speed = speed;
+    context_.speed = s;
 }
 
 ///

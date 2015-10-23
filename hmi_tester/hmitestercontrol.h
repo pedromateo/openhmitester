@@ -96,10 +96,10 @@ private slots:
     void action_open_triggered();
     void action_new_triggered();
     void action_exit_triggered();
-    void action_speed100_triggered();
-    void action_speed75_triggered();
-    void action_speed50_triggered();
-    void action_speed25_triggered();
+    void action_speed1x_triggered();
+    void action_speed05x_triggered();
+    void action_speed2x_triggered();
+    void action_speed4x_triggered();
     void action_keepAlive_triggered(bool);
     void action_showTesterOnTop_triggered(bool);
 
