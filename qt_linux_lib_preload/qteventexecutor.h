@@ -78,6 +78,9 @@ public:
     ///
     /// mouse simulation
     ///
+    ///
+    const int MOUSE_MOVE_DELAY_MS = 500;
+    const int MOUSE_MOVE_STEPS = 18;
     QPoint lastPos_;
     void simulateMouseMove( const QPoint&, const QPoint&);
     void simulateMouseHover( QWidget*, const QPoint&, const QPoint&);
@@ -87,6 +90,7 @@ public:
     ///
     QWidget* getWidget(QOE::QOE_Base*);
     void pre_execution(QOE::QOE_Base*, QWidget*);
+    void pre_execution_mouse(QOE::QOE_Base*, QWidget*);
     void post_execution(QOE::QOE_Base*, QWidget*);
 
     ///
