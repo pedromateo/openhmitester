@@ -595,21 +595,9 @@ ProcessControl::state() const
 ///
 ///process context
 ///
-ProcessControl::ProcessContext ProcessControl::context() const
+ProcessControl::ProcessContext &ProcessControl::context()
 {
     return context_;
-}
-ProcessControl::ProcessContext& ProcessControl::setContext()
-{
-    return context_;
-}
-
-
-
-///execution speed
-void ProcessControl::setExecutionSpeed(float s)
-{
-    context_.speed = s;
 }
 
 ///
@@ -646,7 +634,7 @@ ProcessControl::executionThreadTerminated(int i)
 void ProcessControl::completedPercentageNotification(int i)
 {
     DEBUG(D_PLAYBACK,"(ProcessControl::completedPercentageNotification)");
-    gui_reference_->setLcdValueChanged(i);
+    gui_reference_->setForm_playbackStatus(i);
 }
 
 /// ///
@@ -673,7 +661,7 @@ void ProcessControl::testRecordingFinished(DataModel::TestCase* tc)
 void ProcessControl::testItemsReceivedCounter(int i)
 {
     DEBUG(D_RECORDING,"(ProcessControl::testItemsReceivedCounter)");
-    gui_reference_->setLcdValueChanged(i);
+    gui_reference_->setForm_recordingStatus(i);
 }
 
 ///

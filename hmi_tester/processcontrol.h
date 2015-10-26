@@ -122,11 +122,7 @@ public slots:
     ProcessState state() const;
 
     ///process context
-    ProcessContext context() const;
-    ProcessContext& setContext();
-
-    ///execution speed
-    void setExecutionSpeed(float);
+    ProcessContext& context();
 
     ///
     /// comm

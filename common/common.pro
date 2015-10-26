@@ -34,3 +34,6 @@ HEADERS += datamodel.h \
            controlsignaling.h \
            ohtbaseconfig.h \
            debug.h
+
+OTHER_FILES += \
+    common.pri

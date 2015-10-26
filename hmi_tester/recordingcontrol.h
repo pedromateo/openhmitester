@@ -24,11 +24,11 @@
 #ifndef RECORDINGCONTROL_H
 #define RECORDINGCONTROL_H
 
-#include "datamodel.h"
-#include "comm.h"
-#include "itemmanager.h"
-#include "datamodelmanager.h"
-#include "recordingobserver.h"
+#include <datamodel.h>
+#include <comm.h>
+#include <itemmanager.h>
+#include <datamodelmanager.h>
+#include <recordingobserver.h>
 
 #include <memory>
 

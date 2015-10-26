@@ -26,11 +26,7 @@
 #include <ui_hmitestercontrol.h>
 #include <processcontrol.h>
 
-#if QT_VERSION >= 0x050000 // Qt5 code
-#include <QtWidgets>
-#else // Qt4 code
-#include <QtGui/QMainWindow>
-#endif
+#include <QMainWindow>
 
 
 
@@ -54,10 +50,8 @@ public:
     void setForm_recState();
     void setForm_pausePlayState();
     void setForm_pauseRecState();
-
-    //external method to change lcd value (because threads)
-    //emits a signal to launch the internal
-    void setLcdValueChanged(int);
+    void setForm_playbackStatus(int);
+    void setForm_recordingStatus(int);
 
 
 
@@ -66,6 +60,7 @@ private:
 
     // initialization
     void _initializeForm();
+    void _initializeMenu();
 
     // supporting
     void _setEnableAndVisible(QWidget* target, bool b);
@@ -114,9 +109,8 @@ private slots:
     void _form_recState();
     void _form_pausePlayState();
     void _form_pauseRecState();
-
-    //internal method to change lcd value (because threads)
-    void _changeLcdValue(int);
+    void _form_playbackStatus(int);
+    void _form_recordingStatus(int);
 
 signals:
 
@@ -125,11 +119,10 @@ signals:
     void form_stopState();
     void form_playState();
     void form_recState();
+    void form_playbackStatus(int);
+    void form_recordingStatus(int);
     void form_pausePlayState();
     void form_pauseRecState();
-
-    //a signal to change the lcd widget
-    void changeLcdValue(int);
 };
 
 #endif // HMITESTERCONTROL_H

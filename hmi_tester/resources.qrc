@@ -6,5 +6,6 @@
         <file>images/icon_screenshot.xpm</file>
         <file>images/icon_sound.xpm</file>
         <file>images/icon_stop.xpm</file>
+        <file>images/icon_menu.xpm</file>
     </qresource>
 </RCC>

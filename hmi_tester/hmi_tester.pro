@@ -20,8 +20,30 @@ QT += script network
 TARGET = HMITester
 TEMPLATE = lib
 
+
+
+#
+# HMITester and OHTLibPreload common sources
+#
+
+include(../common/common.pri)
+
+#SOURCES += ../common/datamodel.cpp \
+#           ../common/comm.cpp \
+#           ../common/utilclasses.cpp \
+#           ../common/uuid.cpp \
+#           ../common/controlsignaling.cpp
+
+#HEADERS += ../common/datamodel.h \
+#           ../common/comm.h \
+#           ../common/utilclasses.h \
+#           ../common/uuid.h \
+#           ../common/controlsignaling.h \
+#           ../common/ohtbaseconfig.h \
+#           ../common/debug.h
+
 ###
-###
+### HMITester  sources
 ###
 
 SOURCES += hmitestercontrol.cpp \
@@ -56,16 +78,7 @@ FORMS += hmitestercontrol.ui \
 
 LIBS += -lboost_thread -lboost_system -lboost_serialization
 
-OTHER_FILES += LICENSE.txt
+OTHER_FILES += LICENSE.txt \
+    hmi_tester.pri
 
-RESOURCES += \
-    resources.qrc
-
-#
-# HMITester and OHTLibPreload common sources
-#
-
-INCLUDEPATH += ../common
-DEPENDPATH += ../common
-
-include(../common/common.pro)
+RESOURCES += resources.qrc

@@ -20,7 +20,7 @@
  *   http://openhmitester.sourceforge.net
  *
  */
-#include <QtGui/QApplication>
+#include <QApplication>
 #include <hmitestercontrol.h>
 #include <linuxpreloadingaction.h>
 #include <xmldatamodeladapter.h>

@@ -22,10 +22,10 @@
  */
 
 #include "itemmanager.h"
-#include "datamodel.h"
-#include "datamodelmanager.h"
-#include "controlsignaling.h"
-#include "debug.h"
+#include <datamodel.h>
+#include <datamodelmanager.h>
+#include <controlsignaling.h>
+#include <debug.h>
 
 /// ///
 ///

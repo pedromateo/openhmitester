@@ -7,17 +7,22 @@
 #### base HMI Tester project
 ####
 
-INCLUDEPATH += ../hmi_tester/
-DEPENDPATH += ../hmi_tester/
-
-include(../hmi_tester/hmi_tester.pro)
+include(../hmi_tester/hmi_tester.pri)
 
 ####
 #### qt-linux HMI Tester project
 ####
 
-QT += script xml network
-CONFIG += qtestlib debug
+equals(QT_MAJOR_VERSION, 5) {
+  message(" ================ QT 5 ================ ")
+   QT += widgets testlib xml network
+   CONFIG += debug
+}
+else {
+  message(" ================ QT 4 ================ ")
+   QT += script xml network
+   CONFIG += qtestlib debug
+}
 
 TARGET = qt_linux_hmi_tester
 TEMPLATE = app

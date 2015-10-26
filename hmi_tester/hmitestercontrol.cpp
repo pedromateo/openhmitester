@@ -33,11 +33,21 @@
 HMITesterControl::HMITesterControl(PreloadingAction *pa, DataModelAdapter *dma, QWidget *parent)
     : QMainWindow(parent)
 {
-    // create process controller
-    _processControl = new ProcessControl(pa, dma);
-
-    // create and initialize GUI
+    // create the GUI
     ui.setupUi(this);
+
+    ///
+    /// create overall process controller
+    _processControl = new ProcessControl(pa, dma);
+    _processControl->GUIReference(this);
+    _processControl->initialize();
+    //set config values
+    _processControl->context().keepAlive = false;
+    _processControl->context().showTesterOnTop = true;
+    _processControl->context().speed = 1;
+
+    ///
+    /// initialize GUI
     _initializeForm();
 }
 
@@ -53,6 +63,13 @@ HMITesterControl::~HMITesterControl()
 
 void HMITesterControl::_initializeForm()
 {
+
+    ///
+    /// menu
+    ///
+
+    _initializeMenu();
+
     ///
     /// connecting signals and slots
     ///
@@ -62,17 +79,6 @@ void HMITesterControl::_initializeForm()
     connect(ui.tb_pause,SIGNAL(clicked()),this,SLOT(tb_pause_clicked()));
     connect(ui.tb_stop,SIGNAL(clicked()),this,SLOT(tb_stop_clicked()));
     connect(ui.tb_rec,SIGNAL(clicked()),this,SLOT(tb_rec_clicked()));
-
-    //menu
-    connect(ui.action1x,SIGNAL(triggered(bool)),this,SLOT(action_speed1x_triggered()));
-    connect(ui.action05x,SIGNAL(triggered(bool)),this,SLOT(action_speed05x_triggered()));
-    connect(ui.action2x,SIGNAL(triggered(bool)),this,SLOT(action_speed2x_triggered()));
-    connect(ui.action4x,SIGNAL(triggered(bool)),this,SLOT(action_speed4x_triggered()));
-    connect(ui.actionKeepAlive,SIGNAL(triggered(bool)),this,SLOT(action_keepAlive_triggered(bool)));
-    connect(ui.actionShowTesterOnTop,SIGNAL(triggered(bool)),this,SLOT(action_showTesterOnTop_triggered(bool)));
-    connect(ui.action_Open,SIGNAL(triggered(bool)),this,SLOT(action_open_triggered()));
-    connect(ui.action_New,SIGNAL(triggered(bool)),this,SLOT(action_new_triggered()));
-    connect(ui.action_Exit,SIGNAL(triggered(bool)),this,SLOT(action_exit_triggered()));
 
     //lcd counter
     connect(this, SIGNAL(changeLcdValue(int)),
@@ -98,12 +104,50 @@ void HMITesterControl::_initializeForm()
     connect(this, SIGNAL(form_pauseRecState()),
             this, SLOT(_form_pauseRecState()),
             Qt::QueuedConnection);
+    connect(this, SIGNAL(form_playbackStatus(int)),
+            this, SLOT(_form_playbackStatus(int)),
+            Qt::QueuedConnection);
+    connect(this, SIGNAL(form_recordingStatus(int)),
+            this, SLOT(_form_recordingStatus(int)),
+            Qt::QueuedConnection);
+
 
     ///
-    /// menu settings
+    /// aspect settings
     ///
 
-    ///getting menus
+    ///initialize visualization
+    _form_initState();
+
+    // disable minimize button
+    //this->setWindowFlags(Qt::Dialog);
+
+    //check always on top
+    action_showTesterOnTop_triggered(true);
+}
+
+void HMITesterControl::_initializeMenu()
+{
+    ///
+    /// connecting signals and slots
+    ///
+
+
+    connect(ui.action1x,SIGNAL(triggered(bool)),this,SLOT(action_speed1x_triggered()));
+    connect(ui.action05x,SIGNAL(triggered(bool)),this,SLOT(action_speed05x_triggered()));
+    connect(ui.action2x,SIGNAL(triggered(bool)),this,SLOT(action_speed2x_triggered()));
+    connect(ui.action4x,SIGNAL(triggered(bool)),this,SLOT(action_speed4x_triggered()));
+    connect(ui.actionKeepAlive,SIGNAL(triggered(bool)),this,SLOT(action_keepAlive_triggered(bool)));
+    connect(ui.actionShowTesterOnTop,SIGNAL(triggered(bool)),this,SLOT(action_showTesterOnTop_triggered(bool)));
+    connect(ui.action_Open,SIGNAL(triggered(bool)),this,SLOT(action_open_triggered()));
+    connect(ui.action_New,SIGNAL(triggered(bool)),this,SLOT(action_new_triggered()));
+    connect(ui.action_Exit,SIGNAL(triggered(bool)),this,SLOT(action_exit_triggered()));
+
+
+    ///
+    /// build menu
+    ///
+
     //file
     mainMenu_ = ui.menuBar->findChild<QMenu*> ( "menu_Main" );
     assert ( mainMenu_ );
@@ -129,34 +173,9 @@ void HMITesterControl::_initializeForm()
     speedActionGroup_->addAction( ui.action2x );
     speedActionGroup_->addAction( ui.action4x );
 
-    ///
-    /// overall process controller settings
-    ///
-
-    //create and initialize
-    _processControl->GUIReference(this);
-    _processControl->initialize();
-    //set config values
-    _processControl->setContext().keepAlive = false;
-    _processControl->setContext().showTesterOnTop = true;
-    _processControl->setExecutionSpeed(50);
-
-    ///initialize visualization
-    form_initState();
-
-    ///
-    /// aspect settings
-    ///
-
-    // disable minimize button
-    //this->setWindowFlags(Qt::Dialog);
-
-    //check always on top
-    action_showTesterOnTop_triggered(true);
-
-    // adjust hmi tester size
-    //ui.centralWidget->adjustSize();
-    //this->adjustSize();
+    // add popup menu to menu toolbutton
+    ui.tb_menu->setMenu(mainMenu_);
+    ui.tb_menu->setPopupMode(QToolButton::InstantPopup);
 }
 
 /// ///
@@ -237,9 +256,9 @@ void HMITesterControl::tb_rec_clicked()
         if (!ok)
         {
             //ask the user
-            bool cont = QtUtils::showOkCancelDialog("The TestCase\""
+            bool cont = QtUtils::showOkCancelDialog("TestCase '"
                                                     + data
-                                                    + "\" already exists. Do you want to redefine it?");
+                                                    +  "' already exists. Do you want to redefine it?");
             //if the testCase has to be redefined
             if (cont)
             {
@@ -358,38 +377,38 @@ void HMITesterControl::action_exit_triggered()
 void HMITesterControl::action_speed1x_triggered()
 {
     DEBUG(D_GUI,"(HMITesterControl::action_speed1x_triggered)");
-    _processControl->setExecutionSpeed(1);
+    _processControl->context().speed = 1;
 }
 
 void HMITesterControl::action_speed05x_triggered()
 {
     DEBUG(D_GUI,"(HMITesterControl::action_speed05x_triggered)");
-    _processControl->setExecutionSpeed(0.5);
+    _processControl->context().speed = 0.5;
 }
 
 void HMITesterControl::action_speed2x_triggered()
 {
     DEBUG(D_GUI,"(HMITesterControl::action_speed2x_triggered)");
-    _processControl->setExecutionSpeed(2);
+    _processControl->context().speed = 2;
 }
 
 void HMITesterControl::action_speed4x_triggered()
 {
     DEBUG(D_GUI,"(HMITesterControl::action_speed4x_triggered)");
-    _processControl->setExecutionSpeed(4);
+    _processControl->context().speed = 4;
 }
 
 
 void HMITesterControl::action_keepAlive_triggered(bool b)
 {
     DEBUG(D_GUI,"(HMITesterControl::action_keepAlive_triggered)");
-    _processControl->setContext().keepAlive = b;
+    _processControl->context().keepAlive = b;
 }
 
 void HMITesterControl::action_showTesterOnTop_triggered(bool b)
 {
     DEBUG(D_GUI,"(HMITesterControl::action_showTesterOnTop_triggered)");
-    _processControl->setContext().showTesterOnTop = b;
+    _processControl->context().showTesterOnTop = b;
 
     QWidget* w = this;
     int flags = w->windowFlags();
@@ -552,18 +571,15 @@ void HMITesterControl::_form_initState()
     ui.menu_File->setEnabled(true);
     ui.menu_TestSuite->setEnabled(false);
     ui.menu_Config->setEnabled(false);
-    ui.menuBar->setVisible(true);
+    ui.menuBar->setVisible(false);
     //buttons
+    _setEnableAndVisible(ui.tb_menu,true);
     _setEnableAndVisible(ui.tb_play,false);
     _setEnableAndVisible(ui.tb_pause,false);
     _setEnableAndVisible(ui.tb_stop,false);
     _setEnableAndVisible(ui.tb_rec,false);
     ui.tb_play->setVisible(true);
     ui.tb_rec->setVisible(true);
-    //counter
-    _setEnableAndVisible(ui.lcdNumber,false);
-    _setEnableAndVisible(ui.lComp,false);;
-    _setEnableAndVisible(ui.lItems,false);
     // window opacity
     setWindowOpacity(IDLE_OPACITY);
 }
@@ -575,22 +591,17 @@ void HMITesterControl::setForm_stopState()
 
 void HMITesterControl::_form_stopState()
 {
-    QtUtils::sleep(1000);
     //menu
+    _setEnableAndVisible(ui.tb_menu,true);
     ui.menu_File->setEnabled(true);
     ui.menu_TestSuite->setEnabled(true);
     ui.menu_Config->setEnabled(true);
-    ui.menuBar->setVisible(true);
+    ui.menuBar->setVisible(false);
     //buttons
     _setEnableAndVisible(ui.tb_play,true);
     _setEnableAndVisible(ui.tb_pause,false);
     _setEnableAndVisible(ui.tb_stop,false);
     _setEnableAndVisible(ui.tb_rec,true);
-    //counter
-    _setEnableAndVisible(ui.lcdNumber,false);
-    ui.lcdNumber->display(0);
-    _setEnableAndVisible(ui.lComp,false);
-    _setEnableAndVisible(ui.lItems,false);
     // window opacity
     setWindowOpacity(IDLE_OPACITY);
 }
@@ -607,17 +618,14 @@ void HMITesterControl::_form_playState()
     ui.menu_File->setEnabled(false);
     ui.menu_TestSuite->setEnabled(false);
     ui.menu_Config->setEnabled(false);
-    ui.menuBar->setVisible(true);
+    ui.menuBar->setVisible(false);
     //buttons
+    _setEnableAndVisible(ui.tb_menu,false);
     _setEnableAndVisible(ui.tb_play,false);
     _setEnableAndVisible(ui.tb_pause,false);//TODO
     _setEnableAndVisible(ui.tb_stop,true);
     _setEnableAndVisible(ui.tb_rec,false);
     ui.tb_pause->setVisible(true);
-    //counter
-    _setEnableAndVisible(ui.lcdNumber,true);
-    _setEnableAndVisible(ui.lComp,true);
-    _setEnableAndVisible(ui.lItems,false);
     // window opacity
     setWindowOpacity(RUNNING_OPACITY);
 }
@@ -634,17 +642,14 @@ void HMITesterControl::_form_recState()
     ui.menu_File->setEnabled(false);
     ui.menu_TestSuite->setEnabled(false);
     ui.menu_Config->setEnabled(false);
-    ui.menuBar->setVisible(true);
+    ui.menuBar->setVisible(false);
     //buttons
+    _setEnableAndVisible(ui.tb_menu,false);
     _setEnableAndVisible(ui.tb_play,false);
     _setEnableAndVisible(ui.tb_pause,false);//TODO
     _setEnableAndVisible(ui.tb_stop,true);
     _setEnableAndVisible(ui.tb_rec,false);
     ui.tb_pause->setVisible(true);
-    //counter
-    _setEnableAndVisible(ui.lcdNumber,true);
-    _setEnableAndVisible(ui.lComp,false);
-    _setEnableAndVisible(ui.lItems,true);
     // window opacity
     setWindowOpacity(RUNNING_OPACITY);
 }
@@ -661,16 +666,13 @@ void HMITesterControl::_form_pausePlayState()
     ui.menu_File->setEnabled(false);
     ui.menu_TestSuite->setEnabled(false);
     ui.menu_Config->setEnabled(false);// TODO allow this
-    ui.menuBar->setVisible(true);
+    ui.menuBar->setVisible(false);
     //buttons
+    _setEnableAndVisible(ui.tb_menu,true);
     _setEnableAndVisible(ui.tb_play,true);
     _setEnableAndVisible(ui.tb_pause,false);
     _setEnableAndVisible(ui.tb_stop,true);
     _setEnableAndVisible(ui.tb_rec,false);
-    //counter
-    _setEnableAndVisible(ui.lcdNumber,true);
-    _setEnableAndVisible(ui.lComp,true);;
-    _setEnableAndVisible(ui.lItems,false);
     // window opacity
     setWindowOpacity(IDLE_OPACITY);
 }
@@ -687,47 +689,39 @@ void HMITesterControl::_form_pauseRecState()
     ui.menu_File->setEnabled(false);
     ui.menu_TestSuite->setEnabled(false);
     ui.menu_Config->setEnabled(true);
-    ui.menuBar->setVisible(true);
+    ui.menuBar->setVisible(false);
     //buttons
+    _setEnableAndVisible(ui.tb_menu,false);
     _setEnableAndVisible(ui.tb_play,false);
     _setEnableAndVisible(ui.tb_pause,false);
     _setEnableAndVisible(ui.tb_stop,true);
     _setEnableAndVisible(ui.tb_rec,true);
-    //counter
-    _setEnableAndVisible(ui.lcdNumber,true);
-    _setEnableAndVisible(ui.lComp,false);
-    _setEnableAndVisible(ui.lItems,true);
     // window opacity
     setWindowOpacity(IDLE_OPACITY);
 }
 
-//
-////lcdCounter
-///
 
-//external method (launches signal)
-void HMITesterControl::setLcdValueChanged(int i)
+void HMITesterControl::setForm_playbackStatus(int p)
 {
-    emit changeLcdValue(i);
+    emit form_playbackStatus(p);
 }
 
-//internal method (change value)
-void HMITesterControl::_changeLcdValue(int i)
+void HMITesterControl::_form_playbackStatus(int p)
 {
-    //lcd size adapter
-    int aux = i;
-    int count = log(aux) + 1;
-    ui.lcdNumber->setNumDigits(count);
-
-    //set value (progressive effect)
-    aux = ui.lcdNumber->value();
-    for(; aux <= i; aux+=1)
-    {
-        ui.lcdNumber->display(aux);
-        QtUtils::sleep(7);//FIXME TODO whats is this?
-    }
+    QString msg = "Playback " + QString::number(p) + "%";
+    ui.status->showMessage(msg,2000);
 }
 
+void HMITesterControl::setForm_recordingStatus(int p)
+{
+    emit form_recordingStatus(p);
+}
+
+void HMITesterControl::_form_recordingStatus(int p)
+{
+    QString msg = "Recorded " + QString::number(p) + " items.";
+    ui.status->showMessage(msg,2000);
+}
 
 
 
@@ -742,6 +736,6 @@ void HMITesterControl::_changeLcdValue(int i)
 void HMITesterControl::_setEnableAndVisible(QWidget* target, bool b)
 {
     target->setEnabled(b);
-    target->setVisible(b);
+    //target->setVisible(b);
 }
 

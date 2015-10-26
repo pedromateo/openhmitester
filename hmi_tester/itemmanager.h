@@ -24,8 +24,8 @@
 #define ITEMMANAGER_H
 
 #include "comm.h"
-#include "datamodel.h"
-#include "recordingobserver.h"
+#include <datamodel.h>
+#include <recordingobserver.h>
 #include <QObject>
 
 class ItemManager : public QObject

@@ -22,6 +22,7 @@
  */
 
 #include "datamodel.h"
+
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/bind.hpp>
 #include <algorithm>
