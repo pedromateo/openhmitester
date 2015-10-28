@@ -31,9 +31,7 @@
 ///
 /// ///
 
-///
-///compilation config
-///
+
 
 
 ///
@@ -46,11 +44,13 @@
 ///
 
 #define SERVER_IP "127.0.0.1"
-#define TCP_PORT 19840
+#define TCP_PORT 7357
 
 ///
-/// hmi tester look configuration
+/// hmi tester app configuration
 ///
+
+#define OHT_FILE_EXTENSION "oht"
 
 #define IDLE_OPACITY 1.0
 #define RUNNING_OPACITY 0.5
@@ -60,9 +60,6 @@
 ///
 
 #define EXEC_PAUSE_AFTER_REPLAY 2000
-#define DEPRECATED_EXEC_SPEED 50
-#define DEPRECATED_EXEC_SPEED_PAUSE 150
-#define DEPRECATED_EXEC_SPEED_BASE 10
 
 ///
 /// output files

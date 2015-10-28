@@ -34,7 +34,8 @@ namespace Ui {
 
 class GeneralInputDialog : public QDialog {
     Q_OBJECT
-    Q_DISABLE_COPY(GeneralInputDialog)
+    Q_DISABLE_COPY(GeneralInputDialog);
+
 public:
     explicit GeneralInputDialog(QWidget *parent = 0);
     virtual ~GeneralInputDialog();

@@ -59,13 +59,14 @@ int main(int argc, char * argv[])
 {
     QApplication app(argc, argv);
 
-    QCommandLineParser commandLineParser;
+    QUrl url("");
+
+    /*QCommandLineParser commandLineParser;
     commandLineParser.addPositionalArgument(QStringLiteral("url"),
         QStringLiteral("The url to be loaded in the browser window."));
     commandLineParser.process(app);
     QStringList positionalArguments = commandLineParser.positionalArguments();
 
-    QUrl url;
     if (positionalArguments.size() > 1) {
         showHelp(commandLineParser, QStringLiteral("Too many arguments."));
         return -1;
@@ -77,9 +78,10 @@ int main(int argc, char * argv[])
     if (!url.isValid()) {
         showHelp(commandLineParser, QString("%1 is not a valid url.").arg(positionalArguments.at(0)));
         return -1;
-    }
+    }*/
 
     MainWindow browser(url);
-    browser.show();
+    //browser.show();
+    browser.showMaximized();
     return app.exec();
 }
