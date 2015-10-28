@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 3.0.1, 2015-10-26T12:42:12. -->
+<!-- Written by QtCreator 3.0.1, 2015-10-28T12:38:27. -->
 <qtcreator>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
@@ -51,9 +51,9 @@
  <data>
   <variable>ProjectExplorer.Project.Target.0</variable>
   <valuemap type="QVariantMap">
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Qt 4.8.6 (System)</value>
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Qt 4.8.6 (System)</value>
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">{60c42eed-0e34-4a54-a0f1-fa16f593986e}</value>
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Qt5.5-desktop</value>
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Qt5.5-desktop</value>
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">{19bf1263-1ece-427b-9ea8-76f266adf2b4}</value>
    <value type="int" key="ProjectExplorer.Target.ActiveBuildConfiguration">0</value>
    <value type="int" key="ProjectExplorer.Target.ActiveDeployConfiguration">0</value>
    <value type="int" key="ProjectExplorer.Target.ActiveRunConfiguration">0</value>

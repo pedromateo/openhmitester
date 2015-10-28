@@ -71,7 +71,11 @@ void QObject::timerEvent ( QTimerEvent * )
 }
 */
 
+#if QT_VERSION >= 0x050000
+bool QWidget::nativeEvent(const QByteArray & eventType, void * message, long * result)
+#else
 bool QWidget::x11Event ( XEvent * event )
+#endif
 {
     //only the first time...
     if (!pc)
@@ -90,6 +94,7 @@ bool QWidget::x11Event ( XEvent * event )
 
         //call the initialize method
         pc->initPreload();
+        DEBUG(D_PRELOAD,"(QWidget::x11Event) Hooking process finished.");
     }
     return false;
 }

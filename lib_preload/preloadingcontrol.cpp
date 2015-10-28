@@ -44,5 +44,5 @@ void PreloadingControl::initPreload()
     //create a new Preload Controller
     PreloadController *pc = new PreloadController(this,_event_consumer,_event_executor);
     pc->initialize();
-    DEBUG(D_PRELOAD,"(PreloadingControl::initPreload) Preload Controller instance created.");
+    DEBUG(D_PRELOAD,"(PreloadingControl::initPreload) Preload Controller instance initiallized.");
 }

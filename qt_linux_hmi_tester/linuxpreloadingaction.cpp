@@ -81,8 +81,8 @@ bool LinuxPreloadingAction::launchApplication ( const std::string &binaryPath,
     process_->setEnvironment(env);*/
 
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
-    //env.insert(PRELOAD_ENVVAR, QString(preloadLibraryPath.c_str()));
-    env.insert(PRELOAD_ENVVAR, "/home/pedro/svn_catedra/anotaciones/testing/imp_HMITester_github/openhmitester/build/qt_linux_lib_preload/libOHTPreload.so");
+    env.insert(PRELOAD_ENVVAR, QString(preloadLibraryPath.c_str()));
+    //env.insert(PRELOAD_ENVVAR, "/home/pedro/svn_catedra/anotaciones/testing/imp_HMITester_github/openhmitester/build/qt_linux_lib_preload/libOHTPreload.so");
     process_->setProcessEnvironment(env);
 
     /*QStringList environment = process_->processEnvironment().toStringList();

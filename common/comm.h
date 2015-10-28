@@ -23,6 +23,7 @@
 #ifndef COMM_H
 #define COMM_H
 
+#include <messageclientserver.h>
 #include <datamodel.h>
 #include <utilclasses.h>
 #include <QTcpServer>
@@ -30,12 +31,6 @@
 #include <memory>
 #include <deque>
 
-//
-class ClientSocket;
-class MessageClientServer;
-//
-
-/// ///////////////////////////////////////////////////////////////////////////////////////
 
 class Comm : public QObject
 {
@@ -76,57 +71,6 @@ private:
     std::auto_ptr<MessageClientServer> mcs_;
     bool isServer_;
     bool clientConnected_;
-};
-
-
-
-/// ///////////////////////////////////////////////////////////////////////////////////////
-
-class MessageClientServer : public QTcpServer
-{
-    Q_OBJECT
-
-public:
-    MessageClientServer ( QObject *parent, uint port, bool isServer );
-    ~MessageClientServer();
-
-public slots:
-    void readMessage();
-    void writeMessage ( const QString& );
-    void displayError ( QAbstractSocket::SocketError socketError );
-
-    void handleClientDisconnected();
-
-signals:
-    void receivedMessage ( const QString& );
-    void error ( const QString& );
-    void newClientConnected();
-    void clientDisconnected();
-
-protected:
-    void incomingConnection ( int socketDescriptor );
-
-private:
-
-    uint port_;
-
-    std::auto_ptr<QTcpSocket> currentSocket_;
-
-    QCircularByteArray_ buffer_;
-};
-
-/// ////////////////////////////////////////////
-class ClientSocket : public QTcpSocket
-{
-    Q_OBJECT
-
-public:
-    ClientSocket ( int sock, QObject *parent );
-    ~ClientSocket();
-
-signals:
-    void error ( const QString& );
-
 };
 
 

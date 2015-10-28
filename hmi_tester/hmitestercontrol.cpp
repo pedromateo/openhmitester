@@ -80,11 +80,6 @@ void HMITesterControl::_initializeForm()
     connect(ui.tb_stop,SIGNAL(clicked()),this,SLOT(tb_stop_clicked()));
     connect(ui.tb_rec,SIGNAL(clicked()),this,SLOT(tb_rec_clicked()));
 
-    //lcd counter
-    connect(this, SIGNAL(changeLcdValue(int)),
-            this, SLOT(_changeLcdValue(int)),
-            Qt::QueuedConnection);
-
     //form visualization states
     connect(this, SIGNAL(form_initState()),
             this, SLOT(_form_initState()),

@@ -26,21 +26,36 @@ TEMPLATE = lib
 # HMITester and OHTLibPreload common sources
 #
 
-include(../common/common.pri)
 
-#SOURCES += ../common/datamodel.cpp \
-#           ../common/comm.cpp \
-#           ../common/utilclasses.cpp \
-#           ../common/uuid.cpp \
-#           ../common/controlsignaling.cpp
+equals(QT_MAJOR_VERSION, 4) {
 
-#HEADERS += ../common/datamodel.h \
-#           ../common/comm.h \
-#           ../common/utilclasses.h \
-#           ../common/uuid.h \
-#           ../common/controlsignaling.h \
-#           ../common/ohtbaseconfig.h \
-#           ../common/debug.h
+    include(../common/common.pri)
+}
+
+equals(QT_MAJOR_VERSION, 5) {
+
+    message(" === FIXME === This bug have to be fixed for Qt5")
+
+    INCLUDEPATH += ../common/
+
+    SOURCES += ../common/datamodel.cpp \
+               ../common/comm.cpp \
+               ../common/messageclientserver.cpp \
+               ../common/utilclasses.cpp \
+               ../common/uuid.cpp \
+               ../common/controlsignaling.cpp
+
+    HEADERS += ../common/datamodel.h \
+               ../common/comm.h \
+               ../common/messageclientserver.h \
+               ../common/utilclasses.h \
+               ../common/uuid.h \
+               ../common/controlsignaling.h \
+               ../common/ohtbaseconfig.h \
+               ../common/debug.h
+}
+
+
 
 ###
 ### HMITester  sources

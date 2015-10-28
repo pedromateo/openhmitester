@@ -45,14 +45,14 @@ if (DEBUG_ENABLED) std::cout << content << std::endl;
 // the OHT framework can differentiate between errors and other debug outputs
 
 #define D_ERROR 1
-#define D_PLAYBACK 1
-#define D_RECORDING 1
+#define D_PLAYBACK 2
+#define D_RECORDING 2
 #define D_BOTH 2
 #define D_PRELOAD 3
 #define D_EXECUTOR 0
 #define D_CONSUMER 0
 #define D_GUI 4
-#define D_COMM 0
+#define D_COMM 5
 
 //method
 #define DEBUG(type,content)\

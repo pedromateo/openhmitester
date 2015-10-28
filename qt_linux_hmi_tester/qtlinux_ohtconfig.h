@@ -31,7 +31,7 @@
 
 ///
 /// libpreload path
-#define LIBPRELOAD_PATH "../qt_linux_lib_preload/libOHTPreload.so"
+#define LIBPRELOAD_PATH "../qt_linux_lib_preload/libqt_linux_oht_preload.so"
 
 ///
 /// oreload environment variable

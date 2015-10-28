@@ -46,7 +46,7 @@
 ///
 
 #define SERVER_IP "127.0.0.1"
-#define TCP_PORT 1984
+#define TCP_PORT 19840
 
 ///
 /// hmi tester look configuration

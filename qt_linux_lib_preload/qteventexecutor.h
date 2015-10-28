@@ -67,7 +67,7 @@ public:
     //void executeFocusInEvent ();
     //void executeFocusOutEvent ();
 
-    private:
+private:
 
     ///
     ///process control
@@ -81,17 +81,18 @@ public:
     ///
     const int MOUSE_MOVE_DELAY_MS = 500;
     const int MOUSE_MOVE_STEPS = 18;
-    QPoint lastPos_;
-    void simulateMouseMove( const QPoint&, const QPoint&);
-    void simulateMouseHover( QWidget*, const QPoint&, const QPoint&);
+    QPoint _last_mouse_pos;
+    void _simulateMouseMove(const QPoint&, const QPoint&, QWidget *hoverOnWidget = NULL);
+    //void _simulateMouseHover( QWidget*, const QPoint&, const QPoint&);
 
     ///
     /// execution support
     ///
-    QWidget* getWidget(QOE::QOE_Base*);
-    void pre_execution(QOE::QOE_Base*, QWidget*);
-    void pre_execution_mouse(QOE::QOE_Base*, QWidget*);
-    void post_execution(QOE::QOE_Base*, QWidget*);
+    QWidget* _getWidget(QOE::QOE_Base*);
+    void _preExecution(QOE::QOE_Base*, QWidget*);
+    void _preExecutionWithMouseMove(QOE::QOE_Base*, QWidget*);
+    void _preExecutionWithMouseHover(QOE::QOE_Base*, QWidget*);
+    void _postExecution(QOE::QOE_Base*, QWidget*);
 
     ///
     ///widget adapters manager

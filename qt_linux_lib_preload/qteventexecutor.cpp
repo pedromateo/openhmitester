@@ -54,8 +54,8 @@ void QtEventExecutor::startExecution()
     f_paused_ = false;
 
     // execution starts with mouse at 0,0
-    lastPos_ = QApplication::activeWindow()->mapToGlobal(QPoint(0,0));
-    QCursor::setPos(lastPos_);
+    _last_mouse_pos = QApplication::activeWindow()->mapToGlobal(QPoint(0,0));
+    QCursor::setPos(_last_mouse_pos);
 }
 
 void QtEventExecutor::pauseExecution()
@@ -167,36 +167,32 @@ void QtEventExecutor::executeMousePressEvent(QOE::QOE_MousePress* qoe)
     DEBUG(D_EXECUTOR,"(QtEventExecutor::executeMousePressEvent)");
     assert(qoe);
 
-    QWidget* widget = getWidget(qoe);
+    QWidget* widget = _getWidget(qoe);
     if ( widget == NULL )
     {
         DEBUG(D_ERROR,"(QtEventExecutor::executeMousePressEvent) Missing Widget: "
               << qoe->widget());
     }
 
+    /// Note that the widget might be NULL. Please, be careful!!
+
     ///
     ///pre_execution
     ///
     DEBUG(D_EXECUTOR,"(QtEventExecutor::executeMousePressEvent) Pre execution");
-    pre_execution_mouse(qoe, widget);
+    _preExecutionWithMouseMove(qoe, widget);
 
     ///
     ///execution
     ///
-    DEBUG(D_EXECUTOR,"(QtEventExecutor::executeMousePressEvent) Mouse move.");
-    //simulate mouse move
-    simulateMouseHover(widget, lastPos_, widget->mapToGlobal ( qoe->position() ) );
-    lastPos_ = widget->mapToGlobal ( qoe->position() );
-
     DEBUG(D_EXECUTOR,"(QtEventExecutor::executeMousePressEvent) Execute.");
-    //execute event
     qoe->execute(widget);
 
     ///
     ///post_execution
     ///
     DEBUG(D_EXECUTOR,"(QtEventExecutor::executeMousePressEvent) Post execution.");
-    post_execution(qoe, widget);
+    _postExecution(qoe, widget);
 
     DEBUG(D_EXECUTOR,"(QtEventExecutor::executeMousePressEvent) Exit");
 }
@@ -206,149 +202,81 @@ void QtEventExecutor::executeMouseReleaseEvent(QOE::QOE_MouseRelease* qoe)
     DEBUG(D_EXECUTOR,"(QtEventExecutor::executeMouseReleaseEvent)");
 
     //get the widget
-    QWidget* widget = getWidget(qoe);
+    QWidget* widget = _getWidget(qoe);
     if ( widget == NULL )
     {
         DEBUG(D_ERROR,"(QtEventExecutor::executeMouseReleaseEvent) Missing Widget: "
               << qoe->widget());
     }
 
-    ///
-    ///pre_execution
-    ///
-    pre_execution_mouse(qoe, widget);
-
-    ///
-    ///execution
-    ///
-    //simulate mouse move
-    simulateMouseHover (widget, lastPos_, widget->mapToGlobal ( qoe->position() ) );
-    lastPos_ = widget->mapToGlobal ( qoe->position() );
-    //execute event
+    _preExecutionWithMouseMove(qoe, widget);
     qoe->execute(widget);
-
-    ///
-    ///post_execution
-    ///
-    post_execution(qoe, widget);
+    _postExecution(qoe, widget);
 }
 
 void QtEventExecutor::executeMouseDoubleEvent(QOE::QOE_MouseDouble* qoe)
 {
     DEBUG(D_EXECUTOR,"(QtEventExecutor::executeMouseDoubleEvent)");
     //get the widget
-    QWidget* widget = getWidget(qoe);
+    QWidget* widget = _getWidget(qoe);
     if ( widget == NULL )
     {
         DEBUG(D_ERROR,"(QtEventExecutor::executeMouseDoubleEvent) Missing Widget: "
               << qoe->widget());
     }
 
-    ///
-    ///pre_execution
-    ///
-    pre_execution_mouse(qoe, widget);
 
-    ///
-    ///execution
-    ///
-    //simulate mouse move
-    simulateMouseHover (widget, lastPos_, widget->mapToGlobal ( qoe->position() ) );
-    lastPos_ = widget->mapToGlobal ( qoe->position() );
-    //execute event
+    _preExecutionWithMouseMove(qoe, widget);
     qoe->execute(widget);
-
-    ///
-    ///post_execution
-    ///
-    post_execution(qoe, widget);
+    _postExecution(qoe, widget);
 }
 
 void QtEventExecutor::executeKeyPressEvent(QOE::QOE_KeyPress* qoe)
 {
     DEBUG(D_EXECUTOR,"(QtEventExecutor::executeKeyPressEvent)");
     //get the widget
-    QWidget* widget = getWidget(qoe);
+    QWidget* widget = _getWidget(qoe);
     if ( widget == NULL )
     {
         DEBUG(D_ERROR,"(QtEventExecutor::executeKeyPressEvent) Missing Widget: "
               << qoe->widget());
     }
 
-    ///
-    ///pre_execution
-    ///
-    pre_execution(qoe, widget);
-
-    ///
-    ///execution
-    ///
-    //execute event
+    _preExecution(qoe, widget);
     qoe->execute(widget);
-
-    ///
-    ///post_execution
-    ///
-    post_execution(qoe, widget);
+    _postExecution(qoe, widget);
 }
 
 void QtEventExecutor::executeCloseEvent(QOE::QOE_WindowClose* qoe)
 {
     DEBUG(D_EXECUTOR,"(QtEventExecutor::executeCloseEvent)");
     //get the widget
-    QWidget* widget = getWidget(qoe);
+    QWidget* widget = _getWidget(qoe);
     if ( widget == NULL )
     {
         DEBUG(D_ERROR,"(QtEventExecutor::executeWindowCloseEvent) Missing Widget: "
               << qoe->widget());
     }
 
-    ///
-    ///pre_execution
-    ///
-    pre_execution(qoe, widget);
-
-    ///
-    ///execution
-    ///
-    //execute event
+    _preExecution(qoe, widget);
     qoe->execute(widget);
-
-    ///
-    ///post_execution
-    ///
-    post_execution(qoe, widget);
+    _postExecution(qoe, widget);
 }
 
 void QtEventExecutor::executeWheelEvent(QOE::QOE_MouseWheel* qoe)
 {
     DEBUG(D_EXECUTOR,"(QtEventExecutor::executeWheelEvent)");
     //get the widget
-    QWidget* widget = getWidget(qoe);
+    QWidget* widget = _getWidget(qoe);
     if ( widget == NULL )
     {
         DEBUG(D_ERROR,"(QtEventExecutor::executeMouseWheelEvent) Missing Widget: "
               << qoe->widget());
     }
 
-    ///
-    ///pre_execution
-    ///
-    pre_execution_mouse(qoe, widget);
-
-    ///
-    ///execution
-    ///
-    //simulate mouse move
-    simulateMouseHover (widget, lastPos_, widget->mapToGlobal ( qoe->position() ) );
-    lastPos_ = widget->mapToGlobal ( qoe->position() );
-    //execute event
+    _preExecutionWithMouseMove(qoe, widget);
     qoe->execute(widget);
-
-    ///
-    ///post_execution
-    ///
-    post_execution(qoe, widget);
+    _postExecution(qoe, widget);
 }
 
 //void executeKeyReleaseEvent ();
@@ -369,7 +297,8 @@ void QtEventExecutor::executeWheelEvent(QOE::QOE_MouseWheel* qoe)
 /// mouse simulation
 ///
 
-void QtEventExecutor::simulateMouseMove ( const QPoint& pBegin, const QPoint& pEnd )
+/*
+void QtEventExecutor::_simulateMouseMove ( const QPoint& pBegin, const QPoint& pEnd )
 {
     int ix = pBegin.x();
     int iy = pBegin.y();
@@ -379,27 +308,21 @@ void QtEventExecutor::simulateMouseMove ( const QPoint& pBegin, const QPoint& pE
     //if no moving...
     if ( ix == dx && iy == dy ) return;
 
-    /*
-     Initial position: QCursor::pos()
-     End position: pEnd
-     Movements: n
-     Wait between movements: w
-   */
+    //Initial position: QCursor::pos()
+    //End position: pEnd
+    //Movements: MOUSE_MOVE_STEPS
+    //Wait between movements: w
 
-    const int MOVEMENTS_FACTOR = 10;
 
     //adapt n and w values
-    uint t = qMax ( qAbs ( dx - ix ), qAbs ( dy - iy ) );//longest track
-    //uint n = t / MOVEMENTS_FACTOR + t % MOVEMENTS_FACTOR;
-    //uint w = ( 2100 - ( MAX_DELAY_MS - t ) ) / n;
-    uint n = t / MOVEMENTS_FACTOR + t % MOVEMENTS_FACTOR;
-    uint w = MOUSE_MOVE_DELAY_MS / n;
+    uint t = qMax ( qAbs ( dx - ix ), qAbs ( dy - iy ) );//longest movement
+    uint w = MOUSE_MOVE_DELAY_MS / MOUSE_MOVE_STEPS;
     assert ( w > 0 );
 
     //go moving
     QPoint old ( ix, iy );
-    const int STEP_X = (dx - ix) / n;
-    const int STEP_Y = (dy - iy) / n;
+    const int STEP_X = int ( double ( dx - ix ) / double ( MOUSE_MOVE_STEPS ) );
+    const int STEP_Y = int ( double ( dy - iy ) / double ( MOUSE_MOVE_STEPS ) );
     for ( uint i = 1; i < n; i++ )
     {
         QPoint current( STEP_X * i + ix, STEP_Y * i + iy );
@@ -411,9 +334,9 @@ void QtEventExecutor::simulateMouseMove ( const QPoint& pBegin, const QPoint& pE
     QCursor::setPos ( pEnd );
 }
 
-void QtEventExecutor::simulateMouseHover ( QWidget *widget,
-                                           const QPoint &pBegin,
-                                           const QPoint &pEnd )
+void QtEventExecutor::_simulateMouseHover ( QWidget *widget,
+                                            const QPoint &pBegin,
+                                            const QPoint &pEnd )
 {
     int ix = pBegin.x();
     int iy = pBegin.y();
@@ -423,12 +346,11 @@ void QtEventExecutor::simulateMouseHover ( QWidget *widget,
     //if no moving...
     if ( ix == dx && iy == dy ) return;
 
-    /*
-     Initial position: QCursor::pos()
-     End position: pEnd
-     Movements: MOUSE_MOVE_STEPS
-     Wait between movements: w
-   */
+    //Initial position: QCursor::pos()
+    //End position: pEnd
+    //Movements: MOUSE_MOVE_STEPS
+    //Wait between movements: w
+
 
     //adapt n and w values
     uint t = qMax ( qAbs ( dx - ix ), qAbs ( dy - iy ) );//longest movement
@@ -466,13 +388,78 @@ void QtEventExecutor::simulateMouseHover ( QWidget *widget,
                      Qt::NoButton, Qt::LeftButton,
                      QApplication::keyboardModifiers() );
     qApp->notify ( ( QObject* ) widget, ( QEvent* ) &me );
+}*/
+
+
+
+void QtEventExecutor::_simulateMouseMove(const QPoint &pBegin,
+                                         const QPoint &pEnd,
+                                         QWidget* hoverOnWidget)
+{
+    int ix = pBegin.x();
+    int iy = pBegin.y();
+    int dx = pEnd.x();
+    int dy = pEnd.y();
+
+    //if no moving...
+    if ( ix == dx && iy == dy ) return;
+
+    /*
+     Initial position: QCursor::pos()
+     End position: pEnd
+     Movements: MOUSE_MOVE_STEPS
+     Wait between movements: w
+   */
+
+    //adapt n and w values
+    uint t = qMax ( qAbs ( dx - ix ), qAbs ( dy - iy ) );//longest movement
+    uint w = MOUSE_MOVE_DELAY_MS / MOUSE_MOVE_STEPS;
+    assert ( w > 0 );
+
+    //go moving...
+    QPoint old ( ix, iy );
+    const int STEP_X = int ( double ( dx - ix ) / double ( MOUSE_MOVE_STEPS ) );
+    const int STEP_Y = int ( double ( dy - iy ) / double ( MOUSE_MOVE_STEPS ) );
+    for ( uint i = 1; i <= MOUSE_MOVE_STEPS; i++ )
+    {
+        //calculate current position
+        int cx = STEP_X * i  + ix;
+        int cy = STEP_Y * i  + iy;
+        QPoint current ( cx, cy );
+
+        //set the cursor
+        QCursor::setPos ( current );
+
+        // hover on widget? (for drag and drop)
+        if (hoverOnWidget){
+            QMouseEvent me ( QEvent::MouseMove,
+                             hoverOnWidget->mapFromGlobal ( current ),
+                             Qt::NoButton, Qt::LeftButton,
+                             QApplication::keyboardModifiers() );
+            qApp->notify ( dynamic_cast<QObject*> ( hoverOnWidget ),
+                           dynamic_cast<QEvent*> ( &me ) );
+        }
+
+        //wait
+        QTest::qWait ( w );
+    }
+
+    //end moving...
+    QCursor::setPos ( pEnd );
+    if (hoverOnWidget){
+        QMouseEvent me ( QEvent::MouseMove,
+                         hoverOnWidget->mapFromGlobal ( pEnd ),
+                         Qt::NoButton, Qt::LeftButton,
+                         QApplication::keyboardModifiers() );
+        qApp->notify ( ( QObject* ) hoverOnWidget, ( QEvent* ) &me );
+    }
 }
 
 ///
 /// execution support
 ///
 
-QWidget* QtEventExecutor::getWidget(QOE::QOE_Base* qoe)
+QWidget* QtEventExecutor::_getWidget(QOE::QOE_Base* qoe)
 {
     assert(qoe);
     QString wname = QString(qoe->widget().c_str());
@@ -480,45 +467,67 @@ QWidget* QtEventExecutor::getWidget(QOE::QOE_Base* qoe)
     return QWidgetUtils::getAWidget(&wpath);
 }
 
-void QtEventExecutor::pre_execution_mouse(QOE::QOE_Base* qoe, QWidget* widget)
+void QtEventExecutor::_preExecution(QOE::QOE_Base* qoe, QWidget* widget)
 {
     assert(qoe);
-    assert(widget);
 
+    //start simulation
+    if (widget != NULL){
+        widget->setUpdatesEnabled(false);
+    }
+}
+
+void QtEventExecutor::_preExecutionWithMouseMove(QOE::QOE_Base* qoe, QWidget* widget)
+{
     //wait elapsed time for this item
     int sleep_ms = qoe->timestamp() - MOUSE_MOVE_DELAY_MS;
     sleep_ms = sleep_ms > 0? sleep_ms : 0;
     QTest::qWait(sleep_ms);
 
-    //start simulation
-    widget->setUpdatesEnabled(false);
-}
-
-void QtEventExecutor::pre_execution(QOE::QOE_Base* qoe, QWidget* widget)
-{
-    assert(qoe);
-    assert(widget);
-
-    //start simulation
-    widget->setUpdatesEnabled(false);
-}
-
-void QtEventExecutor::post_execution(QOE::QOE_Base* qoe, QWidget* widget)
-{
-    assert(qoe);
-    assert(widget);
-
-    //if sensitive -> set the sensitive data
-    if ( qoe->isSensitive() )
-    {
-        QWA::QWidgetAdapter* qwa = qwaManager_.isSensitive(widget);
-        qwa->applySensitiveValue(qoe->sensitiveValue());
+    // do mouse move
+    if (widget != NULL){
+        _simulateMouseMove(_last_mouse_pos, widget->mapToGlobal(qoe->position()));
+        _last_mouse_pos = widget->mapToGlobal ( qoe->position() );
     }
 
-    //set focus
-    QWidgetUtils::setFocusOnWidget(widget);
-    //end simulation
-    widget->setUpdatesEnabled ( true );
-    widget->update();
+    // disable updates
+    _preExecution(qoe,widget);
+}
+
+void QtEventExecutor::_preExecutionWithMouseHover(QOE::QOE_Base* qoe, QWidget* widget)
+{
+    //wait elapsed time for this item
+    int sleep_ms = qoe->timestamp() - MOUSE_MOVE_DELAY_MS;
+    sleep_ms = sleep_ms > 0? sleep_ms : 0;
+    QTest::qWait(sleep_ms);
+
+    // do mouse hover
+    if (widget != NULL){
+        _simulateMouseMove(_last_mouse_pos, widget->mapToGlobal(qoe->position()), widget);
+        _last_mouse_pos = widget->mapToGlobal ( qoe->position() );
+    }
+
+    // disable updates
+    _preExecution(qoe,widget);
+}
+
+void QtEventExecutor::_postExecution(QOE::QOE_Base* qoe, QWidget* widget)
+{
+    if (qoe && widget){
+
+        //if sensitive -> set  sensitive data
+        if ( qoe->isSensitive() )
+        {
+            QWA::QWidgetAdapter* qwa = qwaManager_.isSensitive(widget);
+            qwa->applySensitiveValue(qoe->sensitiveValue());
+        }
+
+        //set focus
+        QWidgetUtils::setFocusOnWidget(widget);
+
+        //end simulation
+        widget->setUpdatesEnabled ( true );
+        widget->update();
+    }
 }
 

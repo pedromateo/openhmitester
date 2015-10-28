@@ -137,18 +137,4 @@ class QCircularByteArray_ : public QByteArray
 ///
 /// ///
 
-
-/// ///
-///
-///
-///
-/// ///
-
-
-/// ///
-///
-///
-///
-/// ///
-
 #endif // UTILCLASSES_H
