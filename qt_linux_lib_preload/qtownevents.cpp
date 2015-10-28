@@ -145,8 +145,10 @@ QOE_WindowClose::QOE_WindowClose()
 
 void QOE_WindowClose::execute(QWidget* w)
 {
-    QCloseEvent ce;
-    qApp->notify ( dynamic_cast<QObject*> ( w ), dynamic_cast<QEvent*> ( &ce ) );
+    if (w){
+        QCloseEvent ce;
+        qApp->notify ( dynamic_cast<QObject*> ( w ), dynamic_cast<QEvent*> ( &ce ) );
+    }
 }
 
 ///
@@ -197,9 +199,11 @@ QOE_MousePress::QOE_MousePress()
 
 void QOE_MousePress::execute(QWidget* w)
 {
-    QTest::mousePress ( w, (Qt::MouseButton) button(),
-                        (Qt::KeyboardModifiers) modifiers(),
-                        position() );
+    if (w){
+        QTest::mousePress ( w, (Qt::MouseButton) button(),
+                            (Qt::KeyboardModifiers) modifiers(),
+                            position() );
+    }
 }
 
 ///
@@ -215,9 +219,11 @@ QOE_MouseRelease::QOE_MouseRelease()
 
 void QOE_MouseRelease::execute(QWidget* w)
 {
-    QTest::mouseRelease ( w, (Qt::MouseButton) button(),
-                        (Qt::KeyboardModifiers) modifiers(),
-                        position() );
+    if (w){
+        QTest::mouseRelease ( w, (Qt::MouseButton) button(),
+                              (Qt::KeyboardModifiers) modifiers(),
+                              position() );
+    }
 }
 
 ///
@@ -233,9 +239,11 @@ QOE_MouseDouble::QOE_MouseDouble()
 
 void QOE_MouseDouble::execute(QWidget* w)
 {
-    QTest::mouseDClick ( w, (Qt::MouseButton) button(),
-                        (Qt::KeyboardModifiers) modifiers(),
-                        position() );
+    if (w){
+        QTest::mouseDClick ( w, (Qt::MouseButton) button(),
+                             (Qt::KeyboardModifiers) modifiers(),
+                             position() );
+    }
 }
 
 ///
@@ -251,8 +259,10 @@ QOE_MouseWheel::QOE_MouseWheel()
 
 void QOE_MouseWheel::execute(QWidget* w)
 {
-    QWheelEvent we ( position(), globalPosition(), delta(), buttons(), modifiers(), orientation() );
-    qApp->notify ( dynamic_cast<QObject*> ( w ), dynamic_cast<QEvent*> ( &we ) );
+    if (w){
+        QWheelEvent we ( position(), globalPosition(), delta(), buttons(), modifiers(), orientation() );
+        qApp->notify ( dynamic_cast<QObject*> ( w ), dynamic_cast<QEvent*> ( &we ) );
+    }
 }
 
 //accesor
@@ -322,6 +332,7 @@ QOE_KeyPress::QOE_KeyPress()
 
 void QOE_KeyPress::execute(QWidget* w)
 {
-    QTest::keyClick ( w, ( Qt::Key ) key(),
-                      ( Qt::KeyboardModifiers ) modifiers());
+    if (w)
+        QTest::keyClick ( w, ( Qt::Key ) key(),
+                          ( Qt::KeyboardModifiers ) modifiers());
 }

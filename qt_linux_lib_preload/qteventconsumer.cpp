@@ -114,14 +114,26 @@ bool QtEventConsumer::eventFilter ( QObject *obj, QEvent *event )
         DEBUG(D_CONSUMER,"(QtEventConsumer::eventFilter) Pause state. Events blocked.");
         return true;
     }
+    //no widget or event provided
+    else if (obj == NULL || event == NULL)
+    {
+        DEBUG(D_CONSUMER,"(QtEventConsumer::eventFilter) No widget or event provided.");
+        return false;
+    }
+    //object is not a widget or window
+    /*else if (!obj->isWidgetType())
+    {
+        DEBUG(D_CONSUMER,"(QtEventConsumer::eventFilter) Object is not a widget.");
+        return false;
+    }*/
     //if process is recording...
     else
     {
         //apply the filter...
     }
 
-    DEBUG(D_CONSUMER,"(QtEventConsumer::eventFilter) Type = "
-          + QString::number(event->type()).toStdString());
+    //DEBUG(D_CONSUMER,"(QtEventConsumer::eventFilter) Type = "
+    //      + QString::number(event->type()).toStdString());
 
     ///
     ///filter depending on the type..
@@ -163,6 +175,12 @@ bool QtEventConsumer::eventFilter ( QObject *obj, QEvent *event )
 ///
 void QtEventConsumer::handleMousePressEvent ( QObject *obj, QEvent *event )
 {
+    // check the object
+    if (!obj->isWidgetType()){
+        DEBUG(D_CONSUMER,"(QtEventConsumer::handleMousePressEvent) No widget to handle");
+        return;
+    }
+
     DEBUG(D_CONSUMER,"(QtEventConsumer::handleMousePressEvent)");
 
     QMouseEvent *me = dynamic_cast< QMouseEvent*> ( event );
@@ -172,7 +190,7 @@ void QtEventConsumer::handleMousePressEvent ( QObject *obj, QEvent *event )
     QWidget *widget = static_cast<QWidget*>(obj);
 
     qoe.timestamp(_timer.restart());
-    qoe.widget(QWidgetUtils::getWidgetPath (widget).toStdString());
+    qoe.widget(QWidgetUtils::getWidgetPath(widget).toStdString());
     qoe.button(me->button());
     qoe.buttons(me->buttons());
     qoe.modifiers(me->modifiers());
@@ -190,6 +208,12 @@ void QtEventConsumer::handleMousePressEvent ( QObject *obj, QEvent *event )
 
 void QtEventConsumer::handleMouseReleaseEvent ( QObject *obj, QEvent *event )
 {
+    // check the object
+    if (!obj->isWidgetType()){
+        DEBUG(D_CONSUMER,"(QtEventConsumer::handleMouseReleaseEvent) No widget to handle");
+        return;
+    }
+
     DEBUG(D_CONSUMER,"(QtEventConsumer::handleMouseReleaseEvent)");
 
     QMouseEvent *me = dynamic_cast< QMouseEvent*> ( event );
@@ -217,6 +241,12 @@ void QtEventConsumer::handleMouseReleaseEvent ( QObject *obj, QEvent *event )
 
 void QtEventConsumer::handleMouseDoubleEvent ( QObject *obj, QEvent *event )
 {
+    // check the object
+    if (!obj->isWidgetType()){
+        DEBUG(D_CONSUMER,"(QtEventConsumer::handleMouseDoubleEvent) No widget to handle");
+        return;
+    }
+
     DEBUG(D_CONSUMER,"(QtEventConsumer::handleMouseDoubleEvent)");
 
     QMouseEvent *me = dynamic_cast< QMouseEvent*> ( event );
@@ -244,6 +274,12 @@ void QtEventConsumer::handleMouseDoubleEvent ( QObject *obj, QEvent *event )
 
 void QtEventConsumer::handleKeyPressEvent ( QObject *obj, QEvent *event )
 {
+    // check the object
+    if (!obj->isWidgetType()){
+        DEBUG(D_CONSUMER,"(QtEventConsumer::handleKeyPressEvent) No widget to handle");
+        return;
+    }
+
     DEBUG(D_CONSUMER,"(QtEventConsumer::handleKeyPressEvent)");
 
     QKeyEvent *keyEvent = dynamic_cast<QKeyEvent *> ( event );
@@ -278,6 +314,12 @@ void QtEventConsumer::handleKeyPressEvent ( QObject *obj, QEvent *event )
 
 void QtEventConsumer::handleCloseEvent ( QObject *obj, QEvent *event )
 {
+    // check the object
+    if (!obj->isWidgetType()){
+        DEBUG(D_CONSUMER,"(QtEventConsumer::handleCloseEvent) No widget to handle");
+        return;
+    }
+
     DEBUG(D_CONSUMER,"(QtEventConsumer::handleCloseEvent)");
 
     //create the event
@@ -299,6 +341,12 @@ void QtEventConsumer::handleCloseEvent ( QObject *obj, QEvent *event )
 
 void QtEventConsumer::handleWheelEvent ( QObject *obj, QEvent *event )
 {
+    // check the object
+    if (!obj->isWidgetType()){
+        DEBUG(D_CONSUMER,"(QtEventConsumer::handleWheelEvent) No widget to handle");
+        return;
+    }
+
     DEBUG(D_CONSUMER,"(QtEventConsumer::handleWheelEvent)");
 
     QWheelEvent *we = dynamic_cast<QWheelEvent*> ( event );

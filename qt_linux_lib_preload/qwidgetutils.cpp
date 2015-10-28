@@ -192,7 +192,7 @@ void QWidgetUtils::updateAppView()
 ///
 QString QWidgetUtils::getWidgetPath(QObject* o)
 {
-    assert ( o );
+    assert(o);
     //get the object path
     QString opath = "";
 

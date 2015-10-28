@@ -172,25 +172,15 @@ void QtEventExecutor::executeMousePressEvent(QOE::QOE_MousePress* qoe)
     {
         DEBUG(D_ERROR,"(QtEventExecutor::executeMousePressEvent) Missing Widget: "
               << qoe->widget());
+
     }
 
     /// Note that the widget might be NULL. Please, be careful!!
 
-    ///
-    ///pre_execution
-    ///
     DEBUG(D_EXECUTOR,"(QtEventExecutor::executeMousePressEvent) Pre execution");
     _preExecutionWithMouseMove(qoe, widget);
-
-    ///
-    ///execution
-    ///
     DEBUG(D_EXECUTOR,"(QtEventExecutor::executeMousePressEvent) Execute.");
     qoe->execute(widget);
-
-    ///
-    ///post_execution
-    ///
     DEBUG(D_EXECUTOR,"(QtEventExecutor::executeMousePressEvent) Post execution.");
     _postExecution(qoe, widget);
 

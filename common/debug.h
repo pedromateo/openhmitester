@@ -50,7 +50,7 @@ if (DEBUG_ENABLED) std::cout << content << std::endl;
 #define D_BOTH 2
 #define D_PRELOAD 3
 #define D_EXECUTOR 0
-#define D_CONSUMER 0
+#define D_CONSUMER 3
 #define D_GUI 4
 #define D_COMM 5
 
