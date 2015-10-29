@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>GeneralInputDialog</class>
- <widget class="QDialog" name="GeneralInputDialog">
+ <class>NewTSDialog</class>
+ <widget class="QDialog" name="NewTSDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Please, fill this information:</string>
+   <string>Create new Test Suite</string>
   </property>
   <property name="sizeGripEnabled">
    <bool>false</bool>
@@ -121,7 +121,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>GeneralInputDialog</receiver>
+   <receiver>NewTSDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -137,7 +137,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>GeneralInputDialog</receiver>
+   <receiver>NewTSDialog</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

@@ -25,10 +25,12 @@
 #include <cassert>
 #include <iostream>
 #include <debug.h>
-#include <generalinputdialog.h>
+#include <newtsdialog.h>
+#include <newtcdialog.h>
 #include <qtutils.h>
 #include <QFile>
 #include <ohtbaseconfig.h>
+#include <QWindow>
 
 HMITesterControl::HMITesterControl(PreloadingAction *pa, DataModelAdapter *dma, QWidget *parent)
     : QMainWindow(parent)
@@ -49,6 +51,8 @@ HMITesterControl::HMITesterControl(PreloadingAction *pa, DataModelAdapter *dma, 
     ///
     /// initialize GUI
     _initializeForm();
+
+    this->resize(210,62); // FIXME try to fix this in the designer
 }
 
 HMITesterControl::~HMITesterControl()
@@ -231,51 +235,48 @@ void HMITesterControl::tb_rec_clicked()
     if (_processControl->state() == ProcessControl::STOP)
     {
         //get the name of the new test case
-        QString data = "";
-        QStringList values;
-        values << "Name of the new Testcase:";
-        QStringList results = GeneralInputDialog::askForValues(values);
-        if (results.size() > 0)//OK
-        {
-            data = results[0];
-        }
-        else//Cancel
-        {
-            return;
-        }
+        NewTCDialog newtcd;
+        int result = newtcd.exec();
 
-        //give the name of the new tcase to the processcontrol
-        bool ok = _processControl->recordTestCase(data.toStdString());
+        // if everything ok...
+        if (result){
+            //call the controller method
+            bool ok = _processControl->recordTestCase(newtcd.getTestcaseName().toStdString());
 
-        //if the testCase already exists
-        if (!ok)
-        {
-            //ask the user
-            bool cont = QtUtils::showOkCancelDialog("TestCase '"
-                                                    + data
-                                                    +  "' already exists. Do you want to redefine it?");
-            //if the testCase has to be redefined
-            if (cont)
+            //process checking
+            //if the testCase already exists
+            if (!ok)
             {
-                ok = _processControl->recordExistingTestCase(data.toStdString());
-                //if an error occurs...
-                if (!ok)
+                //ask the user
+                bool cont = QtUtils::showOkCancelDialog(
+                            QString("TestCase '" + newtcd.getTestcaseName() + "' already exists. Do you want to redefine it?"));
+                //if the testCase has to be redefined
+                if (cont)
                 {
-                    QtUtils::newErrorDialog("The new TestCase cannot be created.");
+                    ok = _processControl->recordExistingTestCase(newtcd.getTestcaseName().toStdString());
+                    //if an error occurs...
+                    if (!ok)
+                    {
+                        QtUtils::newErrorDialog("The new TestCase cannot be created. Wrong data.");
+                        return;
+                    }
+                }
+                //if not...
+                else
+                {
                     return;
                 }
             }
-            //if not...
-            else
-            {
-                return;
-            }
+
+            // everything ok? go on with recording
+            DEBUG(D_GUI,"(HMITesterControl::tb_rec_clicked) Starting record process.");
+            _processControl->recClicked();
+        }
+        // if rejected...
+        else{
+            // do nothing
         }
     }
-
-    //indicate the rec button has been pressed
-    DEBUG(D_GUI,"(HMITesterControl::tb_rec_clicked) Starting record process.");
-    _processControl->recClicked();
 }
 
 
@@ -294,7 +295,7 @@ void HMITesterControl::action_open_triggered()
     QString path = "";
     path = QtUtils::openFileDialog("Please, select the file that contains the TestSuite:",
                                    ".",//TODO add dir reminder
-                                   "*");
+                                   "*."OHT_FILE_EXTENSION);
     if (path == "") return;
 
     //open the testSuite
@@ -313,53 +314,28 @@ void HMITesterControl::action_new_triggered()
 {
     DEBUG(D_GUI,"(HMITesterControl::action_new_triggered)");
 
-    //ask for the name of the TestSuite
-    QString name;
-    QStringList values;
-    values << "Name of the TestSuite:";
-    QStringList results = GeneralInputDialog::askForValues(values);
-    if (results.size() > 0)//OK
-    {
-        name = results[0];
+    // ask for new testsuite data
+    NewTSDialog newtsd;
+    int result = newtsd.exec();
+
+    // if everything ok...
+    if (result){
+        //call the controller method
+        bool ok = _processControl->newTestSuite(
+                    newtsd.getTestsuitePath().toStdString(),
+                    newtsd.getTestsuiteName().toStdString(),
+                    newtsd.getAUTPath().toStdString());
+
+        //process checking
+        if (!ok)
+        {
+            QtUtils::newErrorDialog("The TestSuite cannot be created. Wrong data.");
+            return;
+        }
     }
-    else//Cancel
-    {
-        return;
-    }
-
-    //ask for the location
-    QString path = "";
-    path = QtUtils::saveFileDialog("Please, select a path and a name to store the TestSuite:",
-                                   ".",//TODO add dir reminder
-                                   "*");
-    if (path == "") return;
-
-    //ask for the binary
-    QString binaryPath = "";
-    binaryPath = QtUtils::openFileDialog("Please, select the binary to be tested:",
-                                         ".",//TODO add dir reminder
-                                         "*");
-    if (binaryPath == "") return;
-
-
-    //check is is a valid binary
-    bool ok = QtUtils::isExecutable(binaryPath);
-    if (!ok)
-    {
-        QtUtils::newErrorDialog("The file selected is not a valid binary.");
-        return;
-    }
-
-    //call the controller method
-    ok = _processControl->newTestSuite(path.toStdString(),
-                                      name.toStdString(),
-                                      binaryPath.toStdString());
-
-    //process checking
-    if (!ok)
-    {
-        QtUtils::newErrorDialog("The TestSuite cannot be created.");
-        return;
+    // if rejected...
+    else{
+        // do nothing
     }
 }
 

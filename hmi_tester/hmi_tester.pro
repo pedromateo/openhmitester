@@ -68,7 +68,8 @@ SOURCES += hmitestercontrol.cpp \
     datamodelmanager.cpp \
     executionthread.cpp \
     itemmanager.cpp \
-    generalinputdialog.cpp
+    newtsdialog.cpp \
+    newtcdialog.cpp
 
 HEADERS += hmitestercontrol.h \
     executionobserver.h \
@@ -80,7 +81,8 @@ HEADERS += hmitestercontrol.h \
     datamodeladapter.h \
     executionthread.h \
     itemmanager.h \
-    generalinputdialog.h \
+    newtsdialog.h \
+    newtcdialog.h \
     executionobserver.h \
     recordingobserver.h \
     exceptions.h
@@ -89,7 +91,8 @@ SOURCES += qtutils.cpp
 HEADERS += qtutils.h
 
 FORMS += hmitestercontrol.ui \
-    generalinputdialog.ui
+    newtsdialog.ui \
+    newtcdialog.ui
 
 LIBS += -lboost_thread -lboost_system -lboost_serialization
 

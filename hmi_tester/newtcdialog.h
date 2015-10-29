@@ -20,43 +20,43 @@
  *   http://openhmitester.sourceforge.net
  *
  */
-#ifndef GENERALINPUTDIALOG_H
-#define GENERALINPUTDIALOG_H
+#ifndef NewTCDialog_H
+#define NewTCDialog_H
 
 #include <QDialog>
-#include <boost/ptr_container/ptr_map.hpp>
 #include <QLineEdit>
 #include <QString>
 
 namespace Ui {
-    class GeneralInputDialog;
+    class NewTCDialog;
 }
 
-class GeneralInputDialog : public QDialog {
+class NewTCDialog : public QDialog {
     Q_OBJECT
-    Q_DISABLE_COPY(GeneralInputDialog);
+    //Q_DISABLE_COPY(NewTCDialog);
 
 public:
-    explicit GeneralInputDialog(QWidget *parent = 0);
-    virtual ~GeneralInputDialog();
+    explicit NewTCDialog(QWidget *parent = 0);
+    virtual ~NewTCDialog();
 
-    //add element
-    void addElement(const QString&);
+public:
 
-    //getData methods
-    QString getData(const QString&);
+    QString& getTestcaseName();
 
-    //static utilities
-    static QStringList askForValues(const QStringList&);
 
-protected:
-    virtual void changeEvent(QEvent *e);
+
+
+private slots:
+
+    void on_buttonBox_accepted();
+
+    void on_buttonBox_rejected();
+
+    void on_le_tcName_editingFinished();
 
 private:
-    Ui::GeneralInputDialog *m_ui;
-
-    //input map
-    boost::ptr_map<QString, QLineEdit*> elements_;
+    Ui::NewTCDialog *m_ui;
+    QString _tcName;
 };
 
-#endif // GENERALINPUTDIALOG_H
+#endif // NewTCDialog_H

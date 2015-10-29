@@ -58,7 +58,8 @@ equals(QT_MAJOR_VERSION, 5) {
         ../hmi_tester/datamodelmanager.cpp \
         ../hmi_tester/executionthread.cpp \
         ../hmi_tester/itemmanager.cpp \
-        ../hmi_tester/generalinputdialog.cpp
+        ../hmi_tester/newtsdialog.cpp \
+        ../hmi_tester/newtcdialog.cpp
 
     HEADERS += ../hmi_tester/hmitestercontrol.h \
         ../hmi_tester/executionobserver.h \
@@ -70,7 +71,8 @@ equals(QT_MAJOR_VERSION, 5) {
         ../hmi_tester/datamodeladapter.h \
         ../hmi_tester/executionthread.h \
         ../hmi_tester/itemmanager.h \
-        ../hmi_tester/generalinputdialog.h \
+        ../hmi_tester/newtsdialog.h \
+        ../hmi_tester/newtcdialog.h \
         ../hmi_tester/executionobserver.h \
         ../hmi_tester/recordingobserver.h \
         ../hmi_tester/exceptions.h
@@ -79,7 +81,8 @@ equals(QT_MAJOR_VERSION, 5) {
     HEADERS += ../hmi_tester/qtutils.h
 
     FORMS += ../hmi_tester/hmitestercontrol.ui \
-        ../hmi_tester/generalinputdialog.ui
+        ../hmi_tester/newtsdialog.ui \
+        ../hmi_tester/newtcdialog.ui
 
     LIBS += -lboost_thread -lboost_system -lboost_serialization
 

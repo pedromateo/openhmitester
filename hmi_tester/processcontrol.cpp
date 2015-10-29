@@ -547,7 +547,7 @@ bool ProcessControl::recordTestCase(const std::string& tcName)
             //create a new testCase to be recorded
             current_testCase_ = new DataModel::TestCase();
             current_testCase_->name(tcName);
-            DEBUG(D_RECORDING,"(ProcessControl::recordTestCase) Crated new TestCase: " <<
+            DEBUG(D_RECORDING,"(ProcessControl::recordTestCase) Created new TestCase: " <<
                   tcName);
             return true;
         }
