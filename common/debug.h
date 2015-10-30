@@ -35,6 +35,9 @@
 #define DEBUGc(content)\
 if (DEBUG_ENABLED) std::cout << content << std::endl;
 
+#define _d(content)\
+if (DEBUG_ENABLED) std::cout << content << std::endl;
+
 ///
 /// parameterized debug
 ///
@@ -47,12 +50,12 @@ if (DEBUG_ENABLED) std::cout << content << std::endl;
 #define D_ERROR 1
 #define D_PLAYBACK 2
 #define D_RECORDING 2
-#define D_BOTH 2
-#define D_PRELOAD 3
+#define D_BOTH 0
+#define D_PRELOAD 2
 #define D_EXECUTOR 0
-#define D_CONSUMER 3
-#define D_GUI 4
-#define D_COMM 5
+#define D_CONSUMER 0
+#define D_GUI 0
+#define D_COMM 0
 
 //method
 #define DEBUG(type,content)\

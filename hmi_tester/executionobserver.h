@@ -24,11 +24,14 @@
 #define EXECUTIONOBSERVER_H
 
 // Observer of an execution
-class ExecutionObserver
+class PlaybackObserver
 {
-    public:
+
+public:
+
     virtual void completedPercentageNotification(int) = 0;
     virtual void executionThreadTerminated(int) = 0;
+
 };
 
 #endif

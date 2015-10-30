@@ -38,10 +38,17 @@
 
 Comm::Comm (int port, bool isServer)
 {
-    isServer_ = isServer;
+    _port = port;
+    _isServer = isServer;
+}
 
+
+
+bool Comm::resetAndStart()
+{
     //creating the client/server
-    mcs_.reset (new MessageClientServer ( this, port, isServer ));
+    mcs_.reset (new MessageClientServer ( this, _port, _isServer ));
+
     //connecting to its signals
     connect ( this, SIGNAL ( sendMessage ( const QString & ) ),
               mcs_.get(), SLOT ( writeMessage ( const QString& ) ) );
@@ -57,19 +64,38 @@ Comm::Comm (int port, bool isServer)
               this, SLOT ( handleError ( const QString& ) ) );
 
     //if it is a server...
-    if ( isServer_ )
+    if ( _isServer )
     {
-        DEBUG(D_COMM,"(Comm::Comm) Created new message server on port " << TCP_PORT);
+        DEBUG(D_COMM,"(Comm::Comm) Created new message server on port " << _port);
     }
     //if it is a client...
     else
     {
-        DEBUG(D_COMM,"(Comm::Comm) Created new client on port " << TCP_PORT);
+        DEBUG(D_COMM,"(Comm::Comm) Created new client on port " << _port);
     }
 
     clientConnected_ = false;
     testItemQueue_.clear();
+
+    DEBUG(D_COMM,"(Comm::Comm) COMM STARTED");
+
+    return true;
 }
+
+
+
+bool Comm::stop()
+{
+    mcs_.reset(0);
+    clientConnected_ = false;
+    testItemQueue_.clear();
+
+    DEBUG(D_COMM,"(Comm::Comm) COMM STOPED");
+    return true;
+}
+
+
+
 
 ///
 /// send message handler
@@ -92,7 +118,7 @@ void Comm::handleSendTestItem (const DataModel::TestItem& ti)
     DEBUG(D_COMM,"(Comm::handleSendTestItem)");
 
     // If the client is not connected, store the event
-    if (isServer_ && !clientConnected_)
+    if (_isServer && !clientConnected_)
     {
         testItemQueue_.push_back(ti);
         DEBUG(D_COMM,"(Comm::handleSendTestItem) Item in the queue.");

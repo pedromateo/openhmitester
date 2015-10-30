@@ -36,7 +36,7 @@ class PlaybackControl
 
 public:
 
-    PlaybackControl(Comm*, ExecutionObserver*);
+    PlaybackControl(Comm*, PlaybackObserver*);
     ~PlaybackControl();
 
     ///execution process control
@@ -54,7 +54,7 @@ private:
     //communication
     Comm *comm_;
 
-    ExecutionObserver* observer_;
+    PlaybackObserver* observer_;
 
     // Execution thread
     std::auto_ptr<ExecutionThread> executionThread_;

@@ -38,7 +38,7 @@ class ExecutionThread
     enum thread_state_t { NONE, PAUSED, RUN, STOPPED, WANT_TERMINATE, ERROR };
 
 public:
-    ExecutionThread(Comm*, ExecutionObserver*, float speed );
+    ExecutionThread(Comm*, PlaybackObserver*, float speed );
     ~ExecutionThread();
 
 public:
@@ -86,7 +86,7 @@ private:
     Comm *_comm;
 
     // Control object
-    ExecutionObserver* _observer;
+    PlaybackObserver* _observer;
 
     //execution speed
     float _executionSpeed;

@@ -34,10 +34,10 @@
 class LIBPRELOADSHARED_EXPORT PreloadController : public QObject
 {
     Q_OBJECT
-    ///
-    ///type definition
-    ///
+
+
 public:
+
     //process state
     typedef enum
     {

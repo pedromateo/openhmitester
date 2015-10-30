@@ -77,6 +77,10 @@ private:
     QActionGroup *deleteTestCaseActionGroup_;
     QActionGroup *speedActionGroup_;
 
+
+    QMenu* _playAndDeleteMenu;
+    QActionGroup* _playAndDeleteMenu_agroup;
+
     // overall process controller
     ProcessControl* _processControl;
 
@@ -99,8 +103,8 @@ private slots:
     void action_showTesterOnTop_triggered(bool);
 
     //testSuite handling
-    void PlayTestCaseSelected_triggered();
-    void DeleteTestCaseSelected_triggered(bool);
+    void _playTestCaseSelected_triggered(bool);
+    void _deleteTestCaseSelected_triggered(bool);
 
     //form visualization internal methods
     void _form_initState();
@@ -111,6 +115,10 @@ private slots:
     void _form_pauseRecState();
     void _form_playbackStatus(int);
     void _form_recordingStatus(int);
+
+    // status bar messages
+    void _set_statusbar_text(const QString &msg, int timeout = 0);
+    void _set_statusbar_text(const char* msg, int timeout = 0);
 
 signals:
 

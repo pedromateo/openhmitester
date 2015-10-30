@@ -77,7 +77,7 @@ signals:
     ///
     /// Application finished notification
     ///
-    void applicationFinished(int);
+    void applicationClosed(int);
 
 private slots:
 

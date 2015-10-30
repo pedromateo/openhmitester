@@ -41,7 +41,7 @@ TODO in future work:
 ///
 /// constructors
 ///
-ExecutionThread::ExecutionThread(Comm *c, ExecutionObserver* pc , float speed)
+ExecutionThread::ExecutionThread(Comm *c, PlaybackObserver* pc , float speed)
     : _comm (c), _observer (pc), _executionSpeed(speed)
 {
     // flags
@@ -163,6 +163,10 @@ void ExecutionThread::operator()()
 
     DEBUG(D_PLAYBACK, "(ExecutionThread::run) StopPlayback command sent.");
 
+
+    DEBUG(D_PLAYBACK, "(ExecutionThread::run) Finishing."
+          "________________________________________________________________");
+
     //execution thread finished notification
     int result = 0;
     if (threadState_ == WANT_TERMINATE) result = 2;
@@ -175,9 +179,6 @@ void ExecutionThread::operator()()
     threadState_ = NONE;
     pendingState_ = NONE;
     currentTestCase_ = NULL;
-
-    DEBUG(D_PLAYBACK, "(ExecutionThread::run) Finished."
-          "________________________________________________________________");
 
     return;
 }

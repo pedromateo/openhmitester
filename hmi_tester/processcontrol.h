@@ -40,7 +40,7 @@ class HMITesterControl;
 
 
 class ProcessControl :
-        public QObject, public ExecutionObserver, public RecordingObserver
+        public QObject, public PlaybackObserver, public RecordingObserver
 {
 
     Q_OBJECT
@@ -52,13 +52,8 @@ public:
     //process state
     typedef enum
     {
-        INIT,
-        STOP,
-        RECORD,
-        PLAY,
-        PAUSE_PLAY,
-        PAUSE_RECORD
-    } ProcessState;
+        INIT, STOP, RECORD, PLAY, PAUSE_PLAY, PAUSE_RECORD
+    } OHTProcessState;
 
     //process context
     typedef struct
@@ -66,7 +61,7 @@ public:
         bool keepAlive;
         float speed;
         bool showTesterOnTop;
-    } ProcessContext;
+    } OHTProcessContext;
 
 public:
 
@@ -75,8 +70,10 @@ public:
 
     void initialize();
 
-    void GUIReference(HMITesterControl*);
-    HMITesterControl* GUIReference() const;
+    void setGUIReference(HMITesterControl*);
+    HMITesterControl* setGUIReference() const;
+
+public:
 
     ///
     /// ExecutionObserver implementation
@@ -101,7 +98,7 @@ public slots:
     ///
 
     ///processes
-    void playClicked();
+    void playQueuedTestCases();
     void pauseClicked();
     void stopClicked();
     void recClicked();
@@ -113,21 +110,21 @@ public slots:
                       const std::string& binaryPath);
 
     ///test case
-    bool playTestCase(const std::string&);
+    bool checkAndQueueTestCase(const std::string&);
     bool deleteTestCase(const std::string&);
     bool recordTestCase(const std::string&);
     bool recordExistingTestCase(const std::string&);
 
     ///process state
-    ProcessState state() const;
+    OHTProcessState state() const;
 
     ///process context
-    ProcessContext& context();
+    OHTProcessContext& context();
 
     ///
     /// comm
     ///
-    void handleCommError(const std::string&);
+    void slot_handleCommError(const std::string&);
 
 
 
@@ -153,8 +150,8 @@ private slots:
     /// handled signals from preloading control
     ///
 
-    void preloading_handleLaunchedApplicationFinished(int);
-    void preloading_handleErrorNotification(const std::string&);
+    void slot_handleApplicationClosed(int);
+    void slot_handlePreloadingError(const std::string&);
 
     ///
     /// control signaling handle
@@ -168,9 +165,10 @@ private slots:
 private:
 
     ///
-    ///support methods
+    ///supporting methods
     ///
-    void setState(ProcessState);
+
+    void _setState(OHTProcessState);
 
     ///
     ///variables
@@ -184,7 +182,7 @@ private:
     std::auto_ptr<RecordingControl> recording_control_;
 
     //communication manager
-    std::auto_ptr<Comm> comm_;
+    std::auto_ptr<Comm> _comm;
 
     //dataModel manager
     DataModelManager *dataModel_manager_;
@@ -194,9 +192,10 @@ private:
     PreloadingAction* preloading_action_;
 
     //current testSuite
-    DataModel::TestSuite* current_testSuite_;
-    //current testCase
-    DataModel::TestCase* current_testCase_;
+    DataModel::TestSuite* _current_testsuite;
+    //current testCases
+    std::list<DataModel::TestCase*> _testcases_queue;
+    DataModel::TestCase* _current_testcase;
     //current fileName
     std::string current_filename_;
     // current lib preload path
@@ -205,10 +204,10 @@ private:
     std::string current_oht_path_;
 
     //process state
-    ProcessState state_;
+    OHTProcessState state_;
 
     //process context
-    ProcessContext context_;
+    OHTProcessContext context_;
 };
 
 #endif // PROCESSCONTROL_H

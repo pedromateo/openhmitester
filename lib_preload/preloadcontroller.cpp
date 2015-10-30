@@ -34,7 +34,10 @@ PreloadController::PreloadController(PreloadingControl* pc, EventConsumer *ec, E
 
 PreloadController::~PreloadController()
 {
-    if (_comm != NULL) delete _comm;
+    if (_comm != NULL){
+        _comm->stop();
+        delete _comm;
+    }
 }
 
 ///
@@ -42,8 +45,9 @@ PreloadController::~PreloadController()
 ///
 bool PreloadController::initialize()
 {
-    //create comm
+    //create and start comm
     _comm = new Comm(TCP_PORT, false);
+    _comm->resetAndStart();
 
     //install consumer
     _ev_consumer->install();

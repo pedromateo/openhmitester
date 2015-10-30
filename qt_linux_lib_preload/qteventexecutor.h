@@ -78,8 +78,7 @@ private:
     ///
     /// mouse simulation
     ///
-    ///
-    const int MOUSE_MOVE_DELAY_MS = 500;
+    const int MOUSE_MOVE_DELAY_MS = 400;
     const int MOUSE_MOVE_STEPS = 18;
     QPoint _last_mouse_pos;
     void _simulateMouseMove(const QPoint&, const QPoint&, QWidget *hoverOnWidget = NULL);

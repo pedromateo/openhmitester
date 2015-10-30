@@ -90,7 +90,8 @@ MessageClientServer::MessageClientServer ( QObject *parent, uint port, bool isSe
 }
 
 MessageClientServer::~MessageClientServer()
-{}
+{
+}
 
 ///
 /// (Only for Server) Handles an incoming connection

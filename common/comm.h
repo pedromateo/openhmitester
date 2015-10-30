@@ -37,7 +37,13 @@ class Comm : public QObject
     Q_OBJECT
 
 public:
+
     Comm ( int port, bool isServer );
+
+    bool resetAndStart();
+    bool stop();
+
+public:
 
     MessageClientServer * messageServer();
     MessageClientServer * messageClient();
@@ -69,7 +75,8 @@ private:
     // Pending events to process
     std::deque<DataModel::TestItem> testItemQueue_;
     std::auto_ptr<MessageClientServer> mcs_;
-    bool isServer_;
+    bool _isServer;
+    int _port;
     bool clientConnected_;
 };
 

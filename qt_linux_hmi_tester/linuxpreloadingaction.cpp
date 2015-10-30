@@ -54,7 +54,7 @@ bool LinuxPreloadingAction::launchApplication ( const std::string &binaryPath,
     if ( !QtUtils::fileExists(QString(preloadLibraryPath.c_str()) ) )
         throw lib_error_exception(preloadLibraryPath);
 
-    //create a new process
+    //delete current and create a new process
     process_.reset (new QProcess (this));
 
     //redirect process output
@@ -69,17 +69,10 @@ bool LinuxPreloadingAction::launchApplication ( const std::string &binaryPath,
               this, SIGNAL ( standardError(const QString&) ) );*/
 
     //connecting process signals
-    connect ( process_.get(), SIGNAL ( finished ( int, QProcess::ExitStatus ) ),
-              this, SIGNAL ( applicationFinished(int) ) );
+    connect ( process_.get(), SIGNAL ( finished (int, QProcess::ExitStatus) ),
+              this, SIGNAL ( applicationClosed(int) ) );
 
     //setting preloading environment for the process
-
-    /*QStringList env = process_->systemEnvironment();
-    QString envvar(PRELOAD_ENVVAR);
-    envvar.append("=").append(preloadLibraryPath.c_str());
-    env << envvar;
-    process_->setEnvironment(env);*/
-
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
     env.insert(PRELOAD_ENVVAR, QString(preloadLibraryPath.c_str()));
     //env.insert(PRELOAD_ENVVAR, "/home/pedro/svn_catedra/anotaciones/testing/imp_HMITester_github/openhmitester/build/qt_linux_lib_preload/libOHTPreload.so");

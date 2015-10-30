@@ -26,7 +26,7 @@
 #include "debug.h"
 #include <boost/ref.hpp>
 
-PlaybackControl::PlaybackControl(Comm *c, ExecutionObserver* pc)
+PlaybackControl::PlaybackControl(Comm *c, PlaybackObserver* pc)
     : comm_ (c), observer_ (pc)
 {
 }
