@@ -15,9 +15,15 @@ OHT is open-source and ready to use.
 OHT can be adapted to support different GUI platforms and operating systems. An adaptation to Qt-Linux
 testing environments is provided in this repository.
 
+# Any question? Any bug?
+
+Please, contact me at pedrolmn@gmail.com
+
 # OHT in action
 
 ## Recording and playing desktop test cases
+
+https://www.youtube.com/watch?v=PiwPB8uwZOk
 
 <iframe width="420" height="315" src="https://www.youtube.com/embed/PiwPB8uwZOk" frameborder="0" allowfullscreen></iframe>
 
@@ -25,6 +31,9 @@ testing environments is provided in this repository.
 
 Note that this might produce unexpected results, as in the current implementation of the OHT, the test is recorded in the browser, not in the web page. We are working hard to provide a robust web-testing experience.
 
+https://www.youtube.com/watch?v=Smcj3WmdPdQ
+
+<iframe width="420" height="315" src="https://www.youtube.com/embed/Smcj3WmdPdQ" frameborder="0" allowfullscreen></iframe>
 
 
 
