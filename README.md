@@ -23,19 +23,17 @@ Please, contact me at pedrolmn@gmail.com
 
 ## Recording and playing desktop test cases
 
-https://www.youtube.com/watch?v=PiwPB8uwZOk
+[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/PiwPB8uwZOk/0.jpg)](http://www.youtube.com/watch?v=PiwPB8uwZOk)
 
-<iframe width="420" height="315" src="https://www.youtube.com/embed/PiwPB8uwZOk" frameborder="0" allowfullscreen></iframe>
+https://www.youtube.com/watch?v=PiwPB8uwZOk
 
 ## Recording and playing web test cases
 
 Note that this might produce unexpected results, as in the current implementation of the OHT, the test is recorded in the browser, not in the web page. We are working hard to provide a robust web-testing experience.
 
+[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/Smcj3WmdPdQ/0.jpg)](http://www.youtube.com/watch?v=Smcj3WmdPdQ)
+
 https://www.youtube.com/watch?v=Smcj3WmdPdQ
-
-<iframe width="420" height="315" src="https://www.youtube.com/embed/Smcj3WmdPdQ" frameborder="0" allowfullscreen></iframe>
-
-
 
 
 # Content of this repository
