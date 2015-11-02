@@ -19,7 +19,7 @@
 
         <header>
           <h1>Open HMI Tester</h1>
-          <h2>&quot;Open HMI Tester&quot; is a GUI Testing tool following an open architecture that describes a non intrusive capture/replay tool based on GUI Events. It may be adapted to support different windowing systems and operating systems used in the testing environment.</h2>
+          <h2>&quot;Open HMI Tester&quot; or OHT is an application framework for the development of GUI testing tools. It uses GUI introspection to capture and simulate real user interaction. OHT provides a cross-platform, open design to support major event-based GUI platforms. It can be integrated into ongoing and legacy developments. </h2>
         </header>
 
         <section id="downloads" class="clearfix">
@@ -31,12 +31,75 @@
         <hr>
 
         <section id="main_content">
-          <h3>
-<a id="info-and-downloads" class="anchor" href="#info-and-downloads" aria-hidden="true"><span class="octicon octicon-link"></span></a>+info and downloads</h3>
+          <h1>
+<a id="oht-open-hmi-tester" class="anchor" href="#oht-open-hmi-tester" aria-hidden="true"><span class="octicon octicon-link"></span></a>OHT: Open HMI Tester</h1>
 
-<p>Current version is developed for Qt user interfaces.</p>
+<p>"Open HMI Tester" or OHT is an application framework for the development of GUI testing tools. It uses
+GUI introspection to capture and simulate real user interaction, which enhances
+robustness and tolerance to changes during testing stage. </p>
 
-<p>Please, visit the project webpage for updated info and downloads: <a href="http://www.catedrasaes.org/wiki/OHT">OHT site</a></p>
+<p>OHT provides a cross-platform, open design to support major event-based GUI platforms. Furthermore,
+it can be integrated into ongoing and legacy developments due to it being not code-intrusive. 
+As a result, the framework provides an adaptable, extensible, scalable,
+and robust basis to support the automation of GUI testing processes. </p>
+
+<p>OHT is open-source and ready to use.</p>
+
+<p>OHT can be adapted to support different GUI platforms and operating systems. An adaptation to Qt-Linux
+testing environments is provided in this repository.</p>
+
+<h1>
+<a id="any-question-any-bug" class="anchor" href="#any-question-any-bug" aria-hidden="true"><span class="octicon octicon-link"></span></a>Any question? Any bug?</h1>
+
+<p>Please, contact me at <a href="mailto:pedrolmn@gmail.com">pedrolmn@gmail.com</a></p>
+
+<h1>
+<a id="oht-in-action" class="anchor" href="#oht-in-action" aria-hidden="true"><span class="octicon octicon-link"></span></a>OHT in action</h1>
+
+<h2>
+<a id="recording-and-playing-desktop-test-cases" class="anchor" href="#recording-and-playing-desktop-test-cases" aria-hidden="true"><span class="octicon octicon-link"></span></a>Recording and playing desktop test cases</h2>
+
+
+
+<p><a href="https://www.youtube.com/watch?v=PiwPB8uwZOk">https://www.youtube.com/watch?v=PiwPB8uwZOk</a></p>
+
+<h2>
+<a id="recording-and-playing-web-test-cases" class="anchor" href="#recording-and-playing-web-test-cases" aria-hidden="true"><span class="octicon octicon-link"></span></a>Recording and playing web test cases</h2>
+
+<p>Note that this might produce unexpected results, as in the current implementation of the OHT, the test is recorded in the browser, not in the web page. We are working hard to provide a robust web-testing experience.</p>
+
+
+
+<p><a href="https://www.youtube.com/watch?v=Smcj3WmdPdQ">https://www.youtube.com/watch?v=Smcj3WmdPdQ</a></p>
+
+<h1>
+<a id="contents-of-this-repository" class="anchor" href="#contents-of-this-repository" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contents of this repository</h1>
+
+<h2>
+<a id="oht-base-architecture" class="anchor" href="#oht-base-architecture" aria-hidden="true"><span class="octicon octicon-link"></span></a>OHT base architecture</h2>
+
+<ul>
+<li>common: includes common sources.</li>
+<li>hmi_tester: includes implementation of the OHT controller</li>
+<li>lib_preload: includes implementation of the library injected in the application to test.</li>
+<li>build_oht_base: Qt Creator project to build the base architecture.</li>
+</ul>
+
+<h2>
+<a id="qt-linux-oht-adaptation" class="anchor" href="#qt-linux-oht-adaptation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Qt-Linux OHT Adaptation</h2>
+
+<ul>
+<li>qt_linux_hmi_tester: implementation of the OHT controller for a Qt-Linux testing environment.</li>
+<li>qt_linux_lib_preload: implementation of the injected library for a Qt-Linux testing environment.</li>
+<li>build_oht_qt_linux: Qt Creator project to build the Qt-Linux GUI testing tool.</li>
+</ul>
+
+<h2>
+<a id="further-information" class="anchor" href="#further-information" aria-hidden="true"><span class="octicon octicon-link"></span></a>Further information</h2>
+
+<p>Webpage: <a href="http://www.catedrasaes.org/wiki/OHT">http://www.catedrasaes.org/wiki/OHT</a></p>
+
+<p>Videos: <a href="http://www.youtube.com/user/CatedraSaesUmu">http://www.youtube.com/user/CatedraSaesUmu</a></p>
         </section>
 
         <footer>
