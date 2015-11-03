@@ -53,11 +53,21 @@ https://www.youtube.com/watch?v=Smcj3WmdPdQ
 * qt_linux_lib_preload: implementation of the injected library for a Qt-Linux testing environment.
 * build_oht_qt_linux: Qt Creator project to build the Qt-Linux GUI testing tool.
 
+## FAQ
+
+# How to adapt OHT to Windows environments?
+
+1. In qt_linux_hmi_tester, find the class linuxpreloadingaction.h. 
+2. Create a similar class to support library preloading in windows.
+3. In qt_linux_lib_preload, find qtx11preloadingcontrol class.
+4. Create a similar class to "wake up" the OHT at application startup and start OHT installation process.
 
 ## Further information
 
 Webpage: http://www.catedrasaes.org/wiki/OHT
 
 Videos: http://www.youtube.com/user/CatedraSaesUmu
+
+
 
 
