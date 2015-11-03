@@ -3,34 +3,31 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+
     <title>Open HMI Tester by pedromateo</title>
   </head>
 
   <body>
-    <div id="container">
+    <header>
       <div class="inner">
+        <h1>Open HMI Tester</h1>
+        <h2>&quot;Open HMI Tester&quot; or OHT is an application framework for the development of GUI testing tools. It uses GUI introspection to capture and simulate real user interaction. OHT provides a cross-platform, open design to support major event-based GUI platforms. It can be integrated into ongoing and legacy developments. </h2>
+        <a href="https://github.com/pedromateo/openhmitester" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
 
-        <header>
-          <h1>Open HMI Tester</h1>
-          <h2>&quot;Open HMI Tester&quot; or OHT is an application framework for the development of GUI testing tools. It uses GUI introspection to capture and simulate real user interaction. OHT provides a cross-platform, open design to support major event-based GUI platforms. It can be integrated into ongoing and legacy developments. </h2>
-        </header>
-
-        <section id="downloads" class="clearfix">
-          <a href="https://github.com/pedromateo/openhmitester/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
-          <a href="https://github.com/pedromateo/openhmitester/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
-          <a href="https://github.com/pedromateo/openhmitester" id="view-on-github" class="button"><span>View on GitHub</span></a>
-        </section>
-
-        <hr>
-
-        <section id="main_content">
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
           <h1>
 <a id="oht-open-hmi-tester" class="anchor" href="#oht-open-hmi-tester" aria-hidden="true"><span class="octicon octicon-link"></span></a>OHT: Open HMI Tester</h1>
 
@@ -59,7 +56,7 @@ testing environments is provided in this repository.</p>
 <h2>
 <a id="recording-and-playing-desktop-test-cases" class="anchor" href="#recording-and-playing-desktop-test-cases" aria-hidden="true"><span class="octicon octicon-link"></span></a>Recording and playing desktop test cases</h2>
 
-
+<p><a href="http://www.youtube.com/watch?v=PiwPB8uwZOk"><img src="http://img.youtube.com/vi/PiwPB8uwZOk/0.jpg" alt="IMAGE ALT TEXT HERE"></a></p>
 
 <p><a href="https://www.youtube.com/watch?v=PiwPB8uwZOk">https://www.youtube.com/watch?v=PiwPB8uwZOk</a></p>
 
@@ -68,12 +65,12 @@ testing environments is provided in this repository.</p>
 
 <p>Note that this might produce unexpected results, as in the current implementation of the OHT, the test is recorded in the browser, not in the web page. We are working hard to provide a robust web-testing experience.</p>
 
-
+<p><a href="http://www.youtube.com/watch?v=Smcj3WmdPdQ"><img src="http://img.youtube.com/vi/Smcj3WmdPdQ/0.jpg" alt="IMAGE ALT TEXT HERE"></a></p>
 
 <p><a href="https://www.youtube.com/watch?v=Smcj3WmdPdQ">https://www.youtube.com/watch?v=Smcj3WmdPdQ</a></p>
 
 <h1>
-<a id="contents-of-this-repository" class="anchor" href="#contents-of-this-repository" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contents of this repository</h1>
+<a id="content-of-this-repository" class="anchor" href="#content-of-this-repository" aria-hidden="true"><span class="octicon octicon-link"></span></a>Content of this repository</h1>
 
 <h2>
 <a id="oht-base-architecture" class="anchor" href="#oht-base-architecture" aria-hidden="true"><span class="octicon octicon-link"></span></a>OHT base architecture</h2>
@@ -95,6 +92,19 @@ testing environments is provided in this repository.</p>
 </ul>
 
 <h2>
+<a id="faq" class="anchor" href="#faq" aria-hidden="true"><span class="octicon octicon-link"></span></a>FAQ</h2>
+
+<h3>
+<a id="how-to-adapt-oht-to-windows-environments" class="anchor" href="#how-to-adapt-oht-to-windows-environments" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to adapt OHT to Windows environments?</h3>
+
+<ol>
+<li>In qt_linux_hmi_tester, find the class linuxpreloadingaction.h. </li>
+<li>Create a similar class to support library preloading in windows.</li>
+<li>In qt_linux_lib_preload, find qtx11preloadingcontrol class.</li>
+<li>Create a similar class to "wake up" the OHT at application startup and start OHT installation process.</li>
+</ol>
+
+<h2>
 <a id="further-information" class="anchor" href="#further-information" aria-hidden="true"><span class="octicon octicon-link"></span></a>Further information</h2>
 
 <p>Webpage: <a href="http://www.catedrasaes.org/wiki/OHT">http://www.catedrasaes.org/wiki/OHT</a></p>
@@ -102,12 +112,24 @@ testing environments is provided in this repository.</p>
 <p>Videos: <a href="http://www.youtube.com/user/CatedraSaesUmu">http://www.youtube.com/user/CatedraSaesUmu</a></p>
         </section>
 
-        <footer>
-          Open HMI Tester is maintained by <a href="https://github.com/pedromateo">pedromateo</a><br>
-          This page was generated by <a href="https://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
-        </footer>
+        <aside id="sidebar">
+          <a href="https://github.com/pedromateo/openhmitester/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/pedromateo/openhmitester/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
 
-                  <script type="text/javascript">
+          <p class="repo-owner"><a href="https://github.com/pedromateo/openhmitester"></a> is maintained by <a href="https://github.com/pedromateo">pedromateo</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+            <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
           </script>
@@ -118,7 +140,5 @@ testing environments is provided in this repository.</p>
             } catch(err) {}
           </script>
 
-      </div>
-    </div>
   </body>
 </html>
