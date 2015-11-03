@@ -55,7 +55,7 @@ https://www.youtube.com/watch?v=Smcj3WmdPdQ
 
 ## FAQ
 
-# How to adapt OHT to Windows environments?
+### How to adapt OHT to Windows environments?
 
 1. In qt_linux_hmi_tester, find the class linuxpreloadingaction.h. 
 2. Create a similar class to support library preloading in windows.
