@@ -91,8 +91,8 @@ testing environments is provided in this repository.</p>
 <li>build_oht_qt_linux: Qt Creator project to build the Qt-Linux GUI testing tool.</li>
 </ul>
 
-<h2>
-<a id="faq" class="anchor" href="#faq" aria-hidden="true"><span class="octicon octicon-link"></span></a>FAQ</h2>
+<h1>
+<a id="faq" class="anchor" href="#faq" aria-hidden="true"><span class="octicon octicon-link"></span></a>FAQ</h1>
 
 <h3>
 <a id="how-to-adapt-oht-to-windows-environments" class="anchor" href="#how-to-adapt-oht-to-windows-environments" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to adapt OHT to Windows environments?</h3>
@@ -104,8 +104,16 @@ testing environments is provided in this repository.</p>
 <li>Create a similar class to "wake up" the OHT at application startup and start OHT installation process.</li>
 </ol>
 
-<h2>
-<a id="further-information" class="anchor" href="#further-information" aria-hidden="true"><span class="octicon octicon-link"></span></a>Further information</h2>
+<h3>
+<a id="how-does-the-injection--preloading-process-works" class="anchor" href="#how-does-the-injection--preloading-process-works" aria-hidden="true"><span class="octicon octicon-link"></span></a>How does the injection + preloading process works?</h3>
+
+<ol>
+<li><p>The class doing DLL injection before application launching is called LinuxPreloadingAction (extends PreloadingAction) and it is in the HMI Tester. In Linux, it uses the environment variable LD_PRELOAD to set the library to be preloaded before target application launching.</p></li>
+<li><p>The class deploying the OHT services into the target application is QtX11PreloadingControl (extends PreloadingControl) and it is in the Lib Preload. In Linux, it uses QWidget::x11Event in Qt4, or QWidget::nativeEvent in Qt5 to "automatically wake up" and start deploying event consumer and executor.</p></li>
+</ol>
+
+<h1>
+<a id="further-information" class="anchor" href="#further-information" aria-hidden="true"><span class="octicon octicon-link"></span></a>Further information</h1>
 
 <p>Webpage: <a href="http://www.catedrasaes.org/wiki/OHT">http://www.catedrasaes.org/wiki/OHT</a></p>
 
