@@ -53,7 +53,7 @@ https://www.youtube.com/watch?v=Smcj3WmdPdQ
 * qt_linux_lib_preload: implementation of the injected library for a Qt-Linux testing environment.
 * build_oht_qt_linux: Qt Creator project to build the Qt-Linux GUI testing tool.
 
-## FAQ
+# FAQ
 
 ### How to adapt OHT to Windows environments?
 
@@ -62,7 +62,13 @@ https://www.youtube.com/watch?v=Smcj3WmdPdQ
 3. In qt_linux_lib_preload, find qtx11preloadingcontrol class.
 4. Create a similar class to "wake up" the OHT at application startup and start OHT installation process.
 
-## Further information
+### How does the injection + preloading process works?
+
+1. The class doing DLL injection before application launching is called LinuxPreloadingAction (extends PreloadingAction) and it is in the HMI Tester. In Linux, it uses the environment variable LD_PRELOAD to set the library to be preloaded before target application launching.
+
+2. The class deploying the OHT services into the target application is QtX11PreloadingControl (extends PreloadingControl) and it is in the Lib Preload. In Linux, it uses QWidget::x11Event in Qt4, or QWidget::nativeEvent in Qt5 to "automatically wake up" and start deploying event consumer and executor.
+
+# Further information
 
 Webpage: http://www.catedrasaes.org/wiki/OHT
 
