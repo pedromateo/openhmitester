@@ -68,6 +68,16 @@ https://www.youtube.com/watch?v=Smcj3WmdPdQ
 
 2. The class deploying the OHT services into the target application is QtX11PreloadingControl (extends PreloadingControl) and it is in the Lib Preload. In Linux, it uses QWidget::x11Event in Qt4, or QWidget::nativeEvent in Qt5 to "automatically wake up" and start deploying event consumer and executor.
 
+### I am running an application using Qt 4.8 + Embedded Linux without X server (there is QWS from QtEmbedded built in my application instead). Does OHT support this kind of setup?
+
+OHT will support this kind of setup provided that you can "wake up" OHT within your application. With waking up I mean to find an event that is executed at your application launching, so you can handle it and start deploying OHT services.
+
+In the Qt-Linux implementation, the class deploying the OHT services into the target application is QtX11PreloadingControl (extends PreloadingControl) and it is in the Lib Preload. In Linux, it uses QWidget::x11Event in Qt4, or QWidget::nativeEvent in Qt5 to "automatically wake up" and start deploying event consumer and executor.
+
+So, you need to create and adaptation of this class (e.g., QWSPreloadingControl) and:
+* either you find a generic Qt4 event that executes at application startup, similar to QWidget::nativeEvent in Qt5
+* or you find a QWS event equivalent to QWidget::x11Event in Qt4
+
 # Further information
 
 Webpage: http://www.catedrasaes.org/wiki/OHT
