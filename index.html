@@ -56,12 +56,18 @@ testing environments is provided in this repository.</p>
 <h2>
 <a id="recording-and-playing-desktop-test-cases" class="anchor" href="#recording-and-playing-desktop-test-cases" aria-hidden="true"><span class="octicon octicon-link"></span></a>Recording and playing desktop test cases</h2>
 
+<p>With OHT you can create test cases for your application. Then, test cases can be replayed one by one, or all in a row.</p>
+
 <p><a href="http://www.youtube.com/watch?v=PiwPB8uwZOk"><img src="http://img.youtube.com/vi/PiwPB8uwZOk/0.jpg" alt="IMAGE ALT TEXT HERE"></a></p>
 
 <p><a href="https://www.youtube.com/watch?v=PiwPB8uwZOk">https://www.youtube.com/watch?v=PiwPB8uwZOk</a></p>
 
 <h2>
 <a id="recording-and-playing-web-test-cases" class="anchor" href="#recording-and-playing-web-test-cases" aria-hidden="true"><span class="octicon octicon-link"></span></a>Recording and playing web test cases</h2>
+
+<p>With OHT you can create test cases for your webapp. Then, test cases can be replayed one by one, or all in a row.</p>
+
+<p>OHT provides a free, easy and fast way to test your web, as well as to automate actions.</p>
 
 <p>Note that this might produce unexpected results, as in the current implementation of the OHT, the test is recorded in the browser, not in the web page. We are working hard to provide a robust web-testing experience.</p>
 
@@ -111,6 +117,20 @@ testing environments is provided in this repository.</p>
 <li><p>The class doing DLL injection before application launching is called LinuxPreloadingAction (extends PreloadingAction) and it is in the HMI Tester. In Linux, it uses the environment variable LD_PRELOAD to set the library to be preloaded before target application launching.</p></li>
 <li><p>The class deploying the OHT services into the target application is QtX11PreloadingControl (extends PreloadingControl) and it is in the Lib Preload. In Linux, it uses QWidget::x11Event in Qt4, or QWidget::nativeEvent in Qt5 to "automatically wake up" and start deploying event consumer and executor.</p></li>
 </ol>
+
+<h3>
+<a id="i-am-running-an-application-using-qt-48--embedded-linux-without-x-server-there-is-qws-from-qtembedded-built-in-my-application-instead-does-oht-support-this-kind-of-setup" class="anchor" href="#i-am-running-an-application-using-qt-48--embedded-linux-without-x-server-there-is-qws-from-qtembedded-built-in-my-application-instead-does-oht-support-this-kind-of-setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>I am running an application using Qt 4.8 + Embedded Linux without X server (there is QWS from QtEmbedded built in my application instead). Does OHT support this kind of setup?</h3>
+
+<p>OHT will support this kind of setup provided that you can "wake up" OHT within your application. With waking up I mean to find an event that is executed at your application launching, so you can handle it and start deploying OHT services.</p>
+
+<p>In the Qt-Linux implementation, the class deploying the OHT services into the target application is QtX11PreloadingControl (extends PreloadingControl) and it is in the Lib Preload. In Linux, it uses QWidget::x11Event in Qt4, or QWidget::nativeEvent in Qt5 to "automatically wake up" and start deploying event consumer and executor.</p>
+
+<p>So, you need to create and adaptation of this class (e.g., QWSPreloadingControl) and:</p>
+
+<ul>
+<li>either you find a generic Qt4 event that executes at application startup, similar to QWidget::nativeEvent in Qt5</li>
+<li>or you find a QWS event equivalent to QWidget::x11Event in Qt4</li>
+</ul>
 
 <h1>
 <a id="further-information" class="anchor" href="#further-information" aria-hidden="true"><span class="octicon octicon-link"></span></a>Further information</h1>
