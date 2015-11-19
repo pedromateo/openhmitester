@@ -23,11 +23,17 @@ Please, contact me at pedrolmn@gmail.com
 
 ## Recording and playing desktop test cases
 
+With OHT you can create test cases for your application. Then, test cases can be replayed one by one, or all in a row.
+
 [![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/PiwPB8uwZOk/0.jpg)](http://www.youtube.com/watch?v=PiwPB8uwZOk)
 
 https://www.youtube.com/watch?v=PiwPB8uwZOk
 
 ## Recording and playing web test cases
+
+With OHT you can create test cases for your webapp. Then, test cases can be replayed one by one, or all in a row.
+
+OHT provides a free, easy and fast way to test your web, as well as to automate actions.
 
 Note that this might produce unexpected results, as in the current implementation of the OHT, the test is recorded in the browser, not in the web page. We are working hard to provide a robust web-testing experience.
 
