@@ -27,7 +27,7 @@
 #include <processcontrol.h>
 
 #include <QMainWindow>
-
+#include <QSettings>
 
 
 
@@ -76,6 +76,7 @@ private:
     QActionGroup *playTestCaseActionGroup_;
     QActionGroup *deleteTestCaseActionGroup_;
     QActionGroup *speedActionGroup_;
+    QSettings settings_;
 
 
     QMenu* _playAndDeleteMenu;

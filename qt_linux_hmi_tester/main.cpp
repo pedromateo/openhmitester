@@ -21,6 +21,8 @@
  *
  */
 #include <QApplication>
+#include <QCoreApplication>
+
 #include <hmitestercontrol.h>
 #include <linuxpreloadingaction.h>
 #include <xmldatamodeladapter.h>
@@ -32,6 +34,10 @@ int main(int argc, char *argv[])
     // create specific modules for qt-linux-xml adaptation
     PreloadingAction *pa = new LinuxPreloadingAction();
     DataModelAdapter *dma = new XMLDataModelAdapter();
+
+    QCoreApplication::setOrganizationName("pedromateo");
+    QCoreApplication::setApplicationName("openhmitester");
+    QCoreApplication::setApplicationVersion("git");
 
     // initialize and launch HMI Tester
     QApplication a(argc, argv);
