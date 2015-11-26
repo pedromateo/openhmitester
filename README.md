@@ -23,11 +23,17 @@ Please, contact me at pedrolmn@gmail.com
 
 ## Recording and playing desktop test cases
 
+With OHT you can create test cases for your application. Then, test cases can be replayed one by one, or all in a row.
+
 [![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/PiwPB8uwZOk/0.jpg)](http://www.youtube.com/watch?v=PiwPB8uwZOk)
 
 https://www.youtube.com/watch?v=PiwPB8uwZOk
 
 ## Recording and playing web test cases
+
+With OHT you can create test cases for your webapp. Then, test cases can be replayed one by one, or all in a row.
+
+OHT provides a free, easy and fast way to test your web, as well as to automate actions.
 
 Note that this might produce unexpected results, as in the current implementation of the OHT, the test is recorded in the browser, not in the web page. We are working hard to provide a robust web-testing experience.
 
@@ -67,6 +73,16 @@ https://www.youtube.com/watch?v=Smcj3WmdPdQ
 1. The class doing DLL injection before application launching is called LinuxPreloadingAction (extends PreloadingAction) and it is in the HMI Tester. In Linux, it uses the environment variable LD_PRELOAD to set the library to be preloaded before target application launching.
 
 2. The class deploying the OHT services into the target application is QtX11PreloadingControl (extends PreloadingControl) and it is in the Lib Preload. In Linux, it uses QWidget::x11Event in Qt4, or QWidget::nativeEvent in Qt5 to "automatically wake up" and start deploying event consumer and executor.
+
+### I am running an application using Qt 4.8 + Embedded Linux without X server (there is QWS from QtEmbedded built in my application instead). Does OHT support this kind of setup?
+
+OHT will support this kind of setup provided that you can "wake up" OHT within your application. With waking up I mean to find an event that is executed at your application launching, so you can handle it and start deploying OHT services.
+
+In the Qt-Linux implementation, the class deploying the OHT services into the target application is QtX11PreloadingControl (extends PreloadingControl) and it is in the Lib Preload. In Linux, it uses QWidget::x11Event in Qt4, or QWidget::nativeEvent in Qt5 to "automatically wake up" and start deploying event consumer and executor.
+
+So, you need to create and adaptation of this class (e.g., QWSPreloadingControl) and:
+* either you find a generic Qt4 event that executes at application startup, similar to QWidget::nativeEvent in Qt5
+* or you find a QWS event equivalent to QWidget::x11Event in Qt4
 
 # Further information
 
