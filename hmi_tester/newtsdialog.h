@@ -26,6 +26,7 @@
 #include <QDialog>
 #include <QLineEdit>
 #include <QString>
+#include <QSettings>
 
 namespace Ui {
     class NewTSDialog;
@@ -64,6 +65,7 @@ private:
     QString _tsPath;
     QString _autPath;
     QString _tsName;
+    QSettings _settings;
 };
 
 #endif // NewTSDialog_H

@@ -22,15 +22,19 @@
  */
 
 #include "hmitestercontrol.h"
+
 #include <cassert>
 #include <iostream>
+
 #include <debug.h>
 #include <newtsdialog.h>
 #include <newtcdialog.h>
 #include <qtutils.h>
-#include <QFile>
 #include <ohtbaseconfig.h>
+
+#include <QFile>
 #include <QWindow>
+#include <QDir>
 
 HMITesterControl::HMITesterControl(PreloadingAction *pa, DataModelAdapter *dma, QWidget *parent)
     : QMainWindow(parent)
@@ -336,11 +340,13 @@ void HMITesterControl::tb_rec_clicked()
 void HMITesterControl::action_open_triggered()
 {
     DEBUG(D_GUI,"(HMITesterControl::action_open_triggered)");
-
+    QString lastOpenDir = QDir::homePath();
+    settings_.beginGroup("HMITesterControl");
+    lastOpenDir = settings_.value("lastOpenDir", QDir::homePath()).toString();
     //ask for the TestSuite
     QString path = "";
     path = QtUtils::openFileDialog("Please, select the file that contains the TestSuite:",
-                                   ".",//TODO add dir reminder
+                                   lastOpenDir,
                                    "*."OHT_FILE_EXTENSION);
     if (path == "") return;
 
@@ -351,6 +357,9 @@ void HMITesterControl::action_open_triggered()
         QtUtils::newErrorDialog("The TestSuite cannot be loaded.");
         return;
     }
+
+    settings_.setValue("lastOpenDir", lastOpenDir);
+    settings_.endGroup();
 
     //reconfigure the GUI
     //form_stopState();
