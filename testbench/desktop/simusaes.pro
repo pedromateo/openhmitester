@@ -18,13 +18,13 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
-    nativecontroller.cpp
+           mainwindow.cpp \
+           nativecontroller.cpp
 
-HEADERS  += mainwindow.h \
-    nativecontroller.h
+HEADERS += mainwindow.h \
+            nativecontroller.h
 
-FORMS    += mainwindow.ui
+FORMS   += mainwindow.ui
 
 #LIBS += -lboost_system -lboost_program_options
 
