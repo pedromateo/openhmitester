@@ -118,13 +118,14 @@ void NewTSDialog::on_pb_tsPath_clicked()
     lastSaveDir = _settings.value("lastSaveDir", QDir::homePath()).toString();
     //ask for the location
     QString aux = QtUtils::saveFileDialog("Please, select a path and a name to store the TestSuite:",
-                                   lastSaveDir,
+                                   lastSaveDir + QDir::separator() + m_ui->le_tsName->text().toLower() + "." + OHT_FILE_EXTENSION,
                                    "*."OHT_FILE_EXTENSION);
 
     if (aux != NULL && aux != ""){
         _tsPath = aux;
-        m_ui->le_tsPath->setText(_autPath);
-        _settings.setValue("lastSaveDir", lastSaveDir);
+        m_ui->le_tsPath->setText(_tsPath);
+        QFileInfo fi(aux);
+        _settings.setValue("lastSaveDir", fi.absolutePath());
     }
     _settings.endGroup();
 }
