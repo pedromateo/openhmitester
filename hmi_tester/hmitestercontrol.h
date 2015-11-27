@@ -66,17 +66,17 @@ private:
     void _setEnableAndVisible(QWidget* target, bool b);
 
     //menus
-    QMenu *mainMenu_;
-    QMenu *fileMenu_;
-    QMenu *tsuiteMenu_;
-    QMenu *playTcaseMenu_;
-    QMenu *deleteTcaseMenu_;
-    QMenu *configMenu_;
-    QMenu *speedMenu_;
-    QActionGroup *playTestCaseActionGroup_;
-    QActionGroup *deleteTestCaseActionGroup_;
-    QActionGroup *speedActionGroup_;
-    QSettings settings_;
+    QMenu *_mainMenu;
+    QMenu *_fileMenu;
+    QMenu *_tsuiteMenu;
+    QMenu *_playTcaseMenu;
+    QMenu *_deleteTcaseMenu;
+    QMenu *_configMenu;
+    QMenu *_speedMenu;
+    QActionGroup *_playTestCaseActionGroup;
+    QActionGroup *_deleteTestCaseActionGroup;
+    QActionGroup *_speedActionGroup;
+    QSettings _settings;
 
 
     QMenu* _playAndDeleteMenu;

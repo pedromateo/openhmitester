@@ -86,7 +86,7 @@ void NewTSDialog::on_pb_aut_clicked()
 {
     _settings.beginGroup("NewTSDialog");
     QString lastAutDirectory;
-    lastAutDirectory = _settings.value("lastAutDirectory", QDir::homePath()).toString();
+    lastAutDirectory = _settings.value(SETT_LAST_AUT_DIR, QDir::homePath()).toString();
     //ask for the binary
     QString aux = QtUtils::openFileDialog("Please, select the AUT (Application Under Test):",
                                          lastAutDirectory,
@@ -103,7 +103,7 @@ void NewTSDialog::on_pb_aut_clicked()
         _autPath = aux;
         m_ui->le_aut->setText(_autPath);
         QFileInfo fi(aux);
-        _settings.setValue("lastAutDirectory", fi.absolutePath());
+        _settings.setValue(SETT_LAST_AUT_DIR, fi.absolutePath());
     }
     _settings.endGroup();
 }
@@ -115,7 +115,7 @@ void NewTSDialog::on_pb_tsPath_clicked()
 {
     _settings.beginGroup("NewTSDialog");
     QString lastSaveDir;
-    lastSaveDir = _settings.value("lastSaveDir", QDir::homePath()).toString();
+    lastSaveDir = _settings.value(SETT_LAST_SAVE_DIR, QDir::homePath()).toString();
     //ask for the location
     QString aux = QtUtils::saveFileDialog("Please, select a path and a name to store the TestSuite:",
                                    lastSaveDir + QDir::separator() + m_ui->le_tsName->text().toLower() + "." + OHT_FILE_EXTENSION,
@@ -125,7 +125,7 @@ void NewTSDialog::on_pb_tsPath_clicked()
         _tsPath = aux;
         m_ui->le_tsPath->setText(_tsPath);
         QFileInfo fi(aux);
-        _settings.setValue("lastSaveDir", fi.absolutePath());
+        _settings.setValue(SETT_LAST_SAVE_DIR, fi.absolutePath());
     }
     _settings.endGroup();
 }

@@ -68,4 +68,12 @@
 #define STANDARD_OUTPUT_FILE "./testing_lib_out.log"
 #define ERROR_OUTPUT_FILE "./testing_lib_error.log"
 
+///
+/// qsettings strings
+///
+
+#define SETT_LAST_OPEN_DIR "lastOpenDir"
+#define SETT_LAST_AUT_DIR "lastAutDirectory"
+#define SETT_LAST_SAVE_DIR "lastSaveDir"
+
 #endif // OHTCONFIG_H

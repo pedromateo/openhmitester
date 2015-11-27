@@ -26,11 +26,11 @@
 #include <cassert>
 #include <iostream>
 
+#include <ohtbaseconfig.h>
 #include <debug.h>
 #include <newtsdialog.h>
 #include <newtcdialog.h>
 #include <qtutils.h>
-#include <ohtbaseconfig.h>
 
 #include <QFile>
 #include <QWindow>
@@ -152,32 +152,32 @@ void HMITesterControl::_initializeMenu()
     ///
 
     //file
-    mainMenu_ = ui.menuBar->findChild<QMenu*> ( "menu_Main" );
-    assert ( mainMenu_ );
-    fileMenu_ = mainMenu_->findChild<QMenu*> ( "menu_File" );
-    assert ( fileMenu_ );
+    _mainMenu = ui.menuBar->findChild<QMenu*> ( "menu_Main" );
+    assert ( _mainMenu );
+    _fileMenu = _mainMenu->findChild<QMenu*> ( "menu_File" );
+    assert ( _fileMenu );
     //test suite
-    tsuiteMenu_ = mainMenu_->findChild<QMenu*> ( "menu_TestSuite" );
-    assert ( tsuiteMenu_ );
-    playTcaseMenu_ = tsuiteMenu_->findChild<QMenu*> ( "menu_Play_Test_Case" );
-    assert ( playTcaseMenu_ );
-    deleteTcaseMenu_ = tsuiteMenu_->findChild<QMenu*> ( "menu_Delete_Test_Case" );
-    assert ( deleteTcaseMenu_ );
-    playTestCaseActionGroup_ = new QActionGroup ( playTcaseMenu_ );
-    deleteTestCaseActionGroup_ = new QActionGroup ( deleteTcaseMenu_ );
+    _tsuiteMenu = _mainMenu->findChild<QMenu*> ( "menu_TestSuite" );
+    assert ( _tsuiteMenu );
+    _playTcaseMenu = _tsuiteMenu->findChild<QMenu*> ( "menu_Play_Test_Case" );
+    assert ( _playTcaseMenu );
+    _deleteTcaseMenu = _tsuiteMenu->findChild<QMenu*> ( "menu_Delete_Test_Case" );
+    assert ( _deleteTcaseMenu );
+    _playTestCaseActionGroup = new QActionGroup ( _playTcaseMenu );
+    _deleteTestCaseActionGroup = new QActionGroup ( _deleteTcaseMenu );
     //config
-    configMenu_ = mainMenu_->findChild<QMenu*> ( "menu_Config" );
-    assert ( configMenu_ );
-    speedMenu_ = configMenu_->findChild<QMenu*> ( "menu_Speed" );
-    assert ( speedMenu_ );
-    speedActionGroup_ = new QActionGroup ( speedMenu_ );
-    speedActionGroup_->addAction( ui.action1x );
-    speedActionGroup_->addAction( ui.action05x );
-    speedActionGroup_->addAction( ui.action2x );
-    speedActionGroup_->addAction( ui.action4x );
+    _configMenu = _mainMenu->findChild<QMenu*> ( "menu_Config" );
+    assert ( _configMenu );
+    _speedMenu = _configMenu->findChild<QMenu*> ( "menu_Speed" );
+    assert ( _speedMenu );
+    _speedActionGroup = new QActionGroup ( _speedMenu );
+    _speedActionGroup->addAction( ui.action1x );
+    _speedActionGroup->addAction( ui.action05x );
+    _speedActionGroup->addAction( ui.action2x );
+    _speedActionGroup->addAction( ui.action4x );
 
     // add popup menu to menu toolbutton
-    ui.tb_menu->setMenu(mainMenu_);
+    ui.tb_menu->setMenu(_mainMenu);
     ui.tb_menu->setPopupMode(QToolButton::InstantPopup);
 
     ///
@@ -341,8 +341,8 @@ void HMITesterControl::action_open_triggered()
 {
     DEBUG(D_GUI,"(HMITesterControl::action_open_triggered)");
     QString lastOpenDir = QDir::homePath();
-    settings_.beginGroup("HMITesterControl");
-    lastOpenDir = settings_.value("lastOpenDir", QDir::homePath()).toString();
+    _settings.beginGroup("HMITesterControl");
+    lastOpenDir = _settings.value(SETT_LAST_OPEN_DIR, QDir::homePath()).toString();
     //ask for the TestSuite
     QString path = "";
     path = QtUtils::openFileDialog("Please, select the file that contains the TestSuite:",
@@ -358,8 +358,8 @@ void HMITesterControl::action_open_triggered()
         return;
     }
 
-    settings_.setValue("lastOpenDir", lastOpenDir);
-    settings_.endGroup();
+    _settings.setValue(SETT_LAST_OPEN_DIR, lastOpenDir);
+    _settings.endGroup();
 
     //reconfigure the GUI
     //form_stopState();
@@ -472,7 +472,7 @@ void HMITesterControl::_deleteTestCaseSelected_triggered(bool)
     DEBUG(D_GUI,"(HMITesterControl::DeleteTestCaseSelected_triggered)");
 
     //get the name of the selected testCase
-    QAction *actionSelected = deleteTestCaseActionGroup_->checkedAction();
+    QAction *actionSelected = _deleteTestCaseActionGroup->checkedAction();
     if ( !actionSelected )
     {
         QtUtils::newErrorDialog ( "There is not a selected Test Case to delete." );
@@ -496,32 +496,32 @@ void HMITesterControl::updateTestSuiteInfo(DataModel::TestSuite* ts)
 {
     DEBUG(D_GUI,"(HMITesterControl::updateTestSuiteInfo)");
     //asserts
-    assert(fileMenu_);
-    assert(tsuiteMenu_);
-    assert(playTcaseMenu_);
-    assert(deleteTcaseMenu_);
-    assert(configMenu_);
-    assert(speedMenu_);
-    assert(playTestCaseActionGroup_);
-    assert(deleteTestCaseActionGroup_);
-    assert(speedActionGroup_);
+    assert(_fileMenu);
+    assert(_tsuiteMenu);
+    assert(_playTcaseMenu);
+    assert(_deleteTcaseMenu);
+    assert(_configMenu);
+    assert(_speedMenu);
+    assert(_playTestCaseActionGroup);
+    assert(_deleteTestCaseActionGroup);
+    assert(_speedActionGroup);
 
     //activating tSuite menu and set name
-    tsuiteMenu_->setEnabled(true);
+    _tsuiteMenu->setEnabled(true);
 
     ui.actionTsuiteName->setText(QString(ts->name().c_str()));
 
     //clearing testCase lists
-    QList<QAction*> actions = playTestCaseActionGroup_->actions();
+    QList<QAction*> actions = _playTestCaseActionGroup->actions();
     foreach ( QAction *a, actions )
     {
-        playTestCaseActionGroup_->removeAction ( a );
+        _playTestCaseActionGroup->removeAction ( a );
         delete a;
     }
-    actions = deleteTestCaseActionGroup_->actions();
+    actions = _deleteTestCaseActionGroup->actions();
     foreach ( QAction *a, actions )
     {
-        deleteTestCaseActionGroup_->removeAction ( a );
+        _deleteTestCaseActionGroup->removeAction ( a );
         delete a;
     }
 
@@ -616,8 +616,8 @@ void HMITesterControl::updateTestSuiteInfo(DataModel::TestSuite* ts)
     //else disable the testSuite menu
     else
     {
-        playTcaseMenu_->setEnabled ( false );
-        deleteTcaseMenu_->setEnabled ( false );
+        _playTcaseMenu->setEnabled ( false );
+        _deleteTcaseMenu->setEnabled ( false );
 
         ///
         /// disable _playAndDeleteMenu
