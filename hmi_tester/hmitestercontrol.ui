@@ -182,6 +182,9 @@
         <height>25</height>
        </size>
       </property>
+      <property name="shortcut">
+       <string>Space</string>
+      </property>
      </widget>
     </item>
     <item>
@@ -244,7 +247,7 @@
      <x>0</x>
      <y>0</y>
      <width>220</width>
-     <height>20</height>
+     <height>23</height>
     </rect>
    </property>
    <property name="font">
