@@ -86,9 +86,9 @@ So, you need to create and adaptation of this class (e.g., QWSPreloadingControl)
 
 # Further information
 
-Webpage: http://www.catedrasaes.org/wiki/OHT
+Webpage: http://catedrasaes.org/html/projects/OHT/OHT.html
 
-Videos: http://www.youtube.com/user/CatedraSaesUmu
+More videos: http://www.youtube.com/user/CatedraSaesUmu
 
 
 
