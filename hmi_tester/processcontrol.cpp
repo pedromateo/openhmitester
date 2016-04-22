@@ -188,8 +188,8 @@ void ProcessControl::onPlay_playClicked()
             bool ok = preloading_action_->launchApplication(
                         _current_testsuite->appId(),//app
                         current_libPreload_path_,//preload lib
-                        STANDARD_OUTPUT_FILE,//output file
-                        ERROR_OUTPUT_FILE);//error file
+                        STANDARD_OUTPUT_LOG_FILE,//output file
+                        ERROR_OUTPUT_LOG_FILE);//error file
 
             //if not launched properly...
             if (!ok)
@@ -372,8 +372,8 @@ void ProcessControl::onRecord_recClicked()
             bool ok = preloading_action_->launchApplication(
                         _current_testsuite->appId(),//app
                         current_libPreload_path_,//preload lib
-                        STANDARD_OUTPUT_FILE,//output file
-                        ERROR_OUTPUT_FILE);//error file
+                        STANDARD_OUTPUT_LOG_FILE,//output file
+                        ERROR_OUTPUT_LOG_FILE);//error file
 
             //if not is launched properly...
             if (!ok)

@@ -57,11 +57,13 @@ bool LinuxPreloadingAction::launchApplication ( const std::string &binaryPath,
     //delete current and create a new process
     process_.reset (new QProcess (this));
 
-    //redirect process output
-    if (outputFile != "")
+    // create dirs for logs and redirect process output
+    if (outputFile != ""){
         assert(redirectStandarOutputToFile(outputFile));
-    if (errorFile != "")
+    }
+    if (errorFile != ""){
         assert(redirectStandarErrorToFile(errorFile));
+    }
 
     /*connect( process_.get(), SIGNAL ( readyReadStandardOutput() ),
               this, SIGNAL ( standardOutput(const QString&) ) );

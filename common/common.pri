@@ -2,21 +2,21 @@
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
 
-LIBS += -lboost_thread -lboost_system -lboost_serialization
+# directories ($$PWD) are set before files because of an error in Qt5
 
+SOURCES += $$PWD/datamodel.cpp \
+           $$PWD/comm.cpp \
+           $$PWD/messageclientserver.cpp \
+           $$PWD/utilclasses.cpp \
+           $$PWD/uuid.cpp \
+           $$PWD/controlsignaling.cpp
 
-SOURCES += datamodel.cpp \
-           comm.cpp \
-           messageclientserver.cpp \
-           utilclasses.cpp \
-           uuid.cpp \
-           controlsignaling.cpp
+HEADERS += $$PWD/datamodel.h \
+           $$PWD/comm.h \
+           $$PWD/messageclientserver.h \
+           $$PWD/utilclasses.h \
+           $$PWD/uuid.h \
+           $$PWD/controlsignaling.h \
+           $$PWD/ohtbaseconfig.h \
+           $$PWD/debug.h
 
-HEADERS += datamodel.h \
-           comm.h \
-           messageclientserver.h \
-           utilclasses.h \
-           uuid.h \
-           controlsignaling.h \
-           ohtbaseconfig.h \
-           debug.h

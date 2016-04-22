@@ -23,7 +23,7 @@
 
 # main target
 TEMPLATE = subdirs
-BUILD_DIR = bin
+BUILD_DIR = ../openhmitester_build
 DESTDIR = $${BUILD_DIR}
 MOC_DIR = $${BUILD_DIR}/mocs
 OBJECTS_DIR = $${BUILD_DIR}/objs
@@ -33,7 +33,8 @@ QT       += core gui
 CONFIG += qtestlib no_keywords
 
 # targets
-#SUBDIRS += hmi_tester/
+SUBDIRS += common
+common.file = common.pri
 SUBDIRS += hmi_tester
 SUBDIRS += lib_preload
 SUBDIRS += qt_linux_hmi_tester

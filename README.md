@@ -41,6 +41,16 @@ Note that this might produce unexpected results, as in the current implementatio
 
 https://www.youtube.com/watch?v=Smcj3WmdPdQ
 
+## Logging in tested application
+
+Two logs are generated with the standard and error output of the Application Under Test (AUT): 
+* oht_aut_stdout.log
+* oht_aut_stderr.log
+
+They are located in the same directory where the OHT binary is located. This decision was taken in order to use a cross-platform location.
+
+Please, note that lib_preload output is also included in these log files.
+
 
 # Content of this repository
 

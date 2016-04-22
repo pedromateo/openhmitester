@@ -65,8 +65,8 @@
 /// output files
 ///
 
-#define STANDARD_OUTPUT_FILE "./testing_lib_out.log"
-#define ERROR_OUTPUT_FILE "./testing_lib_error.log"
+#define STANDARD_OUTPUT_LOG_FILE "./oht_aut_stdout.log"
+#define ERROR_OUTPUT_LOG_FILE "./oht_aut_stderr.log"
 
 ///
 /// qsettings strings
