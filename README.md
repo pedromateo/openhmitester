@@ -94,6 +94,14 @@ So, you need to create and adaptation of this class (e.g., QWSPreloadingControl)
 * either you find a generic Qt4 event that executes at application startup, similar to QWidget::nativeEvent in Qt5
 * or you find a QWS event equivalent to QWidget::x11Event in Qt4
 
+### The AUT is crashing and I don't know why. Are there any logs to see what's happening?
+
+Two logs are generated with the standard and error output of the Application Under Test (AUT): 
+* oht_aut_stdout.log
+* oht_aut_stderr.log
+
+They are located in the same directory where the OHT binary is located. 
+
 # Further information
 
 Webpage: http://catedrasaes.org/html/projects/OHT/OHT.html
