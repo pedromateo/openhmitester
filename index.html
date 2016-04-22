@@ -75,6 +75,20 @@ testing environments is provided in this repository.</p>
 
 <p><a href="https://www.youtube.com/watch?v=Smcj3WmdPdQ">https://www.youtube.com/watch?v=Smcj3WmdPdQ</a></p>
 
+<h2>
+<a id="logging-in-tested-application" class="anchor" href="#logging-in-tested-application" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Logging in tested application</h2>
+
+<p>Two logs are generated with the standard and error output of the Application Under Test (AUT): </p>
+
+<ul>
+<li>oht_aut_stdout.log</li>
+<li>oht_aut_stderr.log</li>
+</ul>
+
+<p>They are located in the same directory where the OHT binary is located. This decision was taken in order to use a cross-platform location.</p>
+
+<p>Please, note that lib_preload output is also included in these log files.</p>
+
 <h1>
 <a id="content-of-this-repository" class="anchor" href="#content-of-this-repository" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Content of this repository</h1>
 
@@ -131,6 +145,18 @@ testing environments is provided in this repository.</p>
 <li>either you find a generic Qt4 event that executes at application startup, similar to QWidget::nativeEvent in Qt5</li>
 <li>or you find a QWS event equivalent to QWidget::x11Event in Qt4</li>
 </ul>
+
+<h3>
+<a id="the-aut-is-crashing-and-i-dont-know-why-are-there-any-logs-to-see-whats-happening" class="anchor" href="#the-aut-is-crashing-and-i-dont-know-why-are-there-any-logs-to-see-whats-happening" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>The AUT is crashing and I don't know why. Are there any logs to see what's happening?</h3>
+
+<p>Two logs are generated with the standard and error output of the Application Under Test (AUT): </p>
+
+<ul>
+<li>oht_aut_stdout.log</li>
+<li>oht_aut_stderr.log</li>
+</ul>
+
+<p>They are located in the same directory where the OHT binary is located. </p>
 
 <h1>
 <a id="further-information" class="anchor" href="#further-information" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Further information</h1>
