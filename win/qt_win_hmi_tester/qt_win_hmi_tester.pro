@@ -6,13 +6,13 @@
 # HMITester and OHTLibPreload common sources
 #
 
-include(../common/common.pri)
+include(../../common/common.pri)
 
 ####
 #### base HMI Tester project
 ####
 
-include(../hmi_tester/hmi_tester.pri)
+include(../../hmi_tester/hmi_tester.pri)
 
 
 ####
@@ -48,15 +48,17 @@ HEADERS += qtlinux_ohtconfig.h
 ### linux preloading
 ###
 
-SOURCES += ../preloaders/linuxpreloadingaction.cpp
-HEADERS += ../preloaders/linuxpreloadingaction.h
+INCLUDEPATH += ../../preloaders/
+SOURCES += ../../preloaders/winpreloadingaction.cpp
+HEADERS += ../../preloaders/winpreloadingaction.h
 
 ###
 ### datamodel adapters
 ###
 
-SOURCES += ../datamodel_adapters/xmldatamodeladapter.cpp
-HEADERS += ../datamodel_adapters/xmldatamodeladapter.h
+INCLUDEPATH += ../../datamodel_adapters/
+SOURCES += ../../datamodel_adapters/xmldatamodeladapter.cpp
+HEADERS += ../../datamodel_adapters/xmldatamodeladapter.h
 
 
 ###

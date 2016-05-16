@@ -23,15 +23,16 @@ TEMPLATE = lib
 #### Qt Lib Preload project
 ####
 
-include(../qt_lib_preload/qt_lib_preload.pri)
+include(../../qt_lib_preload/qt_lib_preload.pri)
 
 
 ###
 ### linux preloading sources
 ###
 
-SOURCES += ../preloaders/qtx11preloadingcontrol.cpp
-HEADERS += ../preloaders/qtx11preloadingcontrol.h
+INCLUDEPATH += ../../preloaders/
+SOURCES += ../../preloaders/qtx11preloadingcontrol.cpp
+HEADERS += ../../preloaders/qtx11preloadingcontrol.h
 
 
 
