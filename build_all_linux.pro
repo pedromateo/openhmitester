@@ -45,8 +45,4 @@ testbench/desktop.file = testbench/desktop/simusaes.pro
 SUBDIRS += testbench/web
 testbench/web.file = testbench/web/fancybrowser.pro
 
-#libraries
-BOOST_LIBPATH += -L/opt/boost/boost_1_60_0/lib/
-BOOST_INCLUDEPATH += /opt/boost/boost_1_60_0/include/
-
 
