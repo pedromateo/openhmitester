@@ -38,18 +38,21 @@ TEMPLATE = app
 
 
 ###
-### qt-linux adaptation sources
+### qt-linux main sources
 ###
 
-SOURCES += main.cpp \
-           linuxpreloadingaction.cpp
-
-HEADERS += linuxpreloadingaction.h \
-           qtlinux_ohtconfig.h
-
+SOURCES += main.cpp
+HEADERS += qtlinux_ohtconfig.h
 
 ###
-### datamodel sources
+### linux preloading
+###
+
+SOURCES += ../preloaders/linuxpreloadingaction.cpp
+HEADERS += ../preloaders/linuxpreloadingaction.h
+
+###
+### datamodel adapters
 ###
 
 SOURCES += ../datamodel_adapters/xmldatamodeladapter.cpp

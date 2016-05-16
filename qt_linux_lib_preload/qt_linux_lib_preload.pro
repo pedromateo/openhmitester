@@ -44,17 +44,21 @@ TEMPLATE = lib
 
 SOURCES += qteventconsumer.cpp \
     qteventexecutor.cpp \
-    qtx11preloadingcontrol.cpp \
     qtownevents.cpp \
     qwidgetutils.cpp \
     qwidgetadapter.cpp
 HEADERS += qteventconsumer.h \
     qteventexecutor.h \
-    qtx11preloadingcontrol.h \
     qtownevents.h \
     qwidgetutils.h \
     qwidgetadapter.h
 
+###
+### linux preloading
+###
+
+SOURCES += ../preloaders/qtx11preloadingcontrol.cpp
+HEADERS += ../preloaders/qtx11preloadingcontrol.h
 
 ###
 ### qt-linux Lib Preload libs
