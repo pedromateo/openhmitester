@@ -37,6 +37,7 @@ SUBDIRS += common
 common.file = common.pri
 SUBDIRS += hmi_tester
 SUBDIRS += lib_preload
+SUBDIRS += qt_lib_preload
 SUBDIRS += qt_linux_hmi_tester
 SUBDIRS += qt_linux_lib_preload
 SUBDIRS += testbench/desktop
