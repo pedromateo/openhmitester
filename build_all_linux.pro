@@ -33,16 +33,20 @@ QT       += core gui
 CONFIG += qtestlib no_keywords
 
 # targets
-SUBDIRS += common
-common.file = common.pri
-SUBDIRS += hmi_tester
-SUBDIRS += lib_preload
-SUBDIRS += qt_lib_preload
-SUBDIRS += linux/qt_linux_hmi_tester
-SUBDIRS += linux/qt_linux_lib_preload
+SUBDIRS += src/common
+src/common.file = src/common/common.pri
+SUBDIRS += src/hmi_tester
+SUBDIRS += src/lib_preload
+SUBDIRS += src/qt_lib_preload
+SUBDIRS += src/linux/qt_linux_hmi_tester
+SUBDIRS += src/linux/qt_linux_lib_preload
 SUBDIRS += testbench/desktop
 testbench/desktop.file = testbench/desktop/simusaes.pro
 SUBDIRS += testbench/web
 testbench/web.file = testbench/web/fancybrowser.pro
+
+#libraries
+BOOST_LIBPATH += -L/opt/boost/boost_1_60_0/lib/
+BOOST_INCLUDEPATH += /opt/boost/boost_1_60_0/include/
 
 

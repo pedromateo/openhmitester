@@ -35,5 +35,3 @@ include(../common/common.pri)
 
 include(../hmi_tester/hmi_tester.pri)
 
-
-
