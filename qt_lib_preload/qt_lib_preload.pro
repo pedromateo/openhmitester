@@ -2,18 +2,6 @@
 # Project created by QtCreator 2009-01-22T09:35:51
 # -------------------------------------------------
 
-#
-# HMITester and OHTLibPreload common sources
-#
-
-include(../common/common.pri)
-
-####
-#### base Lib Preload project
-####
-
-include(../lib_preload/lib_preload.pri)
-
 
 ####
 #### qt-linux Lib Preload project

@@ -5,6 +5,13 @@ DEPENDPATH += $$PWD
 # directories ($$PWD) are set before files because of an error in Qt5
 
 
+####
+#### base Lib Preload project
+####
+
+include(../lib_preload/lib_preload.pri)
+
+
 ###
 ### qt-linux Lib Preload adaptation sources
 ###
@@ -19,6 +26,7 @@ HEADERS += $$PWD/qteventconsumer.h \
     $$PWD/qtownevents.h \
     $$PWD/qwidgetutils.h \
     $$PWD/qwidgetadapter.h
+
 
 ###
 ### qt-linux Lib Preload libs

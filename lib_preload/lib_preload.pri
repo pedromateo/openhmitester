@@ -2,6 +2,13 @@
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
 
+
+# HMITester and OHTLibPreload common sources
+
+
+include(../common/common.pri)
+
+
 # directories ($$PWD) are set before files because of an error in Qt5
 
 SOURCES += $$PWD/preloadcontroller.cpp \

@@ -19,18 +19,6 @@ TARGET = qt_linux_oht_preload
 TEMPLATE = lib
 
 
-#
-# HMITester and OHTLibPreload common sources
-#
-
-include(../common/common.pri)
-
-####
-#### base Lib Preload project
-####
-
-include(../lib_preload/lib_preload.pri)
-
 ####
 #### Qt Lib Preload project
 ####
@@ -38,17 +26,8 @@ include(../lib_preload/lib_preload.pri)
 include(../qt_lib_preload/qt_lib_preload.pri)
 
 
-####
-#### qt-linux Lib Preload project
-####
-
-
-
-
-
-
 ###
-### linux preloading
+### linux preloading sources
 ###
 
 SOURCES += ../preloaders/qtx11preloadingcontrol.cpp

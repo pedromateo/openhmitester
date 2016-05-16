@@ -23,11 +23,6 @@ TEMPLATE = lib
 
 DEFINES += LIBPRELOAD_LIBRARY
 
-#
-# HMITester and OHTLibPreload common sources
-#
-
-include(../common/common.pri)
 
 ###
 ### OHT LibPreload sources
