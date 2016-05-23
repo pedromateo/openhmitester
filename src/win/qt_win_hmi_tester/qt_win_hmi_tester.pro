@@ -42,7 +42,12 @@ TEMPLATE = app
 ###
 
 SOURCES += main.cpp
-HEADERS += qtlinux_ohtconfig.h
+linux {
+   HEADERS += qtlinux_ohtconfig.h
+}
+win32 {
+   HEADERS += qtwin_ohtconfig.h
+}
 
 ###
 ### linux preloading
@@ -65,7 +70,14 @@ HEADERS += ../../datamodel_adapters/xmldatamodeladapter.h
 ### lib includes
 ###
 
+# add here your boost includes if needed
+linux {
 LIBS += -L/opt/boost/boost_1_60_0/lib/
 INCLUDEPATH += /opt/boost/boost_1_60_0/include/
+}
+win32 {
+LIBS += -LC:\boost_1_60_0\stage\lib
+INCLUDEPATH += C:\boost_1_60_0\boost\  C:\boost_1_60_0\
+}
 
 

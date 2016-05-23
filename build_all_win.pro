@@ -33,13 +33,13 @@ QT       += core gui
 CONFIG += qtestlib no_keywords
 
 # targets
-SUBDIRS += common
-common.file = common.pri
-SUBDIRS += hmi_tester
-SUBDIRS += lib_preload
-SUBDIRS += qt_lib_preload
-SUBDIRS += win/qt_win_hmi_tester
-SUBDIRS += win/qt_win_lib_preload
+SUBDIRS += src/common
+src/common.file = src/common/common.pri
+SUBDIRS += src/hmi_tester
+SUBDIRS += src/lib_preload
+SUBDIRS += src/qt_lib_preload
+SUBDIRS += src/win/qt_win_hmi_tester
+SUBDIRS += src/win/qt_win_lib_preload
 SUBDIRS += testbench/desktop
 testbench/desktop.file = testbench/desktop/simusaes.pro
 SUBDIRS += testbench/web

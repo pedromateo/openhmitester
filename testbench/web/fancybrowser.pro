@@ -1,4 +1,9 @@
-QT      +=  webkitwidgets network widgets
+
+QT += webkitwidgets widgets network
+CONFIG +=
+
+
+
 HEADERS =   mainwindow.h
 SOURCES =   main.cpp \
             mainwindow.cpp

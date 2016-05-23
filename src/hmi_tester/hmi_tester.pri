@@ -43,8 +43,10 @@ RESOURCES += $$PWD/resources.qrc
 ### Boost libs
 ###
 
-LIBS += -lboost_thread -lboost_system -lboost_serialization
-
 # add here your boost includes if needed
-LIBS += -L/opt/boost/boost_1_60_0/lib/
-INCLUDEPATH += /opt/boost/boost_1_60_0/include/
+linux {
+    LIBS += -lboost_thread -lboost_system -lboost_serialization
+}
+win32 {
+    LIBS += -lboost_thread-mgw49-mt-d-1_60 -lboost_system-mgw49-mt-d-1_60 -lboost_serialization-mgw49-mt-d-1_60
+}

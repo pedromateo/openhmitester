@@ -347,7 +347,7 @@ void HMITesterControl::action_open_triggered()
     QString path = "";
     path = QtUtils::openFileDialog("Please, select the file that contains the TestSuite:",
                                    lastOpenDir,
-                                   "*." OHT_FILE_EXTENSION);
+                                   "*." + OHT_FILE_EXTENSION);
     if (path == "") return;
 
     //open the testSuite

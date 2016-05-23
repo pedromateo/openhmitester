@@ -24,7 +24,7 @@
 #include "datamodel.h"
 
 #include <boost/lambda/lambda.hpp>
-#include <boost/lambda/bind.hpp>
+//#include <boost/lambda/bind.hpp>
 #include <algorithm>
 #include <functional>
 #include <cassert>
@@ -111,13 +111,13 @@ void TestSuite::deleteTestCase(const std::string& name) throw (not_found)
 
     //delete from the list
     using namespace boost::lambda;
-    TestCaseList::iterator it2 =
+    /*TestCaseList::iterator it2 =
             std::find_if (testCases_.begin(),
                           testCases_.end(),
-                          bind<bool> (std::equal_to<uuid_t>(),
-                                      bind<uuid_t> (&TestCase::uuid, _1),
-                                      id));
-    testCases_.erase (it2);
+                          std::bind<bool> (std::equal_to<uuid_t>(),
+                                           std::bind<uuid_t>(&TestCase::uuid, _1),
+                                           id));
+    testCases_.erase (it2);*/
 }
 
 // DataModel::TestCase*
