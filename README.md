@@ -1,5 +1,5 @@
 
-**16/05 Working on a Windows version. Please, be patient, and if you want to contribute, email me :-)**
+**16/05 Working on a Windows version. Please, be patient for a working version, and if you want to contribute, email me :-)**
 
 OHT: Open HMI Tester
 ====================
