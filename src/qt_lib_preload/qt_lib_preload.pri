@@ -1,9 +1,4 @@
 
-####
-#### base Lib Preload project
-####
-
-include(../lib_preload/lib_preload.pri)
 
 # directories ($$PWD) are set before files because of an error in Qt5
 INCLUDEPATH += $$PWD

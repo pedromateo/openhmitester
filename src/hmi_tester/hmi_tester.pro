@@ -5,16 +5,16 @@
 
 equals(QT_MAJOR_VERSION, 5) {
   message(" ================ QT 5 ================ ")
-   QT += widgets testlib
+   QT += widgets testlib network
    CONFIG +=
 }
 else {
   message(" ================ QT 4 ================ ")
-   QT +=
+   QT += network
    CONFIG += qtestlib
 }
 
-QT += script network
+
 #CONFIG += debug
 
 TARGET = HMITester

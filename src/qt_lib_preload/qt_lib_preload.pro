@@ -5,30 +5,31 @@
 
 ####
 #### qt-linux Lib Preload project
-####
-
 
 equals(QT_MAJOR_VERSION, 5) {
   message(" ================ QT 5 ================ ")
-   QT += widgets testlib
+   QT += widgets testlib network
    CONFIG +=
 }
 else {
   message(" ================ QT 4 ================ ")
-   QT +=
+   QT += network
    CONFIG += qtestlib
 }
 
-QT += network xml
 CONFIG += debug
 
 TARGET = qt_oht_preload
 TEMPLATE = lib
 
+####
+#### base Lib Preload project
+
+include(../lib_preload/lib_preload.pri)
+
 
 ###
 ### OHT Qt LibPreload sources
-###
 
 include(qt_lib_preload.pri)
 

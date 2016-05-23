@@ -5,17 +5,15 @@
 
 equals(QT_MAJOR_VERSION, 5) {
   message(" ================ QT 5 ================ ")
-   QT += testlib
+   QT +=
    CONFIG +=
 }
 else {
   message(" ================ QT 4 ================ ")
    QT +=
-   CONFIG += qtestlib
+   CONFIG +=
 }
 
-
-QT += network xml
 CONFIG += debug
 
 TARGET = OHTPreload
