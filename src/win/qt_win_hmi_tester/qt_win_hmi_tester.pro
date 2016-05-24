@@ -20,12 +20,12 @@ include(../../hmi_tester/hmi_tester.pri)
 ####
 
 equals(QT_MAJOR_VERSION, 5) {
-  message(" ================ QT 5 ================ ")
+   message("QMake qt_win_hmi_tester QT5")
    QT += widgets testlib
    CONFIG +=
 }
 else {
-  message(" ================ QT 4 ================ ")
+   message("QMake qt_win_hmi_tester QT4")
    QT +=
    CONFIG += qtestlib
 }

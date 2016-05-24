@@ -4,12 +4,12 @@
 
 
 equals(QT_MAJOR_VERSION, 5) {
-  message(" ================ QT 5 ================ ")
+   message("QMake hmi_tester QT5")
    QT += widgets testlib network
    CONFIG +=
 }
 else {
-  message(" ================ QT 4 ================ ")
+   message("QMake hmi_tester QT4")
    QT += network
    CONFIG += qtestlib
 }

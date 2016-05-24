@@ -1,4 +1,6 @@
 
+message("QMake common (all versions)")
+
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
 
@@ -26,19 +28,15 @@ HEADERS += $$PWD/datamodel.h \
 
 # add here your boost includes if needed
 linux {
+    message(" Linux Boost libs selected")
     LIBS += -L/opt/boost/boost_1_60_0/lib/
     INCLUDEPATH += /opt/boost/boost_1_60_0/include/
     LIBS += -lboost_serialization
 }
 win32 {
-    LIBS += -LC:\boost_1_60_0\stage\lib
-    INCLUDEPATH += C:\boost_1_60_0\
-
- #   LIBS += -LC:\boost_1_60_0\stage\lib
- #   INCLUDEPATH += C:\boost\include\boost-1_60
-
-
-
+    message(" Win32 Boost libs selected")
+    LIBS += -LC:/boost/lib
+    INCLUDEPATH += C:/boost/include/
     LIBS += -lboost_serialization-mgw49-mt-d-1_60
 }
 

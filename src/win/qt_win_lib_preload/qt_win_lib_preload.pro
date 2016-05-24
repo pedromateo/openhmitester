@@ -3,11 +3,11 @@
 # -------------------------------------------------
 
 equals(QT_MAJOR_VERSION, 5) {
-  message(" ================ QT 5 ================ ")
+   message("QMake qt_win_lib_preload QT5")
    QT += widgets testlib
    CONFIG +=
 }else {
-  message(" ================ QT 4 ================ ")
+   message("QMake qt_win_lib_preload QT4")
    QT +=
    CONFIG += qtestlib
 }

@@ -7,12 +7,12 @@
 #### qt-linux Lib Preload project
 
 equals(QT_MAJOR_VERSION, 5) {
-  message(" ================ QT 5 ================ ")
+   message("QMake qt_lib_preload QT5")
    QT += widgets testlib network
    CONFIG +=
 }
 else {
-  message(" ================ QT 4 ================ ")
+   message("QMake qt_lib_preload QT4")
    QT += network
    CONFIG += qtestlib
 }

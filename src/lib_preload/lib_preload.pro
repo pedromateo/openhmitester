@@ -4,12 +4,12 @@
 
 
 equals(QT_MAJOR_VERSION, 5) {
-  message(" ================ QT 5 ================ ")
+   message("QMake lib_preload QT5")
    QT +=
    CONFIG +=
 }
 else {
-  message(" ================ QT 4 ================ ")
+   message("QMake lib_preload QT4")
    QT +=
    CONFIG +=
 }
