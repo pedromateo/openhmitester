@@ -87,7 +87,7 @@ void ProcessControl::initialize()
     {
         DEBUG(D_GUI,"(ProcessControl::initializeForm) Failed Preload lib checking.");
         DEBUG(D_GUI,"(ProcessControl::initializeForm) libpath = " << current_libPreload_path_);
-        QtUtils::newErrorDialog ( "Failed Preload Libraries checking.");
+        QtUtils::newErrorDialog ( QString("Preload Library not found at: ") + QString(current_libPreload_path_.c_str()));
         assert ( 0 );
     }
 

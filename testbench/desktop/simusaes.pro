@@ -3,12 +3,12 @@
 #-------------------------------------------------
 
 equals(QT_MAJOR_VERSION, 5) {
-  message(" ================ QT 5 ================ ")
+  message(" Simusaes in QT 5 ")
    QT += widgets
    CONFIG +=
 }
 else {
-  message(" ================ QT 4 ================ ")
+  message(" Simusaes in QT 4 ")
    QT +=
    CONFIG +=
 }
@@ -17,7 +17,7 @@ TARGET = simusaes
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
+SOURCES += main.cpp \
            mainwindow.cpp \
            nativecontroller.cpp
 

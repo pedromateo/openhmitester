@@ -24,7 +24,11 @@
 #include "qtx11preloadingcontrol.h"
 #include <debug.h>
 #include <QWidget>
-#include <X11/Xlib.h>
+
+#if LINUX_OHT
+   #include <X11/Xlib.h>
+#endif
+
 
 
 QtX11PreloadingControl::QtX11PreloadingControl(EventConsumer *ec, EventExecutor *ex)
@@ -82,8 +86,10 @@ bool QWidget::x11Event ( XEvent * event )
     {
         DEBUG(D_PRELOAD,"(QWidget::x11Event) Initializing hooking process.");
 
+#if LINUX_OHT
         //sinchronizing X11 threads
         XInitThreads();
+#endif
 
         // create specific consumers and executor
         EventConsumer* ec = new QtEventConsumer();

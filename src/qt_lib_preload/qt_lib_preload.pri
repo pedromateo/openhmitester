@@ -1,4 +1,7 @@
+####
+#### base Lib Preload project
 
+include(../lib_preload/lib_preload.pri)
 
 # directories ($$PWD) are set before files because of an error in Qt5
 INCLUDEPATH += $$PWD
@@ -20,6 +23,8 @@ HEADERS += $$PWD/qteventconsumer.h \
     $$PWD/qwidgetutils.h \
     $$PWD/qwidgetadapter.h
 
+#SOURCES += ../libpreload/preloadcontroller.cpp
+#HEADERS += ../libpreload/preloadcontroller.h
 
 ###
 ### qt-linux Lib Preload libs

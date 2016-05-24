@@ -23,7 +23,7 @@
 
 #include "linuxpreloadingaction.h"
 #include <qtutils.h>
-#include <qtlinux_ohtconfig.h>
+#include <qtwin_ohtconfig.h>
 #include <debug.h>
 
 #include <iostream>

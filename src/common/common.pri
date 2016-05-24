@@ -24,6 +24,14 @@ HEADERS += $$PWD/datamodel.h \
            $$PWD/ohtbaseconfig.h \
            $$PWD/debug.h
 
+# define platform variable
+linux {
+    DEFINES += LINUX_OHT
+}
+win32 {
+    DEFINES += WINDOWS_OHT
+}
+
 
 
 # add here your boost includes if needed

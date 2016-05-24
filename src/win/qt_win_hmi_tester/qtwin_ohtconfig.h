@@ -20,18 +20,20 @@
  *   http://openhmitester.sourceforge.net
  *
  */
-#ifndef QTLINUX_OHTCONFIG_H
-#define QTLINUX_OHTCONFIG_H
+#ifndef QTWIN_OHTCONFIG_H
+#define QTWIN_OHTCONFIG_H
 
 
 ///
-/// QTLINUX_OHT Configuration file
+/// QTWIN_OHT Configuration file
 ///
+
 
 
 ///
 /// libpreload path
-#define LIBPRELOAD_PATH "../qt_linux_lib_preload/libqt_linux_oht_preload.so"
+#define LIBPRELOAD_PATH "../../qt_win_lib_preload/debug/qt_linux_oht_preload.dll"
+
 
 ///
 /// oreload environment variable
@@ -41,4 +43,4 @@
 
 
 
-#endif // QTLINUX_OHTCONFIG_H
+#endif // QTWIN_OHTCONFIG_H

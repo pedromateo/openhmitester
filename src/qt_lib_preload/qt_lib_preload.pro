@@ -22,10 +22,7 @@ CONFIG += debug
 TARGET = qt_oht_preload
 TEMPLATE = lib
 
-####
-#### base Lib Preload project
 
-include(../lib_preload/lib_preload.pri)
 
 
 ###
