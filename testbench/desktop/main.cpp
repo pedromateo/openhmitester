@@ -1,7 +1,7 @@
 #include <QApplication>
 #include "mainwindow.h"
 
-#include <qtx11preloadingcontrol.h>
+#include <qtpreloadingcontrol.h>
 
 int main(int argc, char *argv[])
 {
@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 
     /// manual preloading
 
-    QtX11PreloadingControl::do_preload();
+    //QtPreloadingControl::do_preload();
 
     ///
 

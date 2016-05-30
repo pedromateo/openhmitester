@@ -20,20 +20,20 @@
  *   http://openhmitester.sourceforge.net
  *
  */
-#ifndef QTX11PRELOADINGCONTROL_H
-#define QTX11PRELOADINGCONTROL_H
+#ifndef X11PreloadingControl_H
+#define X11PreloadingControl_H
 
 #include <preloadingcontrol.h>
 #include <qteventconsumer.h>
 #include <qteventexecutor.h>
 
-class QtX11PreloadingControl : public PreloadingControl
+class X11PreloadingControl : public PreloadingControl
 {
 
 public:
 
-    QtX11PreloadingControl(EventConsumer* ec, EventExecutor* ex);
-    ~QtX11PreloadingControl();
+    X11PreloadingControl(EventConsumer* ec, EventExecutor* ex);
+    ~X11PreloadingControl();
 
 private:
 
@@ -51,4 +51,4 @@ private:
 };
 
 
-#endif // QTX11PRELOADINGCONTROL_H
+#endif // X11PreloadingControl_H

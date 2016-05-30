@@ -31,8 +31,8 @@ include(../../qt_lib_preload/qt_lib_preload.pri)
 ###
 
 INCLUDEPATH += ../../preloaders
-SOURCES += ../../preloaders/qtx11preloadingcontrol.cpp
-HEADERS += ../../preloaders/qtx11preloadingcontrol.h
+SOURCES += ../../preloaders/qtpreloadingcontrol.cpp
+HEADERS += ../../preloaders/qtpreloadingcontrol.h
 
 
 
