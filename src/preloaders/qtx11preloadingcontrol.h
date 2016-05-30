@@ -24,8 +24,6 @@
 #define QTX11PRELOADINGCONTROL_H
 
 #include <preloadingcontrol.h>
-//#include <eventconsumer.h>
-//#include <eventexecutor.h>
 #include <qteventconsumer.h>
 #include <qteventexecutor.h>
 
@@ -43,6 +41,14 @@ private:
     EventExecutor* _event_executor;
 
 
+public:
+
+    static bool do_preload();
+
+private:
+
+    static PreloadingControl *pc;
 };
+
 
 #endif // QTX11PRELOADINGCONTROL_H

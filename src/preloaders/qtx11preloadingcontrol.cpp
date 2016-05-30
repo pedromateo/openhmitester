@@ -26,10 +26,10 @@
 #include <QWidget>
 
 #if LINUX_OHT
-   #include <X11/Xlib.h>
+#include <X11/Xlib.h>
 #endif
 
-
+PreloadingControl* QtX11PreloadingControl::pc = NULL;
 
 QtX11PreloadingControl::QtX11PreloadingControl(EventConsumer *ec, EventExecutor *ex)
     : PreloadingControl(ec, ex)
@@ -45,43 +45,8 @@ QtX11PreloadingControl::~QtX11PreloadingControl()
     if (_event_executor != NULL) delete _event_executor;
 }
 
-///
-/// get up method
-///
-
-/*
-  This method, which is called at the beginning of
-  the execution, is reimplemented in order to
-  replace the original implementation and add the
-  functionality we need.
-  The preload library loading allows the replacement.
-*/
-
-PreloadingControl *pc = NULL;
-
-/*
-void QObject::timerEvent ( QTimerEvent * )
+bool QtX11PreloadingControl::do_preload()
 {
-    //only the first time...
-    if (!pc)
-    {
-        DEBUG(D_PRELOAD,"(QObject::timerEvent) Initializing hooking process.");
-
-        //create a control instance
-        pc = new QtX11PreloadingControl();
-        //call the initialize method
-        pc->initPreload();
-    }
-}
-*/
-
-#if QT_VERSION >= 0x050000
-bool QWidget::nativeEvent(const QByteArray & eventType, void * message, long * result)
-#else
-bool QWidget::x11Event ( XEvent * event )
-#endif
-{
-    //only the first time...
     if (!pc)
     {
         DEBUG(D_PRELOAD,"(QWidget::x11Event) Initializing hooking process.");
@@ -101,6 +66,81 @@ bool QWidget::x11Event ( XEvent * event )
         //call the initialize method
         pc->initPreload();
         DEBUG(D_PRELOAD,"(QWidget::x11Event) Hooking process finished.");
+
+        std::cout << "2" << std::endl;
+
+        return true;
     }
+
+    return false;
+}
+
+///
+/// get up method
+///
+
+/*
+  This method, which is called at the beginning of
+  the execution, is reimplemented in order to
+  replace the original implementation and add the
+  functionality we need.
+  The preload library loading allows the replacement.
+*/
+
+//PreloadingControl *pc = NULL;
+
+/*
+void QObject::timerEvent ( QTimerEvent * )
+{
+    //only the first time...
+    if (!pc)
+    {
+        DEBUG(D_PRELOAD,"(QObject::timerEvent) Initializing hooking process.");
+
+        //create a control instance
+        pc = new QtX11PreloadingControl();
+        //call the initialize method
+        pc->initPreload();
+    }
+}
+*/
+
+
+
+
+#if QT_VERSION >= 0x050000
+bool QWidget::nativeEvent(const QByteArray & eventType, void * message, long * result)
+#else
+bool QWidget::x11Event ( XEvent * event )
+#endif
+{
+
+    std::cout << "1" << std::endl;
+
+    QtX11PreloadingControl::do_preload();
+
+    //only the first time...
+    /* if (!pc)
+    {
+        DEBUG(D_PRELOAD,"(QWidget::x11Event) Initializing hooking process.");
+
+#if LINUX_OHT
+        //sinchronizing X11 threads
+        XInitThreads();
+#endif
+
+        // create specific consumers and executor
+        EventConsumer* ec = new QtEventConsumer();
+        EventExecutor* ex = new QtEventExecutor();
+
+        //create a control instance
+        pc = new QtX11PreloadingControl(ec,ex);
+
+        //call the initialize method
+        pc->initPreload();
+        DEBUG(D_PRELOAD,"(QWidget::x11Event) Hooking process finished.");
+
+        std::cout << "2" << std::endl;
+    }*/
     return false;
 }

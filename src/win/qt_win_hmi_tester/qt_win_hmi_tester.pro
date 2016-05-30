@@ -33,7 +33,7 @@ else {
 QT += script xml network
 CONFIG += debug
 
-TARGET = qt_linux_hmi_tester
+TARGET = qt_win_hmi_tester
 TEMPLATE = app
 
 

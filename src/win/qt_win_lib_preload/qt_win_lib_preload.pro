@@ -15,7 +15,7 @@ equals(QT_MAJOR_VERSION, 5) {
 QT += network xml
 CONFIG += debug
 
-TARGET = qt_linux_oht_preload
+TARGET = qt_win_oht_preload
 TEMPLATE = lib
 
 
@@ -33,6 +33,5 @@ include(../../qt_lib_preload/qt_lib_preload.pri)
 INCLUDEPATH += ../../preloaders/
 SOURCES += ../../preloaders/qtx11preloadingcontrol.cpp
 HEADERS += ../../preloaders/qtx11preloadingcontrol.h
-
 
 

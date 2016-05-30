@@ -32,7 +32,7 @@
 
 ///
 /// libpreload path
-#define LIBPRELOAD_PATH "../../qt_win_lib_preload/debug/qt_linux_oht_preload.dll"
+#define LIBPRELOAD_PATH "../../qt_win_lib_preload/debug/qt_win_oht_preload.dll"
 
 
 ///
