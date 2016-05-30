@@ -29,6 +29,10 @@ FORMS   += mainwindow.ui
 #LIBS += -lboost_system -lboost_program_options
 
 #####################
+
+QT +=  testlib
+
+
 INCLUDEPATH += ../../../openhmitester/src/win/qt_win_lib_preload/
 INCLUDEPATH += ../../../openhmitester/src/linux/qt_win_lib_preload/
 INCLUDEPATH += ../../../openhmitester/src/preloaders
@@ -46,17 +50,25 @@ linux{
 
 }
 
-win32{
-    LIBS += -L../../src/win/qt_win_lib_preload/debug
-    LIBS += -lqt_win_oht_preload
 
+win32{
 
     LIBS += -LC:/boost/lib
     INCLUDEPATH += C:/boost/include/
     LIBS += -lboost_serialization-mgw49-mt-d-1_60
+
 }
 
-QT += network widgets testlib
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../../src/win/qt_win_lib_preload/release/ -lqt_win_oht_preload
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../../src/win/qt_win_lib_preload/debug/ -lqt_win_oht_preload
+else:unix:!macx: LIBS += -L$$OUT_PWD/../../src/win/qt_win_lib_preload/ -lqt_win_oht_preload
+
+INCLUDEPATH += $$PWD/../../src/win/qt_win_lib_preload
+DEPENDPATH += $$PWD/../../src/win/qt_win_lib_preload
 
 #####################
+
+
+
+
 
