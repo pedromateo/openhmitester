@@ -1,5 +1,25 @@
 
-**16/05 Working on a Windows version. Please, be patient for a working version, and if you want to contribute, email me :-)**
+**10/06/2016 Working on a Windows version. Please, be patient for a working version, and if you want to contribute, just email me or check out his TODO list:**
+
+- *TODO_1*: Try to integrate the "preload library" into the workbench desktop
+app (called Simusaes) manually. By manually I mean to include a line
+in "Simusaes" main function in which the preload action is called
+(this should be called automatically, read below). This is almost
+implemented.
+
+- *TODO_2*: Once everything is working as expected (i.e., the OHT records and
+replays without any problem), I should try to execute the preload
+action automatically. In linux it is implemented using the LD_PRELOAD
+environment variable. In windows I read about including the path of
+the library to preload into a registry key.
+
+  **PreloadModule** in the library used to extract events from the
+application under test (AUT), and to execute actions on it as well.
+This module (encapsulated into a DLL library) has to:
+
+  1. be preloaded into the AUT before the AUT is launched.
+  2. detect any event (in linux we use an event called something like Qt nativeEvent) to automatically execute at startup and deploy the OHT services, thus the OHT controller will be able to communicate to and control the AUT.
+
 
 OHT: Open HMI Tester
 ====================
