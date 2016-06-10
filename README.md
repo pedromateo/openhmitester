@@ -7,11 +7,16 @@ in "Simusaes" main function in which the preload action is called
 (this should be called automatically, read below). This is almost
 implemented.
 
+  To do this, please, take a look at: openhmitester/testbench/desktop/main.cpp, line 12
+ 
+
 - *TODO_2*: Once everything is working as expected (i.e., the OHT records and
 replays without any problem), I should try to execute the preload
 action automatically. In linux it is implemented using the LD_PRELOAD
 environment variable. In windows I read about including the path of
 the library to preload into a registry key.
+
+  For this, openhmitester/src/preloaders/winpreloadingaction.cpp should be properly implemented. Right now it holds the implementation for linux systems, but I will clean and prepare this class asap.
 
   **PreloadModule** in the library used to extract events from the
 application under test (AUT), and to execute actions on it as well.
