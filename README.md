@@ -1,7 +1,7 @@
 
 **10/06/2016 Working on a Windows version. Please, be patient for a working version, and if you want to contribute, just email me or check out his TODO list:**
 
-- *TODO_1*: Try to integrate the "preload library" into the workbench desktop
+- *TODO_1 (already done)*: Try to integrate the "preload library" into the workbench desktop
 app (called Simusaes) manually. By manually I mean to include a line
 in "Simusaes" main function in which the preload action is called
 (this should be called automatically, read below). This is almost
