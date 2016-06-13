@@ -8,9 +8,10 @@ int main(int argc, char *argv[])
 {
     QApplication qapp(argc, argv);
 
+#if MANUAL_PRELOAD
     /// manual preloading
-    QtPreloadingControl::do_preload();
-    ///
+    QtPreloadingControl::Do_preload();
+#endif
 
     MainWindow w;
     w.show();

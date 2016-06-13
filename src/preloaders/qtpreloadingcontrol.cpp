@@ -41,7 +41,7 @@ QtPreloadingControl::~QtPreloadingControl()
     if (_event_executor != NULL) delete _event_executor;
 }
 
-bool QtPreloadingControl::do_preload()
+bool QtPreloadingControl::Do_preload()
 {
     if (!pc)
     {
@@ -49,21 +49,18 @@ bool QtPreloadingControl::do_preload()
 
 #if LINUX_OHT
         //sinchronizing X11 threads
-//        XInitThreads();
+        XInitThreads();
 #endif
 
-        // create specific consumers and executor
-        EventConsumer* ec = new QtEventConsumer();
-        EventExecutor* ex = new QtEventExecutor();
-
-        //create a control instance
-        pc = new QtPreloadingControl(ec,ex);
+        // create specific consumers and executor...
+        // ...to create a control instance
+        pc = new QtPreloadingControl(new QtEventConsumer(),new QtEventExecutor());
 
         //call the initialize method
         pc->initPreload();
         DEBUG(D_PRELOAD,"(QtPreloadingControl::do_preload) Hooking process finished.");
 
-        std::cout << "2" << std::endl;
+        std::cout << "Waking up..." << std::endl;
 
         return true;
     }
@@ -84,6 +81,6 @@ bool QtPreloadingControl::do_preload()
 
 bool QWidget::nativeEvent(const QByteArray & eventType, void * message, long * result)
 {
-    QtPreloadingControl::do_preload();
+    QtPreloadingControl::Do_preload();
     return false;
 }

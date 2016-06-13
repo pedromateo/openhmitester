@@ -43,7 +43,7 @@ private:
 
 public:
 
-    static bool do_preload();
+    static bool Do_preload();
 
 private:
 

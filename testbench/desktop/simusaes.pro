@@ -28,45 +28,57 @@ FORMS   += mainwindow.ui
 
 #LIBS += -lboost_system -lboost_program_options
 
-#####################
 
-QT +=  testlib
+######################################################################
+### Includes needed to manually include qt_win_lib_preload into AUT
+######################################################################
+
+CONFIG += MANUAL_PRELOAD
+
+MANUAL_PRELOAD{
+
+    message(Simulating manual preload. Including additional libs and sources.)
+
+    QT +=  testlib
 
 
-INCLUDEPATH += ../../../openhmitester/src/win/qt_win_lib_preload/
-INCLUDEPATH += ../../../openhmitester/src/linux/qt_win_lib_preload/
-INCLUDEPATH += ../../../openhmitester/src/preloaders
-INCLUDEPATH += ../../../openhmitester/src/common
-INCLUDEPATH += ../../../openhmitester/src/lib_preload
-INCLUDEPATH += ../../../openhmitester/src/qt_lib_preload
+    INCLUDEPATH += ../../../openhmitester/src/win/qt_win_lib_preload/
+    INCLUDEPATH += ../../../openhmitester/src/linux/qt_win_lib_preload/
+    INCLUDEPATH += ../../../openhmitester/src/preloaders
+    INCLUDEPATH += ../../../openhmitester/src/common
+    INCLUDEPATH += ../../../openhmitester/src/lib_preload
+    INCLUDEPATH += ../../../openhmitester/src/qt_lib_preload
 
-linux{
-    LIBS += -L../../src/linux/qt_linux_lib_preload
-    LIBS += -lqt_linux_oht_preload
 
-    LIBS += -L/opt/boost/boost_1_60_0/lib/
-    INCLUDEPATH += /opt/boost/boost_1_60_0/include/
-    LIBS += -lboost_serialization
+    include(../../../openhmitester/src/qt_lib_preload/qt_lib_preload.pri)
+
+    SOURCES += ../../../openhmitester/src/preloaders/qtpreloadingcontrol.cpp
+    HEADERS += ../../../openhmitester/src/preloaders/qtpreloadingcontrol.h
+
+
+    linux{
+        LIBS += -L../../src/linux/qt_linux_lib_preload
+        LIBS += -lqt_linux_oht_preload
+
+        LIBS += -L/opt/boost/boost_1_60_0/lib/
+        INCLUDEPATH += /opt/boost/boost_1_60_0/include/
+        LIBS += -lboost_serialization
+
+    }
+
+    win32{
+        LIBS += -LC:/boost/lib
+        INCLUDEPATH += C:/boost/include/
+        LIBS += -lboost_serialization-mgw49-mt-d-1_60
+
+        CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../../src/win/qt_win_lib_preload/release/ -lqt_win_oht_preload
+        else:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../../src/win/qt_win_lib_preload/debug/ -lqt_win_oht_preload
+
+    }
 
 }
 
-
-win32{
-
-    LIBS += -LC:/boost/lib
-    INCLUDEPATH += C:/boost/include/
-    LIBS += -lboost_serialization-mgw49-mt-d-1_60
-
-}
-
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../../src/win/qt_win_lib_preload/release/ -lqt_win_oht_preload
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../../src/win/qt_win_lib_preload/debug/ -lqt_win_oht_preload
-else:unix:!macx: LIBS += -L$$OUT_PWD/../../src/win/qt_win_lib_preload/ -lqt_win_oht_preload
-
-INCLUDEPATH += $$PWD/../../src/win/qt_win_lib_preload
-DEPENDPATH += $$PWD/../../src/win/qt_win_lib_preload
-
-#####################
+####################################################################
 
 
 
