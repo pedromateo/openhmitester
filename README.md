@@ -21,6 +21,7 @@ environment variable, in windows I found several options:
      3. The AppL is a binary including the PreloadLibrary. Therefore, in its main function, it first calls to `QtPreloadingControl::Do_preload();`. Please, see `win_oht_launcher` subproject into the `build_all_win` project.
      4. The AppL loads the exe file of the AUT as a DLL. Some links supporting this approach:
         - http://www.codeproject.com/Articles/1045674/Load-EXE-as-DLL-Mission-Possible
+        - https://msdn.microsoft.com/en-us/library/windows/desktop/ms684175%28v=vs.85%29.aspx
         - http://stackoverflow.com/questions/8696653/dynamically-load-a-function-from-a-dll
      5. The AppL calls the main function of the AUT to launch it, including the PreloadLibrary previously loaded.
 
