@@ -1,5 +1,5 @@
 
-**June, 16st -> Working on a Windows version. It is just needed to implement "preload" for all to work. If you want to contribute, just email me or continue reading:**
+**June, the 16st -> Working on a Windows version. It is just needed to implement "preload" for all to work. If you want to contribute, just email me or continue reading:**
 
 - *(done) TODO_1*: Try to integrate the "preload library" into the workbench desktop
 app (called Simusaes) manually. By manually I mean to include a line
