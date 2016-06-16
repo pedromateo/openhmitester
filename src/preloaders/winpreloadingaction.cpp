@@ -21,27 +21,27 @@
  *
  */
 
-#include "linuxpreloadingaction.h"
+#include "winpreloadingaction.h"
 #include <qtutils.h>
 #include <qtwin_ohtconfig.h>
 #include <debug.h>
 
 #include <iostream>
 
-LinuxPreloadingAction::LinuxPreloadingAction()
+WinPreloadingAction::WinPreloadingAction()
 {
 }
 
 
 
 /// returns lib preload location
-std::string LinuxPreloadingAction::libPreloadPath()
+std::string WinPreloadingAction::libPreloadPath()
 {
     return std::string(LIBPRELOAD_PATH);
 }
 
 ///
-bool LinuxPreloadingAction::launchApplication ( const std::string &binaryPath,
+bool WinPreloadingAction::launchApplication ( const std::string &binaryPath,
                                                 const std::string &preloadLibraryPath,
                                                 const std::string &outputFile,
                                                 const std::string &errorFile) throw (bin_error_exception, lib_error_exception)
@@ -65,28 +65,20 @@ bool LinuxPreloadingAction::launchApplication ( const std::string &binaryPath,
         assert(redirectStandarErrorToFile(errorFile));
     }
 
-    /*connect( process_.get(), SIGNAL ( readyReadStandardOutput() ),
-              this, SIGNAL ( standardOutput(const QString&) ) );
-    connect( process_.get(), SIGNAL ( readyReadStandardError() ),
-              this, SIGNAL ( standardError(const QString&) ) );*/
-
     //connecting process signals
     connect ( process_.get(), SIGNAL ( finished (int, QProcess::ExitStatus) ),
               this, SIGNAL ( applicationClosed(int) ) );
 
-    //setting preloading environment for the process
-    QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
-    env.insert(PRELOAD_ENVVAR, QString(preloadLibraryPath.c_str()));
-    //env.insert(PRELOAD_ENVVAR, "/home/pedro/svn_catedra/anotaciones/testing/imp_HMITester_github/openhmitester/build/qt_linux_lib_preload/libOHTPreload.so");
-    process_->setProcessEnvironment(env);
+    /// TODO
 
-    /*QStringList environment = process_->processEnvironment().toStringList();
-    for(int i=0; i < environment.size(); i++){
-        std::cout << environment.at(i).toLocal8Bit().constData() << std::endl;
-    }*/
+    ///
+    /// \brief TODO: Do preload here...
+    ///
+
+    /// TODO
 
     DEBUG(D_PRELOAD,"==========================================");
-    DEBUG(D_PRELOAD,"(LinuxPreloadingAction::launchApplication) Launching application with:");
+    DEBUG(D_PRELOAD,"(WinPreloadingAction::launchApplication) Launching application with:");
     DEBUG(D_PRELOAD," - binaryPath = " << binaryPath);
     DEBUG(D_PRELOAD," - preloadLibraryPath = " << preloadLibraryPath);
     //DEBUG(D_PRELOAD," - envvar = " << envvar.toStdString());
@@ -98,12 +90,12 @@ bool LinuxPreloadingAction::launchApplication ( const std::string &binaryPath,
     process_->start(QString(binaryPath.c_str()));
     process_->waitForStarted();
 
-    std::cout << "(LinuxPreloadingAction::launchApplication) Application launched." << std::endl;
+    std::cout << "(WinPreloadingAction::launchApplication) Application launched." << std::endl;
     return true;
 }
 
 ///
-bool LinuxPreloadingAction::stopApplication ()
+bool WinPreloadingAction::stopApplication ()
 {
     process_->kill();
     return true;
@@ -115,25 +107,25 @@ bool LinuxPreloadingAction::stopApplication ()
 /// private methods
 ///
 
-bool LinuxPreloadingAction::redirectStandarOutputToFile(const std::string& outputFile)
+bool WinPreloadingAction::redirectStandarOutputToFile(const std::string& outputFile)
 {
     if ( process_.get() && outputFile != "" )
     {
         process_->setStandardOutputFile ( QString ( outputFile.c_str()) );
         DEBUG(D_PRELOAD,
-              "(LinuxPreloadingAction::launchApplication) std output redirected to file: " << outputFile);
+              "(WinPreloadingAction::launchApplication) std output redirected to file: " << outputFile);
         return true;
     }
     return false;
 }
 
-bool LinuxPreloadingAction::redirectStandarErrorToFile(const std::string& errorFile)
+bool WinPreloadingAction::redirectStandarErrorToFile(const std::string& errorFile)
 {
     if ( process_.get() && errorFile != "" )
     {
         process_->setStandardErrorFile ( QString (errorFile.c_str()) );
         DEBUG(D_PRELOAD,
-              "(LinuxPreloadingAction::launchApplication) std error redirected to file: " << errorFile);
+              "(WinPreloadingAction::launchApplication) std error redirected to file: " << errorFile);
         return true;
     }
     return false;

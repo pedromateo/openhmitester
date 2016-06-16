@@ -20,20 +20,20 @@
  *   http://openhmitester.sourceforge.net
  *
  */
-#ifndef LINUXPRELOADINGACTION_H
-#define LINUXPRELOADINGACTION_H
+#ifndef WINPRELOADINGACTION_H
+#define WINPRELOADINGACTION_H
 
 #include <preloadingaction.h>
 #include <QObject>
 #include <QProcess>
 #include <memory>
 
-class LinuxPreloadingAction : public PreloadingAction
+class WinPreloadingAction : public PreloadingAction
 {
     Q_OBJECT
 
 public:
-    LinuxPreloadingAction();
+    WinPreloadingAction();
 
 
     ///
@@ -69,4 +69,4 @@ private:
     std::auto_ptr<QProcess> process_;
 };
 
-#endif // LINUXPRELOADINGACTION_H
+#endif // WINPRELOADINGACTION_H

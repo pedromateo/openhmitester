@@ -33,7 +33,7 @@ QT       += core gui
 CONFIG += qtestlib no_keywords
 
 # targets
-SUBDIRS += src/common
+SUBDIRS += src/common \
 src/common.file = src/common/common.pri
 SUBDIRS += src/hmi_tester
 SUBDIRS += src/lib_preload
@@ -44,5 +44,8 @@ SUBDIRS += testbench/desktop
 testbench/desktop.file = testbench/desktop/simusaes.pro
 SUBDIRS += testbench/web
 testbench/web.file = testbench/web/fancybrowser.pro
+
+
+SUBDIRS += src/win/win_oht_launcher
 
 

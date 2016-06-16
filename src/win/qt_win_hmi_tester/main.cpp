@@ -24,7 +24,7 @@
 #include <QCoreApplication>
 
 #include <hmitestercontrol.h>
-#include <linuxpreloadingaction.h>
+#include <winpreloadingaction.h>
 #include <xmldatamodeladapter.h>
 #include <debug.h>
 
@@ -32,7 +32,7 @@
 int main(int argc, char *argv[])
 {
     // create specific modules for qt-linux-xml adaptation
-    PreloadingAction *pa = new LinuxPreloadingAction();
+    PreloadingAction *pa = new WinPreloadingAction();
     DataModelAdapter *dma = new XMLDataModelAdapter();
 
     QCoreApplication::setOrganizationName("pedromateo");

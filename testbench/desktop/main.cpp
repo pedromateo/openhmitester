@@ -1,8 +1,9 @@
 #include <QApplication>
 #include "mainwindow.h"
 
+#if MANUAL_PRELOAD
 #include <qtpreloadingcontrol.h>
-
+#endif
 
 int main(int argc, char *argv[])
 {
