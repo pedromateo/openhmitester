@@ -28,37 +28,55 @@
     <div id="content-wrapper">
       <div class="inner clearfix">
         <section id="main-content">
-          <p><strong>10/06/2016 Working on a Windows version. Please, be patient for a working version, and if you want to contribute, just email me or check out his TODO list:</strong></p>
+          <p><strong>June, the 16st -&gt; Working on a Windows version. It is just needed to implement "preload" for all to work. If you want to contribute, just email me or continue reading:</strong></p>
 
 <ul>
 <li>
-<p><em>TODO_1 (already done)</em>: Try to integrate the "preload library" into the workbench desktop
+<p><em>(done) TODO_1</em>: Try to integrate the "preload library" into the workbench desktop
 app (called Simusaes) manually. By manually I mean to include a line
 in "Simusaes" main function in which the preload action is called
 (this should be called automatically, read below). This is almost
 implemented.</p>
 
-<p>To do this, please, take a look at: openhmitester/testbench/desktop/main.cpp, line 12</p>
+<p>Please, take a look at: <code>openhmitester/testbench/desktop/main.cpp</code>, line 12
+Manual preload can be enabled/disabled in <code>openhmitester/testbench/desktop/simusaes.pro</code>, line 36</p>
 </li>
 <li>
-<p><em>TODO_2</em>: Once everything is working as expected (i.e., the OHT records and
-replays without any problem), I should try to execute the preload
-action automatically. In linux it is implemented using the LD_PRELOAD
-environment variable. In windows I read about including the path of
-the library to preload into a registry key.</p>
+<p><em>TODO_2</em>: Do the preload automatically. While in linux it is implemented using the LD_PRELOAD
+environment variable, in windows I found several options:</p>
 
-<p>For this, openhmitester/src/preloaders/winpreloadingaction.cpp should be properly implemented. Right now it holds the implementation for linux systems, but I will clean and prepare this class asap.</p>
+<ul>
+<li><p>Option 1: Use registry keys. The problem is that security in Windows will not allow us to do it. You can read this: <a href="https://en.wikipedia.org/wiki/DLL_injection">https://en.wikipedia.org/wiki/DLL_injection</a></p></li>
+<li>
+<p>Option 2: Create an application launcher (AppL) to launch the application under testing (AUT). The process would be as follows:</p>
 
-<p><strong>PreloadModule</strong> in the library used to extract events from the
-application under test (AUT), and to execute actions on it as well.
-This module (encapsulated into a DLL library) has to:</p>
+<ol>
+<li>The HMI Tester starts recording a test case, thus the AUT must be launched and the PreloadLibrary loaded into it.</li>
+<li>The HMI Tester calls the AppL with the path to the AUT as parameter.</li>
+<li>The AppL is a binary including the PreloadLibrary. Therefore, in its main function, it first calls to <code>QtPreloadingControl::Do_preload();</code>. Please, see <code>win_oht_launcher</code> subproject into the <code>build_all_win</code> project.</li>
+<li>The AppL loads the exe file of the AUT as a DLL. Some links supporting this approach:
+
+<ul>
+<li><a href="http://www.codeproject.com/Articles/1045674/Load-EXE-as-DLL-Mission-Possible">http://www.codeproject.com/Articles/1045674/Load-EXE-as-DLL-Mission-Possible</a></li>
+<li><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms684175%28v=vs.85%29.aspx">https://msdn.microsoft.com/en-us/library/windows/desktop/ms684175%28v=vs.85%29.aspx</a></li>
+<li><a href="http://stackoverflow.com/questions/8696653/dynamically-load-a-function-from-a-dll">http://stackoverflow.com/questions/8696653/dynamically-load-a-function-from-a-dll</a></li>
+</ul>
+</li>
+<li>The AppL calls the main function of the AUT to launch it, including the PreloadLibrary previously loaded.</li>
+</ol>
+</li>
+</ul>
+
+<p>For this, <code>openhmitester/src/preloaders/winpreloadingaction.cpp</code> should be properly implemented to (option 1) change the registry and launch the AUT as a <code>QProcess</code> or (option 2) to call the AppL with the AUT path as parameter. Right now it holds the basic implementation with a lot of TODOs.</p>
+</li>
+</ul>
+
+<p>Additional info: <strong>PreloadModule</strong> is the library used to extract events from the application under test (AUT), and to execute actions on it as well. This module (encapsulated into a DLL library) has to:</p>
 
 <ol>
 <li>be preloaded into the AUT before the AUT is launched.</li>
 <li>detect any event (in linux we use an event called something like Qt nativeEvent) to automatically execute at startup and deploy the OHT services, thus the OHT controller will be able to communicate to and control the AUT.</li>
 </ol>
-</li>
-</ul>
 
 <h1>
 <a id="oht-open-hmi-tester" class="anchor" href="#oht-open-hmi-tester" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>OHT: Open HMI Tester</h1>
