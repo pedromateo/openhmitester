@@ -7,7 +7,8 @@ in "Simusaes" main function in which the preload action is called
 (this should be called automatically, read below). This is almost
 implemented.
 
-  Please, take a look at: openhmitester/testbench/desktop/main.cpp, line 12
+  Please, take a look at: `openhmitester/testbench/desktop/main.cpp`, line 12
+  Manual preload can be enabled/disabled in `openhmitester/testbench/desktop/simusaes.pro`, line 36
  
 
 - *TODO_2*: Do the preload automatically. While in linux it is implemented using the LD_PRELOAD
