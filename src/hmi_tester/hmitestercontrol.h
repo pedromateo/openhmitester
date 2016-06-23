@@ -94,6 +94,7 @@ private slots:
 
     //menu actions handler
     void action_open_triggered();
+    void action_edit_triggered();
     void action_new_triggered();
     void action_exit_triggered();
     void action_speed1x_triggered();

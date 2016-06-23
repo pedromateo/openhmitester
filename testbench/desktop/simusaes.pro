@@ -33,7 +33,9 @@ FORMS   += mainwindow.ui
 ### Includes needed to manually include qt_win_lib_preload into AUT
 ######################################################################
 
-#CONFIG += MANUAL_PRELOAD
+
+
+CONFIG += MANUAL_PRELOAD
 
 MANUAL_PRELOAD{
 

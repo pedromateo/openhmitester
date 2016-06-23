@@ -43,6 +43,25 @@ bool QtUtils::isExecutable ( const QString &bin )
     return fi.exists ()  && fi.isExecutable ();
 }
 
+///returns true if it is a valid binary (cross-platform version)
+bool QtUtils::isExecutableCP (const QString &bin )
+{
+    QString aux = bin;
+
+    // original option
+    if (isExecutable(aux))
+        return true;
+    // linux option - remove extension to binary
+    else if (isExecutable(aux.replace(".exe","")))
+        return true;
+    // windows option - add extension to binary
+    else if (isExecutable(aux.append(".exe")))
+        return true;
+
+    // in other case...
+    return false;
+}
+
 /// returns true if file exists
 bool QtUtils::fileExists( const QString &file )
 {
@@ -106,8 +125,8 @@ void QtUtils::newInfoDialog ( const QString &s )
 
 ///returns the path of the selected file (open)
 QString QtUtils::openFileDialog ( const QString& title,
-                                         const QString& dir,
-                                         const QString& ext )
+                                  const QString& dir,
+                                  const QString& ext )
 {
     return QFileDialog::getOpenFileName ( 0, title,
                                           dir,
@@ -116,8 +135,8 @@ QString QtUtils::openFileDialog ( const QString& title,
 
 ///returns the path of the selected file (save)
 QString QtUtils::saveFileDialog( const QString& title,
-                                        const QString& dir,
-                                        const QString& ext )
+                                 const QString& dir,
+                                 const QString& ext )
 {
     return QFileDialog::getSaveFileName ( 0, title,
                                           dir,
@@ -126,7 +145,7 @@ QString QtUtils::saveFileDialog( const QString& title,
 
 ///returns the selected path
 QString QtUtils::selectPathDialog( const QString& title,
-                                        const QString& dir)
+                                   const QString& dir)
 {
     return QFileDialog::getExistingDirectory (0,
                                               title,

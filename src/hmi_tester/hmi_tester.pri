@@ -12,6 +12,7 @@ SOURCES += $$PWD/hmitestercontrol.cpp \
     $$PWD/executionthread.cpp \
     $$PWD/itemmanager.cpp \
     $$PWD/newtsdialog.cpp \
+    $$PWD/edittsdialog.cpp \
     $$PWD/newtcdialog.cpp
 
 HEADERS += $$PWD/hmitestercontrol.h \
@@ -25,6 +26,7 @@ HEADERS += $$PWD/hmitestercontrol.h \
     $$PWD/executionthread.h \
     $$PWD/itemmanager.h \
     $$PWD/newtsdialog.h \
+    $$PWD/edittsdialog.h \
     $$PWD/newtcdialog.h \
     $$PWD/executionobserver.h \
     $$PWD/recordingobserver.h \
@@ -35,7 +37,8 @@ HEADERS += $$PWD/qtutils.h
 
 FORMS += $$PWD/hmitestercontrol.ui \
     $$PWD/newtsdialog.ui \
-    $$PWD/newtcdialog.ui
+    $$PWD/newtcdialog.ui \
+    $$PWD/edittsdialog.ui
 
 RESOURCES += $$PWD/resources.qrc
 

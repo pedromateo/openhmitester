@@ -417,23 +417,32 @@ void ProcessControl::onRecord_recClicked()
 /// /
 /// test suite
 /// /
+
+
+DataModel::TestSuite* ProcessControl::loadTestSuiteObject(const std::string& file)
+{
+    try{
+        return dataModel_manager_->getCurrentDataModelAdapter()->file2testSuite(file);
+    }
+    //if a conversion error occurs...
+    catch (DataModelAdapter::conversion_error_exception&){
+        DEBUG(D_ERROR,"(ProcessControl::loadTestSuiteObject) Error converting from a file.");
+        return NULL;
+    }
+}
+
 bool ProcessControl::openTestSuite(const std::string& file)
 {
     DEBUG(D_BOTH,"(ProcessControl::openTestSuite)");
 
     ///get the testSuite object from the file
-    DataModel::TestSuite* ts;
-    try{
-        ts = dataModel_manager_->getCurrentDataModelAdapter()->file2testSuite(file);
-    }
-    //if a conversion error occurs...
-    catch (DataModelAdapter::conversion_error_exception&){
-        DEBUG(D_ERROR,"(ProcessControl::openTestSuite) Error converting from a file.");
+    DataModel::TestSuite* ts = loadTestSuiteObject(file);
+    if (!ts)
         return false;
-    }
 
-    //check if the binary exists
-    bool ok = QtUtils::isExecutable(QString(ts->appId().c_str()));//FIXME remove Qt from here
+
+    //check if the binary exists    //FIXME remove Qt from here
+    bool ok = QtUtils::isExecutableCP(QString(ts->appId().c_str()));
     if (!ok)
     {
         DEBUG(D_ERROR,"(ProcessControl::openTestSuite) Error: The file specified is not a valid or existing binary.");
@@ -445,7 +454,7 @@ bool ProcessControl::openTestSuite(const std::string& file)
 
     //if everithing OK...
 
-    // FIXME: check if the memory is properly managed
+    // FIXME: check if the memory is properly managed here
     _current_testsuite = ts;
 
     //update the internal state
@@ -471,7 +480,11 @@ bool ProcessControl::newTestSuite(const std::string& file,
     _current_testsuite->appId(appId);
 
     //dump the testSuite to a file
-    dataModel_manager_->getCurrentDataModelAdapter()->testSuite2file(*_current_testsuite,file);
+    if (!saveTestSuite(_current_testsuite,file))
+    {
+        DEBUG(D_ERROR, "(ProcessControl::newTestSuite) Error saving the testsuite file.");
+        return false;
+    }
     DEBUG(D_BOTH, "(ProcessControl::newTestSuite) TestSuite file updated.");
 
     //save the current fileName
@@ -490,6 +503,19 @@ bool ProcessControl::newTestSuite(const std::string& file,
     assert(gui_reference_);
     gui_reference_->updateTestSuiteInfo(_current_testsuite);
     return true;
+}
+
+
+bool ProcessControl::saveTestSuite(DataModel::TestSuite* ts,
+                                   const std::string& file)
+{
+    try{
+        dataModel_manager_->getCurrentDataModelAdapter()->testSuite2file(*ts, file);
+        return true;
+    }
+    catch(DataModelAdapter::conversion_error_exception&){
+        return false;
+    }
 }
 
 
@@ -529,7 +555,11 @@ bool ProcessControl::deleteTestCase(const std::string& tcName)
             _current_testsuite->deleteTestCase (tcName);
 
             //update the file
-            dataModel_manager_->getCurrentDataModelAdapter()->testSuite2file(*_current_testsuite, current_filename_);
+            if (!saveTestSuite(_current_testsuite, current_filename_))
+            {
+                DEBUG(D_ERROR, "(ProcessControl::deleteTestCase) Error saving the testsuite file.");
+                return false;
+            }
 
             //update the GUI
             gui_reference_->updateTestSuiteInfo(_current_testsuite);
@@ -673,7 +703,11 @@ void ProcessControl::testRecordingFinished(DataModel::TestCase* tc)
     gui_reference_->updateTestSuiteInfo(_current_testsuite);
 
     //dump the testSuite to a file
-    dataModel_manager_->getCurrentDataModelAdapter()->testSuite2file(*_current_testsuite, current_filename_);
+    if (!saveTestSuite(_current_testsuite, current_filename_))
+    {
+        DEBUG(D_ERROR, "(ProcessControl::testRecordingFinished) Error saving the testsuite file.");
+        return;
+    }
     DEBUG(D_BOTH, "(ProcessControl::testRecordingFinished) TestSuite file updated.");
 }
 

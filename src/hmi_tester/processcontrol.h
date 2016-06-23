@@ -104,10 +104,13 @@ public slots:
     void recClicked();
 
     ///test suite
+    DataModel::TestSuite* loadTestSuiteObject(const std::string&);
     bool openTestSuite(const std::string&);
     bool newTestSuite(const std::string& file,
                       const std::string& name,
                       const std::string& binaryPath);
+    bool saveTestSuite(DataModel::TestSuite* ts,
+                       const std::string& file);
 
     ///test case
     bool checkAndQueueTestCase(const std::string&);

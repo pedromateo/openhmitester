@@ -274,6 +274,7 @@
      </property>
      <addaction name="action_New"/>
      <addaction name="action_Open"/>
+     <addaction name="action_Edit"/>
      <addaction name="separator"/>
      <addaction name="action_Exit"/>
     </widget>
@@ -403,9 +404,18 @@
     <string>S&amp;how tester on top</string>
    </property>
   </action>
+  <action name="action_Edit">
+   <property name="text">
+    <string>&amp;Edit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+E</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
+  <include location="resources.qrc"/>
   <include location="resources.qrc"/>
  </resources>
  <connections/>

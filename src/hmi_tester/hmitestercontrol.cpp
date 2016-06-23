@@ -29,6 +29,7 @@
 #include <ohtbaseconfig.h>
 #include <debug.h>
 #include <newtsdialog.h>
+#include <edittsdialog.h>
 #include <newtcdialog.h>
 #include <qtutils.h>
 
@@ -143,6 +144,7 @@ void HMITesterControl::_initializeMenu()
     connect(ui.actionKeepAlive,SIGNAL(triggered(bool)),this,SLOT(action_keepAlive_triggered(bool)));
     connect(ui.actionShowTesterOnTop,SIGNAL(triggered(bool)),this,SLOT(action_showTesterOnTop_triggered(bool)));
     connect(ui.action_Open,SIGNAL(triggered(bool)),this,SLOT(action_open_triggered()));
+    connect(ui.action_Edit,SIGNAL(triggered(bool)),this,SLOT(action_edit_triggered()));
     connect(ui.action_New,SIGNAL(triggered(bool)),this,SLOT(action_new_triggered()));
     connect(ui.action_Exit,SIGNAL(triggered(bool)),this,SLOT(action_exit_triggered()));
 
@@ -356,6 +358,52 @@ void HMITesterControl::action_open_triggered()
     {
         QtUtils::newErrorDialog("The TestSuite cannot be loaded.");
         return;
+    }
+
+    _settings.setValue(SETT_LAST_OPEN_DIR, lastOpenDir);
+    _settings.endGroup();
+
+    //reconfigure the GUI
+    //form_stopState();
+}
+
+
+void HMITesterControl::action_edit_triggered()
+{
+    DEBUG(D_GUI,"(HMITesterControl::action_edit_triggered)");
+    QString lastOpenDir = QDir::homePath();
+    _settings.beginGroup("HMITesterControl");
+    lastOpenDir = _settings.value(SETT_LAST_OPEN_DIR, QDir::homePath()).toString();
+    //ask for the TestSuite
+    QString path = "";
+    path = QtUtils::openFileDialog("Please, select the file that contains the TestSuite:",
+                                   lastOpenDir,
+                                   "*." OHT_FILE_EXTENSION);
+    if (path == "") return;
+
+    //load the testSuite object
+    DataModel::TestSuite* ts = _processControl->loadTestSuiteObject(path.toStdString());
+    if (!ts)
+    {
+        QtUtils::newErrorDialog("The TestSuite object cannot be loaded.");
+        return;
+    }
+
+    //load the testSuite editor dialog
+    EditTSDialog edittsd(ts);
+    int result = edittsd.exec();
+    if (result){
+        //call the controller method
+        bool ok = _processControl->saveTestSuite(ts,path.toStdString());
+        if (!ok)
+        {
+            QtUtils::newErrorDialog("The TestSuite cannot be saved. Wrong data.");
+            return;
+        }
+    }
+    // if rejected...
+    else{
+        // do nothing
     }
 
     _settings.setValue(SETT_LAST_OPEN_DIR, lastOpenDir);

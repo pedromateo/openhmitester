@@ -38,6 +38,9 @@ public:
     ///returns true if it is a valid binary
     static bool isExecutable ( const QString&);
 
+    ///returns true if it is a valid binary (cross-platform version)
+    static bool isExecutableCP (const QString&);
+
     ///returns true if file exists
     static bool fileExists (const QString&file);
 
@@ -64,6 +67,7 @@ public:
 
     ///shows an info dialog
     static void newInfoDialog ( const QString &s );
+
 
     /// ///
     ///
