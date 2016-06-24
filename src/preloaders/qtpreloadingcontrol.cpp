@@ -25,6 +25,10 @@
 #include <debug.h>
 #include <QWidget>
 
+#if LINUX_OHT
+#include <X11/Xlib.h>
+#endif
+
 PreloadingControl* QtPreloadingControl::pc = NULL;
 
 QtPreloadingControl::QtPreloadingControl(EventConsumer *ec, EventExecutor *ex)
