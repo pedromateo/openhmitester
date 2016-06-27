@@ -190,14 +190,11 @@ void QtEventConsumer::handleMousePressEvent ( QObject *obj, QEvent *event )
     QWidget *widget = static_cast<QWidget*>(obj);
 
     qoe.timestamp(_timer.restart());
-    qoe.widget(QWidgetUtils::getWidgetPath(widget).toStdString());
+    completeBasicData(qoe,widget,me);
+
     qoe.button(me->button());
     qoe.buttons(me->buttons());
     qoe.modifiers(me->modifiers());
-    qoe.x(me->x());
-    qoe.y(me->y());
-    qoe.globalX(me->globalX());
-    qoe.globalY(me->globalY());
 
     ///sensitive value
     completeSensitiveData(qoe, widget);
@@ -223,14 +220,11 @@ void QtEventConsumer::handleMouseReleaseEvent ( QObject *obj, QEvent *event )
     QWidget *widget = static_cast<QWidget*>(obj);
 
     qoe.timestamp(_timer.restart());
-    qoe.widget(QWidgetUtils::getWidgetPath (widget).toStdString());
+    completeBasicData(qoe,widget,me);
+
     qoe.button(me->button());
     qoe.buttons(me->buttons());
     qoe.modifiers(me->modifiers());
-    qoe.x(me->x());
-    qoe.y(me->y());
-    qoe.globalX(me->globalX());
-    qoe.globalY(me->globalY());
 
     ///sensitive value
     completeSensitiveData(qoe, widget);
@@ -256,14 +250,11 @@ void QtEventConsumer::handleMouseDoubleEvent ( QObject *obj, QEvent *event )
     QWidget *widget = static_cast<QWidget*>(obj);
 
     qoe.timestamp(_timer.restart());
-    qoe.widget(QWidgetUtils::getWidgetPath (widget).toStdString());
+    completeBasicData(qoe,widget,me);
+
     qoe.button(me->button());
     qoe.buttons(me->buttons());
     qoe.modifiers(me->modifiers());
-    qoe.x(me->x());
-    qoe.y(me->y());
-    qoe.globalX(me->globalX());
-    qoe.globalY(me->globalY());
 
     ///sensitive value
     completeSensitiveData(qoe, widget);
@@ -290,18 +281,13 @@ void QtEventConsumer::handleKeyPressEvent ( QObject *obj, QEvent *event )
         //create the event
         QOE::QOE_KeyPress qoe;// = new QOE::QOE_KeyPress();
         QWidget *widget = static_cast<QWidget*>(obj);
-        QPoint p ( widget->x(), widget->y() );
-        QPoint g = widget->mapToGlobal ( p );
 
         qoe.timestamp(_timer.restart());
-        qoe.widget(QWidgetUtils::getWidgetPath (widget).toStdString());
+        completeBasicData(qoe,widget,NULL);
+
         qoe.key(keyEvent->key());
         qoe.text(keyEvent->text());
         qoe.modifiers(keyEvent->modifiers());
-        qoe.x(p.x());
-        qoe.y(p.y());
-        qoe.globalX(g.x());
-        qoe.globalY(g.y());
 
         ///sensitive value
         completeSensitiveData(qoe, widget);
@@ -325,15 +311,9 @@ void QtEventConsumer::handleCloseEvent ( QObject *obj, QEvent *event )
     //create the event
     QOE::QOE_WindowClose qoe;// = new QOE::QOE_WindowClose();
     QWidget *widget = static_cast<QWidget*>(obj);
-    QPoint p ( widget->x(), widget->y() );
-    QPoint g = widget->mapToGlobal ( p );
 
     qoe.timestamp(_timer.restart());
-    qoe.widget(QWidgetUtils::getWidgetPath (widget).toStdString());
-    qoe.x(p.x());
-    qoe.y(p.y());
-    qoe.globalX(g.x());
-    qoe.globalY(g.y());
+    completeBasicData(qoe,widget,NULL);
 
     //send event
     sendNewTestItem(qoe);
@@ -356,15 +336,12 @@ void QtEventConsumer::handleWheelEvent ( QObject *obj, QEvent *event )
     QWidget *widget = static_cast<QWidget*>(obj);
 
     qoe.timestamp(_timer.restart());
-    qoe.widget(QWidgetUtils::getWidgetPath (widget).toStdString());
+    completeBasicData(qoe,widget,we);
+
     qoe.delta(we->delta());
     qoe.orientation(we->orientation());
     qoe.buttons(we->buttons());
     qoe.modifiers(we->modifiers());
-    qoe.x(we->x());
-    qoe.y(we->y());
-    qoe.globalX(we->globalX());
-    qoe.globalY(we->globalY());
 
     ///sensitive value
     completeSensitiveData(qoe, widget);
@@ -382,6 +359,33 @@ void QtEventConsumer::handleWheelEvent ( QObject *obj, QEvent *event )
 ///
 ///handler supporters
 ///
+
+void QtEventConsumer::completeBasicData(QOE::QOE_Base& qoe, QWidget* w, QInputEvent* e)
+{
+    // complete widget information...
+    if (w != NULL){
+        qoe.widget(QWidgetUtils::getWidgetPath(w).toStdString());
+        qoe.widgetWidth(w->width());
+        qoe.widgetHeight(w->height());
+
+        QPoint p ( w->x(), w->y() );
+        QPoint g = w->mapToGlobal ( p );
+        qoe.x(p.x());
+        qoe.y(p.y());
+        qoe.globalX(g.x());
+        qoe.globalY(g.y());
+    }
+/*
+    // complete event information...
+    if (e != NULL){
+        qoe.x(e->x());
+        qoe.y(e->y());
+        qoe.globalX(e->globalX());
+        qoe.globalY(e->globalY());
+    }
+*/
+}
+
 void QtEventConsumer::completeSensitiveData(QOE::QOE_Base& qoe, QWidget* widget)
 {
     QWA::QWidgetAdapter* qwa = qwaManager_.isSensitive(widget);

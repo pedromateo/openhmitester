@@ -58,6 +58,24 @@ void QOE_Base::widgetValue(const std::string& text)
     addData(QOE_Base_WidgetValue,text);
 }
 
+int QOE_Base::widgetWidth()
+{
+    return boost::lexical_cast<int>(getData(QOE_Base_WidgetWidth));
+}
+void QOE_Base::widgetWidth(const int value)
+{
+    addData(QOE_Base_WidgetWidth,boost::lexical_cast<std::string>(value));
+}
+
+int QOE_Base::widgetHeight()
+{
+    return boost::lexical_cast<int>(getData(QOE_Base_WidgetHeight));
+}
+void QOE_Base::widgetHeight(const int value)
+{
+    addData(QOE_Base_WidgetHeight,boost::lexical_cast<std::string>(value));
+}
+
 int QOE_Base::x()
 {
     return boost::lexical_cast<int>(getData(QOE_Base_X));
@@ -103,6 +121,28 @@ void QOE_Base::globalY(int n)
 QPoint QOE_Base::globalPosition()
 {
     return QPoint(globalX(), globalY());
+}
+
+QPoint QOE_Base::adaptedPosition(QWidget* w)
+{
+
+    if (w == NULL)
+        return QPoint(x(), y());
+
+    int orig_w = widgetWidth();
+    int orig_h = widgetHeight();
+    int curr_w = w->width();
+    int curr_h = w->height();
+
+    int new_x = x() * curr_w / orig_w;
+    int new_y = y() * curr_h / orig_h;
+
+    std::cout << "old x -> " << x() << std::endl;
+    std::cout << "old y -> " << y() << std::endl;
+    std::cout << "new x -> " << new_x << std::endl;
+    std::cout << "    y -> " << new_y << std::endl;
+
+    return QPoint(new_x, new_y);
 }
 
 bool QOE_Base::isSensitive()
@@ -202,6 +242,7 @@ void QOE_MousePress::execute(QWidget* w)
     if (w){
         QTest::mousePress ( w, (Qt::MouseButton) button(),
                             (Qt::KeyboardModifiers) modifiers(),
+                            //adaptedPosition(w));
                             position() );
     }
 }
@@ -222,6 +263,7 @@ void QOE_MouseRelease::execute(QWidget* w)
     if (w){
         QTest::mouseRelease ( w, (Qt::MouseButton) button(),
                               (Qt::KeyboardModifiers) modifiers(),
+                              //adaptedPosition(w));
                               position() );
     }
 }
@@ -242,6 +284,7 @@ void QOE_MouseDouble::execute(QWidget* w)
     if (w){
         QTest::mouseDClick ( w, (Qt::MouseButton) button(),
                              (Qt::KeyboardModifiers) modifiers(),
+                             //adaptedPosition(w));
                              position() );
     }
 }

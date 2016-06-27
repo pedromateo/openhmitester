@@ -175,6 +175,7 @@ void ItemManager::handleNewTestItem (DataModel::TestItem* ti)
     {
         DEBUG(D_RECORDING, "(ItemManager::handleNewTestItem) Adding new TestItem to the current TestCase.");
         DEBUG(D_RECORDING, "(ItemManager::handleNewTestItem) TestItem type = " << ti->type());
+
         //add the to a new TestItem
         currentTestCase_->addTestItem(ti);
         //updating counter

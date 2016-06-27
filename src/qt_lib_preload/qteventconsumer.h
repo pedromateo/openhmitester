@@ -29,6 +29,7 @@
 #include <QEvent>
 #include <QPoint>
 #include <QElapsedTimer>
+#include <QInputEvent>
 
 class QtEventConsumer : public EventConsumer
 {
@@ -75,6 +76,8 @@ private:
     ///
     ///handler supporters
     ///
+
+    void completeBasicData(QOE::QOE_Base&, QWidget *w, QInputEvent *e);
     void completeSensitiveData(QOE::QOE_Base&, QWidget*);
 
     ///

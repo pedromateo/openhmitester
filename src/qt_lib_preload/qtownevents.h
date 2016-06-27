@@ -55,6 +55,8 @@ namespace QOE
     //constants
     const std::string QOE_Base_Widget = "widget";
     const std::string QOE_Base_WidgetValue = "wvalue";
+    const std::string QOE_Base_WidgetWidth = "wwidth";
+    const std::string QOE_Base_WidgetHeight = "wheight";
     const std::string QOE_Base_X = "x";
     const std::string QOE_Base_Y = "y";
     const std::string QOE_Base_GlobalX = "gx";
@@ -73,6 +75,12 @@ namespace QOE
         std::string widgetValue();
         void widgetValue(const std::string&);
 
+        int widgetWidth();
+        void widgetWidth(const int);
+
+        int widgetHeight();
+        void widgetHeight(const int);
+
         int x();
         void x(int);
 
@@ -88,6 +96,8 @@ namespace QOE
         void globalY(int);
 
         QPoint globalPosition();
+
+        //QPoint adaptedPosition(QWidget* w);
 
         bool isSensitive();
         void isSensitive(bool);
