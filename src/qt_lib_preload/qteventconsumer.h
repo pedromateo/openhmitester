@@ -77,7 +77,8 @@ private:
     ///handler supporters
     ///
 
-    void completeBasicData(QOE::QOE_Base&, QWidget *w, QInputEvent *e);
+    void completeBasicData(QOE::QOE_Base&, QWidget *w, QMouseEvent *e);
+    void completeBasicData(QOE::QOE_Base&, QWidget *w);
     void completeSensitiveData(QOE::QOE_Base&, QWidget*);
 
     ///

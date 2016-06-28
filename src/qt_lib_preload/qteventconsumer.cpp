@@ -186,7 +186,7 @@ void QtEventConsumer::handleMousePressEvent ( QObject *obj, QEvent *event )
     QMouseEvent *me = dynamic_cast< QMouseEvent*> ( event );
 
     //create the event
-    QOE::QOE_MousePress qoe;// = new QOE::QOE_MousePress();
+    QOE::QOE_MousePress qoe;
     QWidget *widget = static_cast<QWidget*>(obj);
 
     qoe.timestamp(_timer.restart());
@@ -216,7 +216,7 @@ void QtEventConsumer::handleMouseReleaseEvent ( QObject *obj, QEvent *event )
     QMouseEvent *me = dynamic_cast< QMouseEvent*> ( event );
 
     //create the event
-    QOE::QOE_MouseRelease qoe;// = new QOE::QOE_MouseRelease();
+    QOE::QOE_MouseRelease qoe;
     QWidget *widget = static_cast<QWidget*>(obj);
 
     qoe.timestamp(_timer.restart());
@@ -246,7 +246,7 @@ void QtEventConsumer::handleMouseDoubleEvent ( QObject *obj, QEvent *event )
     QMouseEvent *me = dynamic_cast< QMouseEvent*> ( event );
 
     //create the event
-    QOE::QOE_MouseDouble qoe;// = new QOE::QOE_MouseDouble();
+    QOE::QOE_MouseDouble qoe;
     QWidget *widget = static_cast<QWidget*>(obj);
 
     qoe.timestamp(_timer.restart());
@@ -279,11 +279,11 @@ void QtEventConsumer::handleKeyPressEvent ( QObject *obj, QEvent *event )
     if ( filterKeyEvent ( static_cast<Qt::Key> ( keyEvent->key() ) ) )
     {
         //create the event
-        QOE::QOE_KeyPress qoe;// = new QOE::QOE_KeyPress();
+        QOE::QOE_KeyPress qoe;
         QWidget *widget = static_cast<QWidget*>(obj);
 
         qoe.timestamp(_timer.restart());
-        completeBasicData(qoe,widget,NULL);
+        completeBasicData(qoe,widget);
 
         qoe.key(keyEvent->key());
         qoe.text(keyEvent->text());
@@ -309,11 +309,11 @@ void QtEventConsumer::handleCloseEvent ( QObject *obj, QEvent *event )
     DEBUG(D_CONSUMER,"(QtEventConsumer::handleCloseEvent)");
 
     //create the event
-    QOE::QOE_WindowClose qoe;// = new QOE::QOE_WindowClose();
+    QOE::QOE_WindowClose qoe;
     QWidget *widget = static_cast<QWidget*>(obj);
 
     qoe.timestamp(_timer.restart());
-    completeBasicData(qoe,widget,NULL);
+    completeBasicData(qoe,widget);
 
     //send event
     sendNewTestItem(qoe);
@@ -332,11 +332,11 @@ void QtEventConsumer::handleWheelEvent ( QObject *obj, QEvent *event )
     QWheelEvent *we = dynamic_cast<QWheelEvent*> ( event );
 
     //create the event
-    QOE::QOE_MouseWheel qoe;// = new QOE::QOE_MouseWheel();
+    QOE::QOE_MouseWheel qoe;
     QWidget *widget = static_cast<QWidget*>(obj);
 
     qoe.timestamp(_timer.restart());
-    completeBasicData(qoe,widget,we);
+    completeBasicData(qoe,widget);
 
     qoe.delta(we->delta());
     qoe.orientation(we->orientation());
@@ -360,7 +360,22 @@ void QtEventConsumer::handleWheelEvent ( QObject *obj, QEvent *event )
 ///handler supporters
 ///
 
-void QtEventConsumer::completeBasicData(QOE::QOE_Base& qoe, QWidget* w, QInputEvent* e)
+void QtEventConsumer::completeBasicData(QOE::QOE_Base& qoe, QWidget* w, QMouseEvent* e)
+{
+    // complete widget information...
+    completeBasicData(qoe,w);
+
+    // complete event information...
+    if (e != NULL){
+        qoe.x(e->x());
+        qoe.y(e->y());
+        qoe.globalX(e->globalX());
+        qoe.globalY(e->globalY());
+    }
+
+}
+
+void QtEventConsumer::completeBasicData(QOE::QOE_Base& qoe, QWidget* w)
 {
     // complete widget information...
     if (w != NULL){
@@ -375,15 +390,6 @@ void QtEventConsumer::completeBasicData(QOE::QOE_Base& qoe, QWidget* w, QInputEv
         qoe.globalX(g.x());
         qoe.globalY(g.y());
     }
-/*
-    // complete event information...
-    if (e != NULL){
-        qoe.x(e->x());
-        qoe.y(e->y());
-        qoe.globalX(e->globalX());
-        qoe.globalY(e->globalY());
-    }
-*/
 }
 
 void QtEventConsumer::completeSensitiveData(QOE::QOE_Base& qoe, QWidget* widget)

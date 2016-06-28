@@ -242,8 +242,8 @@ void QOE_MousePress::execute(QWidget* w)
     if (w){
         QTest::mousePress ( w, (Qt::MouseButton) button(),
                             (Qt::KeyboardModifiers) modifiers(),
-                            //adaptedPosition(w));
-                            position() );
+                            adaptedPosition(w));
+                            //position() );
     }
 }
 
@@ -263,8 +263,8 @@ void QOE_MouseRelease::execute(QWidget* w)
     if (w){
         QTest::mouseRelease ( w, (Qt::MouseButton) button(),
                               (Qt::KeyboardModifiers) modifiers(),
-                              //adaptedPosition(w));
-                              position() );
+                              adaptedPosition(w));
+                              //position() );
     }
 }
 
@@ -284,8 +284,8 @@ void QOE_MouseDouble::execute(QWidget* w)
     if (w){
         QTest::mouseDClick ( w, (Qt::MouseButton) button(),
                              (Qt::KeyboardModifiers) modifiers(),
-                             //adaptedPosition(w));
-                             position() );
+                             adaptedPosition(w));
+                             //position() );
     }
 }
 
