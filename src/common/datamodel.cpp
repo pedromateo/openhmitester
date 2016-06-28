@@ -114,9 +114,11 @@ void TestSuite::deleteTestCase(const std::string& name) throw (not_found)
     TestCaseList::iterator it2 =
             std::find_if (testCases_.begin(),
                           testCases_.end(),
-                          bind<bool> (std::equal_to<uuid_t>(),
-                                           bind<uuid_t>(&TestCase::uuid, _1),
-                                           id));
+                          /*std::bind<bool> (std::equal_to<uuid_t>(),
+                                           std::bind<uuid_t>(&TestCase::uuid, _1),
+                                           id));*/
+                          [&] (const TestCase& tc) {return tc.uuid() == id;});
+    // TODO check if this code from above works as expected
     testCases_.erase (it2);
 }
 
