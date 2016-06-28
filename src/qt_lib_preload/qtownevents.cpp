@@ -125,7 +125,6 @@ QPoint QOE_Base::globalPosition()
 
 QPoint QOE_Base::adaptedPosition(QWidget* w)
 {
-
     if (w == NULL)
         return QPoint(x(), y());
 
@@ -137,12 +136,48 @@ QPoint QOE_Base::adaptedPosition(QWidget* w)
     int new_x = x() * curr_w / orig_w;
     int new_y = y() * curr_h / orig_h;
 
+    std::cout << "- " << widget() << std::endl;
+
     std::cout << "old x -> " << x() << std::endl;
-    std::cout << "old y -> " << y() << std::endl;
+    std::cout << "    y -> " << y() << std::endl;
+    std::cout << "    width  -> " << orig_w << std::endl;
+    std::cout << "    height -> " << orig_h << std::endl;
     std::cout << "new x -> " << new_x << std::endl;
     std::cout << "    y -> " << new_y << std::endl;
+    std::cout << "    width  -> " << curr_w << std::endl;
+    std::cout << "    height -> " << curr_h << std::endl;
 
     return QPoint(new_x, new_y);
+}
+
+QPoint QOE_Base::adaptedGlobalPosition(QWidget* w)
+{
+    if (w == NULL)
+        return QPoint(globalX(), globalY());
+
+    int orig_w = widgetWidth();
+    int orig_h = widgetHeight();
+    int curr_w = w->width();
+    int curr_h = w->height();
+
+    int new_x = x() * curr_w / orig_w;
+    int new_y = y() * curr_h / orig_h;
+
+    QPoint new_g = w->mapToGlobal(QPoint(new_x, new_y));
+
+    std::cout << "- " << widget() << std::endl;
+
+    std::cout << "old x -> " << x() << std::endl;
+    std::cout << "    y -> " << y() << std::endl;
+    std::cout << "    width  -> " << orig_w << std::endl;
+    std::cout << "    height -> " << orig_h << std::endl;
+    std::cout << "new x -> " << new_x << std::endl;
+    std::cout << "    y -> " << new_y << std::endl;
+    std::cout << "    width  -> " << curr_w << std::endl;
+    std::cout << "    height -> " << curr_h << std::endl;
+    std::cout << "new G -> " << new_g.x() << "," << new_g.y() << std::endl;
+
+    return new_g;
 }
 
 bool QOE_Base::isSensitive()

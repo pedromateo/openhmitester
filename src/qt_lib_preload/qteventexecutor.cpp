@@ -476,8 +476,13 @@ void QtEventExecutor::_preExecutionWithMouseMove(QOE::QOE_Base* qoe, QWidget* wi
 
     // do mouse move
     if (widget != NULL){
-        _simulateMouseMove(_last_mouse_pos, widget->mapToGlobal(qoe->position()));
-        _last_mouse_pos = widget->mapToGlobal ( qoe->position() );
+
+        //QPoint target = widget->mapToGlobal(qoe->position());
+        QPoint target = qoe->adaptedGlobalPosition(widget);
+        _simulateMouseMove(_last_mouse_pos, target);
+        _last_mouse_pos = target;
+        //_simulateMouseMove(_last_mouse_pos, );
+
     }
 
     // disable updates

@@ -98,6 +98,7 @@ namespace QOE
         QPoint globalPosition();
 
         QPoint adaptedPosition(QWidget* w);
+        QPoint adaptedGlobalPosition(QWidget* w);
 
         bool isSensitive();
         void isSensitive(bool);
