@@ -82,8 +82,17 @@ private:
     void completeSensitiveData(QOE::QOE_Base&, QWidget*);
 
     ///
+    /// validation methods
+    ///
+
+    QWidget* isValidWidget(QObject *obj);
+    bool isValidQOE(QOE::QOE_Base&qoe);
+
+    ///
     ///support methods
     ///
+
+
     bool filterKeyEvent(Qt::Key);
 
     ///
