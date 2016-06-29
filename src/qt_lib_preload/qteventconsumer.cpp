@@ -138,6 +138,7 @@ bool QtEventConsumer::eventFilter ( QObject *obj, QEvent *event )
     ///
     ///filter depending on the type..
     ///
+
     //window events
     if (event->type() == QEvent::KeyPress)
     {
@@ -200,7 +201,7 @@ void QtEventConsumer::handleMousePressEvent ( QObject *obj, QEvent *event )
     completeSensitiveData(qoe, widget);
 
     //send event if qoe is valid
-    if (isValidQOE(qoe))
+    if (isValidQOE(qoe) && isValidQOEMouse(qoe))
         sendNewTestItem(qoe);
 }
 
@@ -231,7 +232,7 @@ void QtEventConsumer::handleMouseReleaseEvent ( QObject *obj, QEvent *event )
     completeSensitiveData(qoe, widget);
 
     //send event if qoe is valid
-    if (isValidQOE(qoe))
+    if (isValidQOE(qoe) && isValidQOEMouse(qoe))
         sendNewTestItem(qoe);
 }
 
@@ -262,7 +263,7 @@ void QtEventConsumer::handleMouseDoubleEvent ( QObject *obj, QEvent *event )
     completeSensitiveData(qoe, widget);
 
     //send event if qoe is valid
-    if (isValidQOE(qoe))
+    if (isValidQOE(qoe) && isValidQOEMouse(qoe))
         sendNewTestItem(qoe);
 }
 
@@ -296,7 +297,7 @@ void QtEventConsumer::handleKeyPressEvent ( QObject *obj, QEvent *event )
         completeSensitiveData(qoe, widget);
 
         //send event if qoe is valid
-        if (isValidQOE(qoe))
+        if (isValidQOE(qoe) && isValidQOEKey(qoe))
             sendNewTestItem(qoe);
     }
 }
@@ -320,7 +321,7 @@ void QtEventConsumer::handleCloseEvent ( QObject *obj, QEvent *event )
     completeBasicData(qoe,widget);
 
     //send event if qoe is valid
-    if (isValidQOE(qoe))
+    if (isValidQOE(qoe) && isValidQOEWindow(qoe))
         sendNewTestItem(qoe);
 }
 
@@ -352,7 +353,7 @@ void QtEventConsumer::handleWheelEvent ( QObject *obj, QEvent *event )
     completeSensitiveData(qoe, widget);
 
     //send event if qoe is valid
-    if (isValidQOE(qoe))
+    if (isValidQOE(qoe) && isValidQOEMouse(qoe))
         sendNewTestItem(qoe);
 }
 
@@ -367,7 +368,7 @@ void QtEventConsumer::handleWheelEvent ( QObject *obj, QEvent *event )
 ///
 
 void QtEventConsumer::completeBasicData(QOE::QOE_Base& qoe, QWidget* w, QMouseEvent* e)
-{
+{DEBUG(D_CONSUMER,"(QtEventConsumer::handleWheelEvent)");
     // complete widget information...
     completeBasicData(qoe,w);
 
@@ -430,11 +431,25 @@ QWidget* QtEventConsumer::isValidWidget(QObject *obj)
 
     // check the widget
     QWidget* w = dynamic_cast<QWidget*>(obj);
-    if (!w || !w->isVisible() || !w->isEnabled()){
+    _d("W > " << QWidgetUtils::getWidgetPath(w).toStdString());
+    if (!w) {
+        DEBUG(D_CONSUMER,"(QtEventConsumer::isValidWidget) Widget is null");
+        DEBUG(D_CONSUMER,"(QtEventConsumer::isValidWidget)  -> " + QWidgetUtils::getWidgetPath(w).toStdString());
+        return NULL;
+    }
+    else if (!w->isVisible()) {
+        DEBUG(D_CONSUMER,"(QtEventConsumer::isValidWidget) Widget is not visible");
+        DEBUG(D_CONSUMER,"(QtEventConsumer::isValidWidget)  -> " + QWidgetUtils::getWidgetPath(w).toStdString());
+        return NULL;
+    }
+    else if (!w->isEnabled()) {
+        DEBUG(D_CONSUMER,"(QtEventConsumer::isValidWidget) Widget is not enabled");
+        DEBUG(D_CONSUMER,"(QtEventConsumer::isValidWidget)  -> " + QWidgetUtils::getWidgetPath(w).toStdString());
         return NULL;
     }
 
-    //std::cout << "W > " << QWidgetUtils::getWidgetPath(w).toStdString() << std::endl;
+    _d("W > " << QWidgetUtils::getWidgetPath(w).toStdString());
+    _d("VALID WIDGET");
 
     return w;
 }
@@ -443,16 +458,49 @@ QWidget* QtEventConsumer::isValidWidget(QObject *obj)
 bool QtEventConsumer::isValidQOE(QOE::QOE_Base& qoe)
 {
     // check widget name
-    if (qoe.widget() == "") return false;
+    if (qoe.widget() == ""){
+        DEBUG(D_CONSUMER,"(QtEventConsumer::isValidQOE) Invalid QOE: empty widget");
+        return false;
+    }
 
     // check valid sizes
-    if (qoe.widgetWidth() <= 0) return false;
-    if (qoe.widgetHeight() <= 0) return false;
+    if (qoe.widgetWidth() <= 0){
+        DEBUG(D_CONSUMER,"(QtEventConsumer::isValidQOE) Invalid QOE: invalid w.width " << qoe.widgetWidth());
+        return false;
+    }
+    if (qoe.widgetHeight() <= 0){
+        DEBUG(D_CONSUMER,"(QtEventConsumer::isValidQOE) Invalid QOE: invalid w.height " << qoe.widgetHeight());
+        return false;
+    }
 
+    return true;
+}
+
+
+bool QtEventConsumer::isValidQOEMouse(QOE::QOE_Mouse& qoe)
+{
     // check valid pointing
-    if (qoe.x() <= 0 || qoe.x() >= qoe.widgetWidth()) return false;
-    if (qoe.y() <= 0 || qoe.y() >= qoe.widgetHeight()) return false;
+    if (qoe.x() <= 0 || qoe.x() >= qoe.widgetWidth()){
+        DEBUG(D_CONSUMER,"(QtEventConsumer::isValidQOE) Invalid QOE: invalid x " << qoe.x() << "," << qoe.widgetWidth());
+        return false;
+    }
+    if (qoe.y() <= 0 || qoe.y() >= qoe.widgetHeight()){
+        DEBUG(D_CONSUMER,"(QtEventConsumer::isValidQOE) Invalid QOE: invalid y " << qoe.y() << "," << qoe.widgetHeight());
+        return false;
+    }
 
+    return true;
+}
+
+bool QtEventConsumer::isValidQOEKey(QOE::QOE_Key& qoe)
+{
+    // nothing
+    return true;
+}
+
+bool QtEventConsumer::isValidQOEWindow(QOE::QOE_Window& qoe)
+{
+    // nothing
     return true;
 }
 

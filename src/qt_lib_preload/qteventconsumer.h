@@ -86,7 +86,10 @@ private:
     ///
 
     QWidget* isValidWidget(QObject *obj);
-    bool isValidQOE(QOE::QOE_Base&qoe);
+    bool isValidQOE(QOE::QOE_Base& qoe);
+    bool isValidQOEMouse(QOE::QOE_Mouse& qoe);
+    bool isValidQOEKey(QOE::QOE_Key& qoe);
+    bool isValidQOEWindow(QOE::QOE_Window& qoe);
 
     ///
     ///support methods
