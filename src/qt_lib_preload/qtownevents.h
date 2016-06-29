@@ -87,7 +87,7 @@ namespace QOE
         int y();
         void y(int);
 
-        QPoint position();
+        //QPoint position();
 
         int globalX();
         void globalX(int);

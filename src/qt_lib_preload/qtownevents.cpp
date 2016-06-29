@@ -94,10 +94,10 @@ void QOE_Base::y(int n)
     addData(QOE_Base_Y,boost::lexical_cast<std::string>(n));
 }
 
-QPoint QOE_Base::position()
+/*QPoint QOE_Base::position()
 {
     return QPoint(x(), y());
-}
+}*/
 
 int QOE_Base::globalX()
 {
@@ -331,7 +331,8 @@ QOE_MouseWheel::QOE_MouseWheel()
 void QOE_MouseWheel::execute(QWidget* w)
 {
     if (w){
-        QWheelEvent we ( position(), globalPosition(), delta(), buttons(), modifiers(), orientation() );
+        //QWheelEvent we ( position(), globalPosition(), delta(), buttons(), modifiers(), orientation() );
+        QWheelEvent we ( adaptedPosition(w), adaptedGlobalPosition(w), delta(), buttons(), modifiers(), orientation() );
         qApp->notify ( dynamic_cast<QObject*> ( w ), dynamic_cast<QEvent*> ( &we ) );
     }
 }

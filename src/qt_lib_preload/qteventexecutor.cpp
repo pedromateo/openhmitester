@@ -510,8 +510,11 @@ void QtEventExecutor::_preExecutionWithMouseHover(QOE::QOE_Base* qoe, QWidget* w
 
     // do mouse hover
     if (widget != NULL){
-        _simulateMouseMove(_last_mouse_pos, widget->mapToGlobal(qoe->position()), widget);
-        _last_mouse_pos = widget->mapToGlobal ( qoe->position() );
+        //_simulateMouseMove(_last_mouse_pos, widget->mapToGlobal(qoe->position()), widget);
+        //_last_mouse_pos = widget->mapToGlobal ( qoe->position() );
+        QPoint target = qoe->adaptedGlobalPosition(widget);
+        _simulateMouseMove(_last_mouse_pos, target, widget);
+        _last_mouse_pos = target;
     }
 
     //start simulation
