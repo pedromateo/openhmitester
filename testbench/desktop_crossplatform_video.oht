@@ -1,6 +1,6 @@
 <TestSuite>
 <name>cross_platform_oht</name>
-<appId>C:/Users/pedro/Documents/GitHub/openhmitester_build/testbench/desktop/debug/simusaes.exe</appId>
+<appId>/home/pedro/svn_catedra/anotaciones/testing/imp_HMITester_github/openhmitester_build/testbench/desktop/simusaes</appId>
 <TestCase>
 <name>win_test1</name>
 <TestItem>
@@ -1653,6 +1653,789 @@
 <data key="wwidth" value="93"/>
 <data key="x" value="12"/>
 <data key="y" value="11"/>
+</TestItem>
+</TestCase>
+<TestCase>
+<name>linux_test1</name>
+<TestItem>
+<type>11</type>
+<subtype>0</subtype>
+<timestamp>1305</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="1"/>
+<data key="gx" value="2139"/>
+<data key="gy" value="167"/>
+<data key="isSens" value="0"/>
+<data key="modifiers" value="0"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/lineEdit"/>
+<data key="wwidth" value="152"/>
+<data key="x" value="124"/>
+<data key="y" value="13"/>
+</TestItem>
+<TestItem>
+<type>12</type>
+<subtype>0</subtype>
+<timestamp>111</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="0"/>
+<data key="gx" value="2139"/>
+<data key="gy" value="167"/>
+<data key="isSens" value="0"/>
+<data key="modifiers" value="0"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/lineEdit"/>
+<data key="wwidth" value="152"/>
+<data key="x" value="124"/>
+<data key="y" value="13"/>
+</TestItem>
+<TestItem>
+<type>21</type>
+<subtype>0</subtype>
+<timestamp>669</timestamp>
+<data key="gx" value="2109"/>
+<data key="gy" value="229"/>
+<data key="isSens" value="0"/>
+<data key="key" value="84"/>
+<data key="modifiers" value="0"/>
+<data key="text" value="t"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/lineEdit"/>
+<data key="wwidth" value="152"/>
+<data key="x" value="94"/>
+<data key="y" value="75"/>
+</TestItem>
+<TestItem>
+<type>21</type>
+<subtype>0</subtype>
+<timestamp>143</timestamp>
+<data key="gx" value="2109"/>
+<data key="gy" value="229"/>
+<data key="isSens" value="0"/>
+<data key="key" value="72"/>
+<data key="modifiers" value="0"/>
+<data key="text" value="h"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/lineEdit"/>
+<data key="wwidth" value="152"/>
+<data key="x" value="94"/>
+<data key="y" value="75"/>
+</TestItem>
+<TestItem>
+<type>21</type>
+<subtype>0</subtype>
+<timestamp>160</timestamp>
+<data key="gx" value="2109"/>
+<data key="gy" value="229"/>
+<data key="isSens" value="0"/>
+<data key="key" value="73"/>
+<data key="modifiers" value="0"/>
+<data key="text" value="i"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/lineEdit"/>
+<data key="wwidth" value="152"/>
+<data key="x" value="94"/>
+<data key="y" value="75"/>
+</TestItem>
+<TestItem>
+<type>21</type>
+<subtype>0</subtype>
+<timestamp>95</timestamp>
+<data key="gx" value="2109"/>
+<data key="gy" value="229"/>
+<data key="isSens" value="0"/>
+<data key="key" value="83"/>
+<data key="modifiers" value="0"/>
+<data key="text" value="s"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/lineEdit"/>
+<data key="wwidth" value="152"/>
+<data key="x" value="94"/>
+<data key="y" value="75"/>
+</TestItem>
+<TestItem>
+<type>21</type>
+<subtype>0</subtype>
+<timestamp>65</timestamp>
+<data key="gx" value="2109"/>
+<data key="gy" value="229"/>
+<data key="isSens" value="0"/>
+<data key="key" value="32"/>
+<data key="modifiers" value="0"/>
+<data key="text" value=" "/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/lineEdit"/>
+<data key="wwidth" value="152"/>
+<data key="x" value="94"/>
+<data key="y" value="75"/>
+</TestItem>
+<TestItem>
+<type>21</type>
+<subtype>0</subtype>
+<timestamp>158</timestamp>
+<data key="gx" value="2109"/>
+<data key="gy" value="229"/>
+<data key="isSens" value="0"/>
+<data key="key" value="73"/>
+<data key="modifiers" value="0"/>
+<data key="text" value="i"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/lineEdit"/>
+<data key="wwidth" value="152"/>
+<data key="x" value="94"/>
+<data key="y" value="75"/>
+</TestItem>
+<TestItem>
+<type>21</type>
+<subtype>0</subtype>
+<timestamp>96</timestamp>
+<data key="gx" value="2109"/>
+<data key="gy" value="229"/>
+<data key="isSens" value="0"/>
+<data key="key" value="83"/>
+<data key="modifiers" value="0"/>
+<data key="text" value="s"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/lineEdit"/>
+<data key="wwidth" value="152"/>
+<data key="x" value="94"/>
+<data key="y" value="75"/>
+</TestItem>
+<TestItem>
+<type>21</type>
+<subtype>0</subtype>
+<timestamp>79</timestamp>
+<data key="gx" value="2109"/>
+<data key="gy" value="229"/>
+<data key="isSens" value="0"/>
+<data key="key" value="32"/>
+<data key="modifiers" value="0"/>
+<data key="text" value=" "/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/lineEdit"/>
+<data key="wwidth" value="152"/>
+<data key="x" value="94"/>
+<data key="y" value="75"/>
+</TestItem>
+<TestItem>
+<type>21</type>
+<subtype>0</subtype>
+<timestamp>191</timestamp>
+<data key="gx" value="2109"/>
+<data key="gy" value="229"/>
+<data key="isSens" value="0"/>
+<data key="key" value="76"/>
+<data key="modifiers" value="0"/>
+<data key="text" value="l"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/lineEdit"/>
+<data key="wwidth" value="152"/>
+<data key="x" value="94"/>
+<data key="y" value="75"/>
+</TestItem>
+<TestItem>
+<type>21</type>
+<subtype>0</subtype>
+<timestamp>143</timestamp>
+<data key="gx" value="2109"/>
+<data key="gy" value="229"/>
+<data key="isSens" value="0"/>
+<data key="key" value="73"/>
+<data key="modifiers" value="0"/>
+<data key="text" value="i"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/lineEdit"/>
+<data key="wwidth" value="152"/>
+<data key="x" value="94"/>
+<data key="y" value="75"/>
+</TestItem>
+<TestItem>
+<type>21</type>
+<subtype>0</subtype>
+<timestamp>192</timestamp>
+<data key="gx" value="2109"/>
+<data key="gy" value="229"/>
+<data key="isSens" value="0"/>
+<data key="key" value="78"/>
+<data key="modifiers" value="0"/>
+<data key="text" value="n"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/lineEdit"/>
+<data key="wwidth" value="152"/>
+<data key="x" value="94"/>
+<data key="y" value="75"/>
+</TestItem>
+<TestItem>
+<type>21</type>
+<subtype>0</subtype>
+<timestamp>96</timestamp>
+<data key="gx" value="2109"/>
+<data key="gy" value="229"/>
+<data key="isSens" value="0"/>
+<data key="key" value="85"/>
+<data key="modifiers" value="0"/>
+<data key="text" value="u"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/lineEdit"/>
+<data key="wwidth" value="152"/>
+<data key="x" value="94"/>
+<data key="y" value="75"/>
+</TestItem>
+<TestItem>
+<type>21</type>
+<subtype>0</subtype>
+<timestamp>351</timestamp>
+<data key="gx" value="2109"/>
+<data key="gy" value="229"/>
+<data key="isSens" value="0"/>
+<data key="key" value="88"/>
+<data key="modifiers" value="0"/>
+<data key="text" value="x"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/lineEdit"/>
+<data key="wwidth" value="152"/>
+<data key="x" value="94"/>
+<data key="y" value="75"/>
+</TestItem>
+<TestItem>
+<type>21</type>
+<subtype>0</subtype>
+<timestamp>128</timestamp>
+<data key="gx" value="2109"/>
+<data key="gy" value="229"/>
+<data key="isSens" value="0"/>
+<data key="key" value="32"/>
+<data key="modifiers" value="0"/>
+<data key="text" value=" "/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/lineEdit"/>
+<data key="wwidth" value="152"/>
+<data key="x" value="94"/>
+<data key="y" value="75"/>
+</TestItem>
+<TestItem>
+<type>21</type>
+<subtype>0</subtype>
+<timestamp>127</timestamp>
+<data key="gx" value="2109"/>
+<data key="gy" value="229"/>
+<data key="isSens" value="0"/>
+<data key="key" value="78"/>
+<data key="modifiers" value="0"/>
+<data key="text" value="n"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/lineEdit"/>
+<data key="wwidth" value="152"/>
+<data key="x" value="94"/>
+<data key="y" value="75"/>
+</TestItem>
+<TestItem>
+<type>21</type>
+<subtype>0</subtype>
+<timestamp>208</timestamp>
+<data key="gx" value="2109"/>
+<data key="gy" value="229"/>
+<data key="isSens" value="0"/>
+<data key="key" value="79"/>
+<data key="modifiers" value="0"/>
+<data key="text" value="o"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/lineEdit"/>
+<data key="wwidth" value="152"/>
+<data key="x" value="94"/>
+<data key="y" value="75"/>
+</TestItem>
+<TestItem>
+<type>21</type>
+<subtype>0</subtype>
+<timestamp>207</timestamp>
+<data key="gx" value="2109"/>
+<data key="gy" value="229"/>
+<data key="isSens" value="0"/>
+<data key="key" value="87"/>
+<data key="modifiers" value="0"/>
+<data key="text" value="w"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/lineEdit"/>
+<data key="wwidth" value="152"/>
+<data key="x" value="94"/>
+<data key="y" value="75"/>
+</TestItem>
+<TestItem>
+<type>11</type>
+<subtype>0</subtype>
+<timestamp>1379</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="1"/>
+<data key="gx" value="2049"/>
+<data key="gy" value="194"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="0"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox_2"/>
+<data key="wwidth" value="48"/>
+<data key="x" value="34"/>
+<data key="y" value="7"/>
+</TestItem>
+<TestItem>
+<type>12</type>
+<subtype>0</subtype>
+<timestamp>79</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="0"/>
+<data key="gx" value="2049"/>
+<data key="gy" value="194"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="1"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox_2"/>
+<data key="wwidth" value="48"/>
+<data key="x" value="34"/>
+<data key="y" value="7"/>
+</TestItem>
+<TestItem>
+<type>11</type>
+<subtype>0</subtype>
+<timestamp>936</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="1"/>
+<data key="gx" value="2126"/>
+<data key="gy" value="193"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="0"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox"/>
+<data key="wwidth" value="54"/>
+<data key="x" value="44"/>
+<data key="y" value="6"/>
+</TestItem>
+<TestItem>
+<type>12</type>
+<subtype>0</subtype>
+<timestamp>79</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="0"/>
+<data key="gx" value="2126"/>
+<data key="gy" value="193"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="1"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox"/>
+<data key="wwidth" value="54"/>
+<data key="x" value="44"/>
+<data key="y" value="6"/>
+</TestItem>
+<TestItem>
+<type>13</type>
+<subtype>0</subtype>
+<timestamp>112</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="1"/>
+<data key="gx" value="2126"/>
+<data key="gy" value="193"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="1"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox"/>
+<data key="wwidth" value="54"/>
+<data key="x" value="44"/>
+<data key="y" value="6"/>
+</TestItem>
+<TestItem>
+<type>12</type>
+<subtype>0</subtype>
+<timestamp>79</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="0"/>
+<data key="gx" value="2126"/>
+<data key="gy" value="193"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="2"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox"/>
+<data key="wwidth" value="54"/>
+<data key="x" value="44"/>
+<data key="y" value="6"/>
+</TestItem>
+<TestItem>
+<type>11</type>
+<subtype>0</subtype>
+<timestamp>856</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="1"/>
+<data key="gx" value="2054"/>
+<data key="gy" value="229"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="0"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox_4"/>
+<data key="wwidth" value="48"/>
+<data key="x" value="39"/>
+<data key="y" value="9"/>
+</TestItem>
+<TestItem>
+<type>12</type>
+<subtype>0</subtype>
+<timestamp>63</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="0"/>
+<data key="gx" value="2054"/>
+<data key="gy" value="229"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="1"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox_4"/>
+<data key="wwidth" value="48"/>
+<data key="x" value="39"/>
+<data key="y" value="9"/>
+</TestItem>
+<TestItem>
+<type>13</type>
+<subtype>0</subtype>
+<timestamp>88</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="1"/>
+<data key="gx" value="2054"/>
+<data key="gy" value="229"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="1"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox_4"/>
+<data key="wwidth" value="48"/>
+<data key="x" value="39"/>
+<data key="y" value="9"/>
+</TestItem>
+<TestItem>
+<type>12</type>
+<subtype>0</subtype>
+<timestamp>71</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="0"/>
+<data key="gx" value="2054"/>
+<data key="gy" value="229"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="2"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox_4"/>
+<data key="wwidth" value="48"/>
+<data key="x" value="39"/>
+<data key="y" value="9"/>
+</TestItem>
+<TestItem>
+<type>11</type>
+<subtype>0</subtype>
+<timestamp>88</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="1"/>
+<data key="gx" value="2054"/>
+<data key="gy" value="229"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="2"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox_4"/>
+<data key="wwidth" value="48"/>
+<data key="x" value="39"/>
+<data key="y" value="9"/>
+</TestItem>
+<TestItem>
+<type>12</type>
+<subtype>0</subtype>
+<timestamp>79</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="0"/>
+<data key="gx" value="2054"/>
+<data key="gy" value="229"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="3"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox_4"/>
+<data key="wwidth" value="48"/>
+<data key="x" value="39"/>
+<data key="y" value="9"/>
+</TestItem>
+<TestItem>
+<type>11</type>
+<subtype>0</subtype>
+<timestamp>696</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="1"/>
+<data key="gx" value="2131"/>
+<data key="gy" value="228"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="0"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox_5"/>
+<data key="wwidth" value="54"/>
+<data key="x" value="49"/>
+<data key="y" value="8"/>
+</TestItem>
+<TestItem>
+<type>12</type>
+<subtype>0</subtype>
+<timestamp>87</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="0"/>
+<data key="gx" value="2131"/>
+<data key="gy" value="228"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="1"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox_5"/>
+<data key="wwidth" value="54"/>
+<data key="x" value="49"/>
+<data key="y" value="8"/>
+</TestItem>
+<TestItem>
+<type>13</type>
+<subtype>0</subtype>
+<timestamp>80</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="1"/>
+<data key="gx" value="2131"/>
+<data key="gy" value="228"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="1"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox_5"/>
+<data key="wwidth" value="54"/>
+<data key="x" value="49"/>
+<data key="y" value="8"/>
+</TestItem>
+<TestItem>
+<type>12</type>
+<subtype>0</subtype>
+<timestamp>111</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="0"/>
+<data key="gx" value="2131"/>
+<data key="gy" value="228"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="2"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox_5"/>
+<data key="wwidth" value="54"/>
+<data key="x" value="49"/>
+<data key="y" value="8"/>
+</TestItem>
+<TestItem>
+<type>11</type>
+<subtype>0</subtype>
+<timestamp>56</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="1"/>
+<data key="gx" value="2131"/>
+<data key="gy" value="228"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="2"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox_5"/>
+<data key="wwidth" value="54"/>
+<data key="x" value="49"/>
+<data key="y" value="8"/>
+</TestItem>
+<TestItem>
+<type>12</type>
+<subtype>0</subtype>
+<timestamp>87</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="0"/>
+<data key="gx" value="2131"/>
+<data key="gy" value="228"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="3"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox_5"/>
+<data key="wwidth" value="54"/>
+<data key="x" value="49"/>
+<data key="y" value="8"/>
+</TestItem>
+<TestItem>
+<type>13</type>
+<subtype>0</subtype>
+<timestamp>80</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="1"/>
+<data key="gx" value="2131"/>
+<data key="gy" value="228"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="3"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox_5"/>
+<data key="wwidth" value="54"/>
+<data key="x" value="49"/>
+<data key="y" value="8"/>
+</TestItem>
+<TestItem>
+<type>12</type>
+<subtype>0</subtype>
+<timestamp>103</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="0"/>
+<data key="gx" value="2131"/>
+<data key="gy" value="228"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="4"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox_5"/>
+<data key="wwidth" value="54"/>
+<data key="x" value="49"/>
+<data key="y" value="8"/>
+</TestItem>
+<TestItem>
+<type>11</type>
+<subtype>0</subtype>
+<timestamp>1736</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="1"/>
+<data key="gx" value="2729"/>
+<data key="gy" value="170"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="0"/>
+<data key="wheight" value="100"/>
+<data key="widget" value="MainWindow/centralWidget/di_nrLevel"/>
+<data key="wwidth" value="122"/>
+<data key="x" value="58"/>
+<data key="y" value="26"/>
+</TestItem>
+<TestItem>
+<type>12</type>
+<subtype>0</subtype>
+<timestamp>95</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="0"/>
+<data key="gx" value="2729"/>
+<data key="gy" value="170"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="47"/>
+<data key="wheight" value="100"/>
+<data key="widget" value="MainWindow/centralWidget/di_nrLevel"/>
+<data key="wwidth" value="122"/>
+<data key="x" value="58"/>
+<data key="y" value="26"/>
+</TestItem>
+<TestItem>
+<type>11</type>
+<subtype>0</subtype>
+<timestamp>552</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="1"/>
+<data key="gx" value="2859"/>
+<data key="gy" value="175"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="0"/>
+<data key="wheight" value="100"/>
+<data key="widget" value="MainWindow/centralWidget/di_volumeLevel"/>
+<data key="wwidth" value="122"/>
+<data key="x" value="60"/>
+<data key="y" value="31"/>
+</TestItem>
+<TestItem>
+<type>12</type>
+<subtype>0</subtype>
+<timestamp>95</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="0"/>
+<data key="gx" value="2859"/>
+<data key="gy" value="175"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="49"/>
+<data key="wheight" value="100"/>
+<data key="widget" value="MainWindow/centralWidget/di_volumeLevel"/>
+<data key="wwidth" value="122"/>
+<data key="x" value="60"/>
+<data key="y" value="31"/>
+</TestItem>
+<TestItem>
+<type>11</type>
+<subtype>0</subtype>
+<timestamp>904</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="1"/>
+<data key="gx" value="2453"/>
+<data key="gy" value="689"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="0"/>
+<data key="wheight" value="106"/>
+<data key="widget" value="MainWindow/centralWidget/dial_5"/>
+<data key="wwidth" value="202"/>
+<data key="x" value="106"/>
+<data key="y" value="29"/>
+</TestItem>
+<TestItem>
+<type>12</type>
+<subtype>0</subtype>
+<timestamp>103</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="0"/>
+<data key="gx" value="2453"/>
+<data key="gy" value="689"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="53"/>
+<data key="wheight" value="106"/>
+<data key="widget" value="MainWindow/centralWidget/dial_5"/>
+<data key="wwidth" value="202"/>
+<data key="x" value="106"/>
+<data key="y" value="29"/>
+</TestItem>
+<TestItem>
+<type>11</type>
+<subtype>0</subtype>
+<timestamp>616</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="1"/>
+<data key="gx" value="2246"/>
+<data key="gy" value="691"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="0"/>
+<data key="wheight" value="106"/>
+<data key="widget" value="MainWindow/centralWidget/dial_6"/>
+<data key="wwidth" value="201"/>
+<data key="x" value="106"/>
+<data key="y" value="31"/>
+</TestItem>
+<TestItem>
+<type>12</type>
+<subtype>0</subtype>
+<timestamp>111</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="0"/>
+<data key="gx" value="2246"/>
+<data key="gy" value="691"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="54"/>
+<data key="wheight" value="106"/>
+<data key="widget" value="MainWindow/centralWidget/dial_6"/>
+<data key="wwidth" value="201"/>
+<data key="x" value="106"/>
+<data key="y" value="31"/>
 </TestItem>
 </TestCase>
 </TestSuite>
