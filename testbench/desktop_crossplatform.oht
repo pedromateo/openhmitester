@@ -1,6 +1,6 @@
 <TestSuite>
 <name>cpts</name>
-<appId>C:/Users/pedro/Documents/GitHub/openhmitester_build/testbench/desktop/debug/simusaes.exe</appId>
+<appId>/home/pedro/svn_catedra/anotaciones/testing/imp_HMITester_github/openhmitester_build/testbench/desktop/simusaes</appId>
 <TestCase>
 <name>in_linux</name>
 <TestItem>
@@ -2695,19 +2695,322 @@
 <TestItem>
 <type>11</type>
 <subtype>0</subtype>
-<timestamp>1769</timestamp>
+<timestamp>2287</timestamp>
 <data key="button" value="1"/>
 <data key="buttons" value="1"/>
-<data key="gx" value="2052"/>
-<data key="gy" value="135"/>
+<data key="gx" value="2525"/>
+<data key="gy" value="319"/>
 <data key="isSens" value="1"/>
 <data key="modifiers" value="0"/>
 <data key="svalue" value="0"/>
-<data key="wheight" value="23"/>
+<data key="wheight" value="27"/>
 <data key="widget" value="MainWindow/centralWidget/comboBoxBuoyType"/>
-<data key="wwidth" value="59"/>
+<data key="wwidth" value="61"/>
 <data key="x" value="41"/>
-<data key="y" value="10"/>
+<data key="y" value="15"/>
+</TestItem>
+<TestItem>
+<type>12</type>
+<subtype>0</subtype>
+<timestamp>1135</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="0"/>
+<data key="gx" value="2523"/>
+<data key="gy" value="374"/>
+<data key="isSens" value="0"/>
+<data key="modifiers" value="0"/>
+<data key="wheight" value="108"/>
+<data key="widget" value="MainWindow/centralWidget/comboBoxBuoyType/!QComboBoxPrivateContainer_1/!QComboBoxListView_1/qt_scrollarea_viewport"/>
+<data key="wwidth" value="59"/>
+<data key="x" value="38"/>
+<data key="y" value="69"/>
+</TestItem>
+<TestItem>
+<type>11</type>
+<subtype>0</subtype>
+<timestamp>520</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="1"/>
+<data key="gx" value="2520"/>
+<data key="gy" value="378"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="0"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox_2"/>
+<data key="wwidth" value="48"/>
+<data key="x" value="36"/>
+<data key="y" value="8"/>
+</TestItem>
+<TestItem>
+<type>12</type>
+<subtype>0</subtype>
+<timestamp>79</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="0"/>
+<data key="gx" value="2520"/>
+<data key="gy" value="378"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="1"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox_2"/>
+<data key="wwidth" value="48"/>
+<data key="x" value="36"/>
+<data key="y" value="8"/>
+</TestItem>
+<TestItem>
+<type>13</type>
+<subtype>0</subtype>
+<timestamp>80</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="1"/>
+<data key="gx" value="2520"/>
+<data key="gy" value="378"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="1"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox_2"/>
+<data key="wwidth" value="48"/>
+<data key="x" value="36"/>
+<data key="y" value="8"/>
+</TestItem>
+<TestItem>
+<type>12</type>
+<subtype>0</subtype>
+<timestamp>95</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="0"/>
+<data key="gx" value="2520"/>
+<data key="gy" value="378"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="2"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox_2"/>
+<data key="wwidth" value="48"/>
+<data key="x" value="36"/>
+<data key="y" value="8"/>
+</TestItem>
+<TestItem>
+<type>11</type>
+<subtype>0</subtype>
+<timestamp>112</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="1"/>
+<data key="gx" value="2520"/>
+<data key="gy" value="378"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="2"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox_2"/>
+<data key="wwidth" value="48"/>
+<data key="x" value="36"/>
+<data key="y" value="8"/>
+</TestItem>
+<TestItem>
+<type>12</type>
+<subtype>0</subtype>
+<timestamp>87</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="0"/>
+<data key="gx" value="2520"/>
+<data key="gy" value="378"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="3"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox_2"/>
+<data key="wwidth" value="48"/>
+<data key="x" value="36"/>
+<data key="y" value="8"/>
+</TestItem>
+<TestItem>
+<type>11</type>
+<subtype>0</subtype>
+<timestamp>888</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="1"/>
+<data key="gx" value="2524"/>
+<data key="gy" value="320"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="2"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/comboBoxBuoyType"/>
+<data key="wwidth" value="61"/>
+<data key="x" value="40"/>
+<data key="y" value="16"/>
+</TestItem>
+<TestItem>
+<type>12</type>
+<subtype>0</subtype>
+<timestamp>1015</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="0"/>
+<data key="gx" value="2524"/>
+<data key="gy" value="343"/>
+<data key="isSens" value="0"/>
+<data key="modifiers" value="0"/>
+<data key="wheight" value="108"/>
+<data key="widget" value="MainWindow/centralWidget/comboBoxBuoyType/!QComboBoxPrivateContainer_1/!QComboBoxListView_1/qt_scrollarea_viewport"/>
+<data key="wwidth" value="59"/>
+<data key="x" value="39"/>
+<data key="y" value="92"/>
+</TestItem>
+<TestItem>
+<type>11</type>
+<subtype>0</subtype>
+<timestamp>880</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="1"/>
+<data key="gx" value="2596"/>
+<data key="gy" value="379"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="0"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox"/>
+<data key="wwidth" value="54"/>
+<data key="x" value="45"/>
+<data key="y" value="9"/>
+</TestItem>
+<TestItem>
+<type>12</type>
+<subtype>0</subtype>
+<timestamp>87</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="0"/>
+<data key="gx" value="2596"/>
+<data key="gy" value="379"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="1"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox"/>
+<data key="wwidth" value="54"/>
+<data key="x" value="45"/>
+<data key="y" value="9"/>
+</TestItem>
+<TestItem>
+<type>13</type>
+<subtype>0</subtype>
+<timestamp>80</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="1"/>
+<data key="gx" value="2596"/>
+<data key="gy" value="379"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="1"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox"/>
+<data key="wwidth" value="54"/>
+<data key="x" value="45"/>
+<data key="y" value="9"/>
+</TestItem>
+<TestItem>
+<type>12</type>
+<subtype>0</subtype>
+<timestamp>95</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="0"/>
+<data key="gx" value="2596"/>
+<data key="gy" value="379"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="2"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox"/>
+<data key="wwidth" value="54"/>
+<data key="x" value="45"/>
+<data key="y" value="9"/>
+</TestItem>
+<TestItem>
+<type>11</type>
+<subtype>0</subtype>
+<timestamp>80</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="1"/>
+<data key="gx" value="2596"/>
+<data key="gy" value="379"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="2"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox"/>
+<data key="wwidth" value="54"/>
+<data key="x" value="45"/>
+<data key="y" value="9"/>
+</TestItem>
+<TestItem>
+<type>12</type>
+<subtype>0</subtype>
+<timestamp>71</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="0"/>
+<data key="gx" value="2596"/>
+<data key="gy" value="379"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="3"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox"/>
+<data key="wwidth" value="54"/>
+<data key="x" value="45"/>
+<data key="y" value="9"/>
+</TestItem>
+<TestItem>
+<type>13</type>
+<subtype>0</subtype>
+<timestamp>80</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="1"/>
+<data key="gx" value="2596"/>
+<data key="gy" value="379"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="3"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox"/>
+<data key="wwidth" value="54"/>
+<data key="x" value="45"/>
+<data key="y" value="9"/>
+</TestItem>
+<TestItem>
+<type>12</type>
+<subtype>0</subtype>
+<timestamp>79</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="0"/>
+<data key="gx" value="2596"/>
+<data key="gy" value="379"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="4"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox"/>
+<data key="wwidth" value="54"/>
+<data key="x" value="45"/>
+<data key="y" value="9"/>
+</TestItem>
+<TestItem>
+<type>11</type>
+<subtype>0</subtype>
+<timestamp>912</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="1"/>
+<data key="gx" value="2927"/>
+<data key="gy" value="382"/>
+<data key="isSens" value="0"/>
+<data key="modifiers" value="0"/>
+<data key="wheight" value="239"/>
+<data key="widget" value="MainWindow/centralWidget/listWidget/qt_scrollarea_viewport"/>
+<data key="wwidth" value="362"/>
+<data key="x" value="165"/>
+<data key="y" value="77"/>
 </TestItem>
 <TestItem>
 <type>12</type>
@@ -2715,31 +3018,31 @@
 <timestamp>111</timestamp>
 <data key="button" value="1"/>
 <data key="buttons" value="0"/>
-<data key="gx" value="2052"/>
-<data key="gy" value="135"/>
+<data key="gx" value="2927"/>
+<data key="gy" value="382"/>
 <data key="isSens" value="0"/>
 <data key="modifiers" value="0"/>
-<data key="wheight" value="92"/>
-<data key="widget" value="MainWindow/centralWidget/comboBoxBuoyType/!QComboBoxPrivateContainer_1/!QComboBoxListView_1/qt_scrollarea_viewport"/>
-<data key="wwidth" value="57"/>
-<data key="x" value="40"/>
-<data key="y" value="9"/>
+<data key="wheight" value="239"/>
+<data key="widget" value="MainWindow/centralWidget/listWidget/qt_scrollarea_viewport"/>
+<data key="wwidth" value="362"/>
+<data key="x" value="165"/>
+<data key="y" value="77"/>
 </TestItem>
 <TestItem>
 <type>11</type>
 <subtype>0</subtype>
-<timestamp>632</timestamp>
+<timestamp>680</timestamp>
 <data key="button" value="1"/>
 <data key="buttons" value="1"/>
-<data key="gx" value="2042"/>
-<data key="gy" value="204"/>
+<data key="gx" value="3098"/>
+<data key="gy" value="516"/>
 <data key="isSens" value="0"/>
 <data key="modifiers" value="0"/>
-<data key="wheight" value="92"/>
-<data key="widget" value="MainWindow/centralWidget/comboBoxBuoyType/!QComboBoxPrivateContainer_1/!QComboBoxListView_1/qt_scrollarea_viewport"/>
-<data key="wwidth" value="57"/>
-<data key="x" value="30"/>
-<data key="y" value="78"/>
+<data key="wheight" value="239"/>
+<data key="widget" value="MainWindow/centralWidget/listWidget/qt_scrollarea_viewport"/>
+<data key="wwidth" value="362"/>
+<data key="x" value="336"/>
+<data key="y" value="211"/>
 </TestItem>
 <TestItem>
 <type>12</type>
@@ -2747,224 +3050,98 @@
 <timestamp>119</timestamp>
 <data key="button" value="1"/>
 <data key="buttons" value="0"/>
-<data key="gx" value="2042"/>
-<data key="gy" value="204"/>
+<data key="gx" value="3098"/>
+<data key="gy" value="516"/>
 <data key="isSens" value="0"/>
 <data key="modifiers" value="0"/>
-<data key="wheight" value="92"/>
-<data key="widget" value="MainWindow/centralWidget/comboBoxBuoyType/!QComboBoxPrivateContainer_1/!QComboBoxListView_1/qt_scrollarea_viewport"/>
-<data key="wwidth" value="57"/>
-<data key="x" value="30"/>
-<data key="y" value="78"/>
+<data key="wheight" value="239"/>
+<data key="widget" value="MainWindow/centralWidget/listWidget/qt_scrollarea_viewport"/>
+<data key="wwidth" value="362"/>
+<data key="x" value="336"/>
+<data key="y" value="211"/>
 </TestItem>
 <TestItem>
 <type>11</type>
 <subtype>0</subtype>
-<timestamp>656</timestamp>
+<timestamp>824</timestamp>
 <data key="button" value="1"/>
 <data key="buttons" value="1"/>
-<data key="gx" value="2054"/>
-<data key="gy" value="144"/>
+<data key="gx" value="2533"/>
+<data key="gy" value="316"/>
 <data key="isSens" value="1"/>
 <data key="modifiers" value="0"/>
 <data key="svalue" value="3"/>
-<data key="wheight" value="23"/>
+<data key="wheight" value="27"/>
 <data key="widget" value="MainWindow/centralWidget/comboBoxBuoyType"/>
+<data key="wwidth" value="61"/>
+<data key="x" value="49"/>
+<data key="y" value="12"/>
+</TestItem>
+<TestItem>
+<type>12</type>
+<subtype>0</subtype>
+<timestamp>1775</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="0"/>
+<data key="gx" value="2534"/>
+<data key="gy" value="261"/>
+<data key="isSens" value="0"/>
+<data key="modifiers" value="0"/>
+<data key="wheight" value="108"/>
+<data key="widget" value="MainWindow/centralWidget/comboBoxBuoyType/!QComboBoxPrivateContainer_1/!QComboBoxListView_1/qt_scrollarea_viewport"/>
 <data key="wwidth" value="59"/>
-<data key="x" value="43"/>
-<data key="y" value="19"/>
-</TestItem>
-<TestItem>
-<type>12</type>
-<subtype>0</subtype>
-<timestamp>135</timestamp>
-<data key="button" value="1"/>
-<data key="buttons" value="0"/>
-<data key="gx" value="2054"/>
-<data key="gy" value="144"/>
-<data key="isSens" value="0"/>
-<data key="modifiers" value="0"/>
-<data key="wheight" value="92"/>
-<data key="widget" value="MainWindow/centralWidget/comboBoxBuoyType/!QComboBoxPrivateContainer_1/!QComboBoxListView_1/qt_scrollarea_viewport"/>
-<data key="wwidth" value="57"/>
-<data key="x" value="42"/>
-<data key="y" value="87"/>
+<data key="x" value="49"/>
+<data key="y" value="37"/>
 </TestItem>
 <TestItem>
 <type>11</type>
 <subtype>0</subtype>
-<timestamp>576</timestamp>
+<timestamp>696</timestamp>
 <data key="button" value="1"/>
 <data key="buttons" value="1"/>
-<data key="gx" value="2051"/>
-<data key="gy" value="119"/>
-<data key="isSens" value="0"/>
-<data key="modifiers" value="0"/>
-<data key="wheight" value="92"/>
-<data key="widget" value="MainWindow/centralWidget/comboBoxBuoyType/!QComboBoxPrivateContainer_1/!QComboBoxListView_1/qt_scrollarea_viewport"/>
-<data key="wwidth" value="57"/>
-<data key="x" value="39"/>
-<data key="y" value="62"/>
-</TestItem>
-<TestItem>
-<type>12</type>
-<subtype>0</subtype>
-<timestamp>135</timestamp>
-<data key="button" value="1"/>
-<data key="buttons" value="0"/>
-<data key="gx" value="2051"/>
-<data key="gy" value="119"/>
-<data key="isSens" value="0"/>
-<data key="modifiers" value="0"/>
-<data key="wheight" value="92"/>
-<data key="widget" value="MainWindow/centralWidget/comboBoxBuoyType/!QComboBoxPrivateContainer_1/!QComboBoxListView_1/qt_scrollarea_viewport"/>
-<data key="wwidth" value="57"/>
-<data key="x" value="39"/>
-<data key="y" value="62"/>
-</TestItem>
-<TestItem>
-<type>11</type>
-<subtype>0</subtype>
-<timestamp>1152</timestamp>
-<data key="button" value="1"/>
-<data key="buttons" value="1"/>
-<data key="gx" value="2634"/>
-<data key="gy" value="361"/>
-<data key="isSens" value="0"/>
-<data key="modifiers" value="0"/>
-<data key="wheight" value="249"/>
-<data key="widget" value="MainWindow/centralWidget/listWidget/qt_scrollarea_viewport"/>
-<data key="wwidth" value="393"/>
-<data key="x" value="372"/>
-<data key="y" value="235"/>
-</TestItem>
-<TestItem>
-<type>12</type>
-<subtype>0</subtype>
-<timestamp>135</timestamp>
-<data key="button" value="1"/>
-<data key="buttons" value="0"/>
-<data key="gx" value="2634"/>
-<data key="gy" value="361"/>
-<data key="isSens" value="0"/>
-<data key="modifiers" value="0"/>
-<data key="wheight" value="249"/>
-<data key="widget" value="MainWindow/centralWidget/listWidget/qt_scrollarea_viewport"/>
-<data key="wwidth" value="393"/>
-<data key="x" value="372"/>
-<data key="y" value="235"/>
-</TestItem>
-<TestItem>
-<type>11</type>
-<subtype>0</subtype>
-<timestamp>608</timestamp>
-<data key="button" value="1"/>
-<data key="buttons" value="1"/>
-<data key="gx" value="2635"/>
-<data key="gy" value="152"/>
-<data key="isSens" value="0"/>
-<data key="modifiers" value="0"/>
-<data key="wheight" value="249"/>
-<data key="widget" value="MainWindow/centralWidget/listWidget/qt_scrollarea_viewport"/>
-<data key="wwidth" value="393"/>
-<data key="x" value="373"/>
-<data key="y" value="26"/>
-</TestItem>
-<TestItem>
-<type>12</type>
-<subtype>0</subtype>
-<timestamp>127</timestamp>
-<data key="button" value="1"/>
-<data key="buttons" value="0"/>
-<data key="gx" value="2635"/>
-<data key="gy" value="152"/>
-<data key="isSens" value="0"/>
-<data key="modifiers" value="0"/>
-<data key="wheight" value="249"/>
-<data key="widget" value="MainWindow/centralWidget/listWidget/qt_scrollarea_viewport"/>
-<data key="wwidth" value="393"/>
-<data key="x" value="373"/>
-<data key="y" value="26"/>
-</TestItem>
-<TestItem>
-<type>11</type>
-<subtype>0</subtype>
-<timestamp>840</timestamp>
-<data key="button" value="1"/>
-<data key="buttons" value="1"/>
-<data key="gx" value="2290"/>
-<data key="gy" value="358"/>
-<data key="isSens" value="0"/>
-<data key="modifiers" value="0"/>
-<data key="wheight" value="249"/>
-<data key="widget" value="MainWindow/centralWidget/listWidget/qt_scrollarea_viewport"/>
-<data key="wwidth" value="393"/>
-<data key="x" value="28"/>
-<data key="y" value="232"/>
-</TestItem>
-<TestItem>
-<type>12</type>
-<subtype>0</subtype>
-<timestamp>103</timestamp>
-<data key="button" value="1"/>
-<data key="buttons" value="0"/>
-<data key="gx" value="2290"/>
-<data key="gy" value="358"/>
-<data key="isSens" value="0"/>
-<data key="modifiers" value="0"/>
-<data key="wheight" value="249"/>
-<data key="widget" value="MainWindow/centralWidget/listWidget/qt_scrollarea_viewport"/>
-<data key="wwidth" value="393"/>
-<data key="x" value="28"/>
-<data key="y" value="232"/>
-</TestItem>
-<TestItem>
-<type>11</type>
-<subtype>0</subtype>
-<timestamp>624</timestamp>
-<data key="button" value="1"/>
-<data key="buttons" value="1"/>
-<data key="gx" value="2281"/>
-<data key="gy" value="139"/>
-<data key="isSens" value="0"/>
-<data key="modifiers" value="0"/>
-<data key="wheight" value="249"/>
-<data key="widget" value="MainWindow/centralWidget/listWidget/qt_scrollarea_viewport"/>
-<data key="wwidth" value="393"/>
-<data key="x" value="19"/>
-<data key="y" value="13"/>
-</TestItem>
-<TestItem>
-<type>12</type>
-<subtype>0</subtype>
-<timestamp>127</timestamp>
-<data key="button" value="1"/>
-<data key="buttons" value="0"/>
-<data key="gx" value="2281"/>
-<data key="gy" value="139"/>
-<data key="isSens" value="0"/>
-<data key="modifiers" value="0"/>
-<data key="wheight" value="249"/>
-<data key="widget" value="MainWindow/centralWidget/listWidget/qt_scrollarea_viewport"/>
-<data key="wwidth" value="393"/>
-<data key="x" value="19"/>
-<data key="y" value="13"/>
-</TestItem>
-<TestItem>
-<type>11</type>
-<subtype>0</subtype>
-<timestamp>648</timestamp>
-<data key="button" value="1"/>
-<data key="buttons" value="1"/>
-<data key="gx" value="2048"/>
-<data key="gy" value="135"/>
+<data key="gx" value="2526"/>
+<data key="gy" value="413"/>
 <data key="isSens" value="1"/>
 <data key="modifiers" value="0"/>
-<data key="svalue" value="2"/>
-<data key="wheight" value="23"/>
-<data key="widget" value="MainWindow/centralWidget/comboBoxBuoyType"/>
-<data key="wwidth" value="59"/>
-<data key="x" value="37"/>
+<data key="svalue" value="0"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox_4"/>
+<data key="wwidth" value="48"/>
+<data key="x" value="42"/>
+<data key="y" value="10"/>
+</TestItem>
+<TestItem>
+<type>12</type>
+<subtype>0</subtype>
+<timestamp>63</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="0"/>
+<data key="gx" value="2526"/>
+<data key="gy" value="413"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="1"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox_4"/>
+<data key="wwidth" value="48"/>
+<data key="x" value="42"/>
+<data key="y" value="10"/>
+</TestItem>
+<TestItem>
+<type>13</type>
+<subtype>0</subtype>
+<timestamp>72</timestamp>
+<data key="button" value="1"/>
+<data key="buttons" value="1"/>
+<data key="gx" value="2526"/>
+<data key="gy" value="413"/>
+<data key="isSens" value="1"/>
+<data key="modifiers" value="0"/>
+<data key="svalue" value="1"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox_4"/>
+<data key="wwidth" value="48"/>
+<data key="x" value="42"/>
 <data key="y" value="10"/>
 </TestItem>
 <TestItem>
@@ -2973,96 +3150,66 @@
 <timestamp>103</timestamp>
 <data key="button" value="1"/>
 <data key="buttons" value="0"/>
-<data key="gx" value="2048"/>
-<data key="gy" value="135"/>
-<data key="isSens" value="0"/>
+<data key="gx" value="2526"/>
+<data key="gy" value="413"/>
+<data key="isSens" value="1"/>
 <data key="modifiers" value="0"/>
-<data key="wheight" value="92"/>
-<data key="widget" value="MainWindow/centralWidget/comboBoxBuoyType/!QComboBoxPrivateContainer_1/!QComboBoxListView_1/qt_scrollarea_viewport"/>
-<data key="wwidth" value="57"/>
-<data key="x" value="36"/>
-<data key="y" value="55"/>
+<data key="svalue" value="2"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox_4"/>
+<data key="wwidth" value="48"/>
+<data key="x" value="42"/>
+<data key="y" value="10"/>
 </TestItem>
 <TestItem>
 <type>11</type>
 <subtype>0</subtype>
-<timestamp>568</timestamp>
+<timestamp>560</timestamp>
 <data key="button" value="1"/>
 <data key="buttons" value="1"/>
-<data key="gx" value="2048"/>
-<data key="gy" value="115"/>
-<data key="isSens" value="0"/>
-<data key="modifiers" value="0"/>
-<data key="wheight" value="92"/>
-<data key="widget" value="MainWindow/centralWidget/comboBoxBuoyType/!QComboBoxPrivateContainer_1/!QComboBoxListView_1/qt_scrollarea_viewport"/>
-<data key="wwidth" value="57"/>
-<data key="x" value="36"/>
-<data key="y" value="35"/>
-</TestItem>
-<TestItem>
-<type>12</type>
-<subtype>0</subtype>
-<timestamp>127</timestamp>
-<data key="button" value="1"/>
-<data key="buttons" value="0"/>
-<data key="gx" value="2048"/>
-<data key="gy" value="115"/>
-<data key="isSens" value="0"/>
-<data key="modifiers" value="0"/>
-<data key="wheight" value="92"/>
-<data key="widget" value="MainWindow/centralWidget/comboBoxBuoyType/!QComboBoxPrivateContainer_1/!QComboBoxListView_1/qt_scrollarea_viewport"/>
-<data key="wwidth" value="57"/>
-<data key="x" value="36"/>
-<data key="y" value="35"/>
-</TestItem>
-<TestItem>
-<type>11</type>
-<subtype>0</subtype>
-<timestamp>480</timestamp>
-<data key="button" value="1"/>
-<data key="buttons" value="1"/>
-<data key="gx" value="2052"/>
-<data key="gy" value="134"/>
+<data key="gx" value="2532"/>
+<data key="gy" value="319"/>
 <data key="isSens" value="1"/>
 <data key="modifiers" value="0"/>
 <data key="svalue" value="1"/>
-<data key="wheight" value="23"/>
+<data key="wheight" value="27"/>
 <data key="widget" value="MainWindow/centralWidget/comboBoxBuoyType"/>
-<data key="wwidth" value="59"/>
-<data key="x" value="41"/>
-<data key="y" value="9"/>
+<data key="wwidth" value="61"/>
+<data key="x" value="48"/>
+<data key="y" value="15"/>
 </TestItem>
 <TestItem>
 <type>12</type>
 <subtype>0</subtype>
-<timestamp>135</timestamp>
+<timestamp>871</timestamp>
 <data key="button" value="1"/>
 <data key="buttons" value="0"/>
-<data key="gx" value="2052"/>
-<data key="gy" value="134"/>
+<data key="gx" value="2531"/>
+<data key="gy" value="295"/>
 <data key="isSens" value="0"/>
 <data key="modifiers" value="0"/>
-<data key="wheight" value="92"/>
+<data key="wheight" value="108"/>
 <data key="widget" value="MainWindow/centralWidget/comboBoxBuoyType/!QComboBoxPrivateContainer_1/!QComboBoxListView_1/qt_scrollarea_viewport"/>
-<data key="wwidth" value="57"/>
-<data key="x" value="40"/>
-<data key="y" value="31"/>
+<data key="wwidth" value="59"/>
+<data key="x" value="46"/>
+<data key="y" value="17"/>
 </TestItem>
 <TestItem>
 <type>11</type>
 <subtype>0</subtype>
-<timestamp>432</timestamp>
+<timestamp>888</timestamp>
 <data key="button" value="1"/>
 <data key="buttons" value="1"/>
-<data key="gx" value="2042"/>
-<data key="gy" value="119"/>
-<data key="isSens" value="0"/>
+<data key="gx" value="2596"/>
+<data key="gy" value="408"/>
+<data key="isSens" value="1"/>
 <data key="modifiers" value="0"/>
-<data key="wheight" value="92"/>
-<data key="widget" value="MainWindow/centralWidget/comboBoxBuoyType/!QComboBoxPrivateContainer_1/!QComboBoxListView_1/qt_scrollarea_viewport"/>
-<data key="wwidth" value="57"/>
-<data key="x" value="30"/>
-<data key="y" value="16"/>
+<data key="svalue" value="0"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox_5"/>
+<data key="wwidth" value="54"/>
+<data key="x" value="45"/>
+<data key="y" value="5"/>
 </TestItem>
 <TestItem>
 <type>12</type>
@@ -3070,15 +3217,16 @@
 <timestamp>151</timestamp>
 <data key="button" value="1"/>
 <data key="buttons" value="0"/>
-<data key="gx" value="2042"/>
-<data key="gy" value="119"/>
-<data key="isSens" value="0"/>
+<data key="gx" value="2596"/>
+<data key="gy" value="408"/>
+<data key="isSens" value="1"/>
 <data key="modifiers" value="0"/>
-<data key="wheight" value="92"/>
-<data key="widget" value="MainWindow/centralWidget/comboBoxBuoyType/!QComboBoxPrivateContainer_1/!QComboBoxListView_1/qt_scrollarea_viewport"/>
-<data key="wwidth" value="57"/>
-<data key="x" value="30"/>
-<data key="y" value="16"/>
+<data key="svalue" value="1"/>
+<data key="wheight" value="27"/>
+<data key="widget" value="MainWindow/centralWidget/spinBox_5"/>
+<data key="wwidth" value="54"/>
+<data key="x" value="45"/>
+<data key="y" value="5"/>
 </TestItem>
 </TestCase>
 </TestSuite>
