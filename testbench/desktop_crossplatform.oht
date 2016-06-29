@@ -1,6 +1,6 @@
 <TestSuite>
 <name>cpts</name>
-<appId>/home/pedro/svn_catedra/anotaciones/testing/imp_HMITester_github/openhmitester_build/testbench/desktop/simusaes</appId>
+<appId>C:/Users/pedro/Documents/GitHub/openhmitester_build/testbench/desktop/debug/simusaes.exe</appId>
 <TestCase>
 <name>in_linux</name>
 <TestItem>
