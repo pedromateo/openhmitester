@@ -232,7 +232,7 @@ void QtEventExecutor::executeKeyPressEvent(QOE::QOE_KeyPress* qoe)
               << qoe->widget());
     }
 
-    _preExecution(qoe, widget);
+    _preExecutionNoMouse(qoe, widget);
     qoe->execute(widget);
     _postExecution(qoe, widget);
 }
@@ -248,7 +248,7 @@ void QtEventExecutor::executeCloseEvent(QOE::QOE_WindowClose* qoe)
               << qoe->widget());
     }
 
-    _preExecution(qoe, widget);
+    _preExecutionNoMouse(qoe, widget);
     qoe->execute(widget);
     _postExecution(qoe, widget);
 }
@@ -457,9 +457,15 @@ QWidget* QtEventExecutor::_getWidget(QOE::QOE_Base* qoe)
     return QWidgetUtils::getAWidget(&wpath);
 }
 
-void QtEventExecutor::_preExecution(QOE::QOE_Base* qoe, QWidget* widget)
+
+void QtEventExecutor::_preExecutionNoMouse(QOE::QOE_Base* qoe, QWidget* widget)
 {
     assert(qoe);
+
+    //wait elapsed time for this item
+    int sleep_ms = qoe->timestamp();
+    sleep_ms = sleep_ms > 0? sleep_ms : 0;
+    QTest::qWait(sleep_ms);
 
     //start simulation
     if (widget != NULL){
@@ -469,6 +475,8 @@ void QtEventExecutor::_preExecution(QOE::QOE_Base* qoe, QWidget* widget)
 
 void QtEventExecutor::_preExecutionWithMouseMove(QOE::QOE_Base* qoe, QWidget* widget)
 {
+    assert(qoe);
+
     //wait elapsed time for this item
     int sleep_ms = qoe->timestamp() - MOUSE_MOVE_DELAY_MS;
     sleep_ms = sleep_ms > 0? sleep_ms : 0;
@@ -485,12 +493,16 @@ void QtEventExecutor::_preExecutionWithMouseMove(QOE::QOE_Base* qoe, QWidget* wi
 
     }
 
-    // disable updates
-    _preExecution(qoe,widget);
+    //start simulation
+    if (widget != NULL){
+        widget->setUpdatesEnabled(false);
+    }
 }
 
 void QtEventExecutor::_preExecutionWithMouseHover(QOE::QOE_Base* qoe, QWidget* widget)
 {
+    assert(qoe);
+
     //wait elapsed time for this item
     int sleep_ms = qoe->timestamp() - MOUSE_MOVE_DELAY_MS;
     sleep_ms = sleep_ms > 0? sleep_ms : 0;
@@ -502,8 +514,10 @@ void QtEventExecutor::_preExecutionWithMouseHover(QOE::QOE_Base* qoe, QWidget* w
         _last_mouse_pos = widget->mapToGlobal ( qoe->position() );
     }
 
-    // disable updates
-    _preExecution(qoe,widget);
+    //start simulation
+    if (widget != NULL){
+        widget->setUpdatesEnabled(false);
+    }
 }
 
 void QtEventExecutor::_postExecution(QOE::QOE_Base* qoe, QWidget* widget)

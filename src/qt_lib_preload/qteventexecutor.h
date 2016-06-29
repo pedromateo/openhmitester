@@ -88,7 +88,7 @@ private:
     /// execution support
     ///
     QWidget* _getWidget(QOE::QOE_Base*);
-    void _preExecution(QOE::QOE_Base*, QWidget*);
+    void _preExecutionNoMouse(QOE::QOE_Base*, QWidget*);
     void _preExecutionWithMouseMove(QOE::QOE_Base*, QWidget*);
     void _preExecutionWithMouseHover(QOE::QOE_Base*, QWidget*);
     void _postExecution(QOE::QOE_Base*, QWidget*);
