@@ -28,25 +28,13 @@
     <div id="content-wrapper">
       <div class="inner clearfix">
         <section id="main-content">
-          <p><strong>June, the 16st -&gt; Working on a Windows version. It is just needed to implement "preload" for all to work. If you want to contribute, just email me or continue reading:</strong></p>
+          <p><strong>July, the 1st -&gt; OHT is now cross-platform and works both in Linux (automatic preload) and Windows (using manual preload). There is one feature to implement: make "preload" to work in Windows. If you want to contribute, just email me or continue reading:</strong></p>
 
-<ul>
-<li>
-<p><em>(done) TODO_1</em>: Try to integrate the "preload library" into the workbench desktop
-app (called Simusaes) manually. By manually I mean to include a line
-in "Simusaes" main function in which the preload action is called
-(this should be called automatically, read below). This is almost
-implemented.</p>
-
-<p>Please, take a look at: <code>openhmitester/testbench/desktop/main.cpp</code>, line 12
-Manual preload can be enabled/disabled in <code>openhmitester/testbench/desktop/simusaes.pro</code>, line 36</p>
-</li>
-<li>
-<p><em>TODO_2</em>: Do the preload automatically. While in linux it is implemented using the LD_PRELOAD
+<p><em>TODO</em>: Do the preload automatically in Windows. While in linux it is implemented using the LD_PRELOAD
 environment variable, in windows I found several options:</p>
 
 <ul>
-<li><p>Option 1: Use registry keys. The problem is that security in Windows will not allow us to do it. You can read this: <a href="https://en.wikipedia.org/wiki/DLL_injection">https://en.wikipedia.org/wiki/DLL_injection</a></p></li>
+<li><p>Option 1: Use registry keys. The problem is that security in most recent Windows versions do not allow us to do it. You can read this: <a href="https://en.wikipedia.org/wiki/DLL_injection">https://en.wikipedia.org/wiki/DLL_injection</a></p></li>
 <li>
 <p>Option 2: Create an application launcher (AppL) to launch the application under testing (AUT). The process would be as follows:</p>
 
@@ -64,8 +52,6 @@ environment variable, in windows I found several options:</p>
 </li>
 <li>The AppL calls the main function of the AUT to launch it, including the PreloadLibrary previously loaded.</li>
 </ol>
-</li>
-</ul>
 
 <p>For this, <code>openhmitester/src/preloaders/winpreloadingaction.cpp</code> should be properly implemented to (option 1) change the registry and launch the AUT as a <code>QProcess</code> or (option 2) to call the AppL with the AUT path as parameter. Right now it holds the basic implementation with a lot of TODOs.</p>
 </li>
@@ -108,7 +94,7 @@ testing environments is provided in this repository.</p>
 
 <p>With OHT you can create test cases for your application. Then, test cases can be replayed one by one, or all in a row.</p>
 
-<p><a href="http://www.youtube.com/watch?v=PiwPB8uwZOk"><img src="http://img.youtube.com/vi/PiwPB8uwZOk/0.jpg" alt="IMAGE ALT TEXT HERE"></a></p>
+<p><a href="https://www.youtube.com/watch?v=PiwPB8uwZOk"><img src="http://img.youtube.com/vi/PiwPB8uwZOk/0.jpg" width="250"></a></p>
 
 <p><a href="https://www.youtube.com/watch?v=PiwPB8uwZOk">https://www.youtube.com/watch?v=PiwPB8uwZOk</a></p>
 
@@ -121,12 +107,30 @@ testing environments is provided in this repository.</p>
 
 <p>Note that this might produce unexpected results, as in the current implementation of the OHT, the test is recorded in the browser, not in the web page. We are working hard to provide a robust web-testing experience.</p>
 
-<p><a href="http://www.youtube.com/watch?v=Smcj3WmdPdQ"><img src="http://img.youtube.com/vi/Smcj3WmdPdQ/0.jpg" alt="IMAGE ALT TEXT HERE"></a></p>
+<p><a href="https://www.youtube.com/watch?v=Smcj3WmdPdQ"><img src="http://img.youtube.com/vi/Smcj3WmdPdQ/0.jpg" width="250"></a></p>
 
 <p><a href="https://www.youtube.com/watch?v=Smcj3WmdPdQ">https://www.youtube.com/watch?v=Smcj3WmdPdQ</a></p>
 
 <h2>
-<a id="logging-in-tested-application" class="anchor" href="#logging-in-tested-application" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Logging in tested application</h2>
+<a id="cross-platform-experiment" class="anchor" href="#cross-platform-experiment" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Cross-platform experiment</h2>
+
+<p>With OHT you can create test cases in Windows and play them into the same application compiled in Linux, and vice versa. Cross-platform testing is one of the strengths of OHT.</p>
+
+<p><a href="https://www.youtube.com/watch?v=pb2upXYpHZA"><img src="http://img.youtube.com/vi/pb2upXYpHZA/0.jpg" width="250"></a></p>
+
+<p><a href="https://www.youtube.com/watch?v=pb2upXYpHZA">https://www.youtube.com/watch?v=pb2upXYpHZA</a></p>
+
+<h2>
+<a id="robustness-experiment" class="anchor" href="#robustness-experiment" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Robustness experiment</h2>
+
+<p>OHT can foresee missing GUI widgets, thus no actions will be executed for them.</p>
+
+<p><a href="https://www.youtube.com/watch?v=4rXnRWQ9dts"><img src="http://img.youtube.com/vi/4rXnRWQ9dts/0.jpg" width="250"></a></p>
+
+<p><a href="https://www.youtube.com/watch?v=4rXnRWQ9dts">https://www.youtube.com/watch?v=4rXnRWQ9dts</a></p>
+
+<h1>
+<a id="logging-in-tested-application" class="anchor" href="#logging-in-tested-application" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Logging in tested application</h1>
 
 <p>Two logs are generated with the standard and error output of the Application Under Test (AUT): </p>
 
