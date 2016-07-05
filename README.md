@@ -1,10 +1,10 @@
 
-**July, the 1st -> OHT is now cross-platform and works both in Windows and Linux. There is one feature to implement: make "preload" to work in Windows. If you want to contribute, just email me or continue reading:**
+**July, the 1st -> OHT is now cross-platform and works both in Linux (automatic preload) and Windows (using manual preload). There is one feature to implement: make "preload" to work in Windows. If you want to contribute, just email me or continue reading:**
 
 - *TODO*: Do the preload automatically in Windows. While in linux it is implemented using the LD_PRELOAD
 environment variable, in windows I found several options:
 
-  - Option 1: Use registry keys. The problem is that security in Windows will not allow us to do it. You can read this: https://en.wikipedia.org/wiki/DLL_injection
+  - Option 1: Use registry keys. The problem is that security in most recent Windows versions do not allow us to do it. You can read this: https://en.wikipedia.org/wiki/DLL_injection
 
   - Option 2: Create an application launcher (AppL) to launch the application under testing (AUT). The process would be as follows:
      1. The HMI Tester starts recording a test case, thus the AUT must be launched and the PreloadLibrary loaded into it.
