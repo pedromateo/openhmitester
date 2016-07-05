@@ -1,17 +1,7 @@
 
-**June, the 16st -> Working on a Windows version. It is just needed to implement "preload" for all to work. If you want to contribute, just email me or continue reading:**
+**July, the 1st -> OHT is now cross-platform and works both in Windows and Linux. There is one feature to implement: make "preload" to work in Windows. If you want to contribute, just email me or continue reading:**
 
-- *(done) TODO_1*: Try to integrate the "preload library" into the workbench desktop
-app (called Simusaes) manually. By manually I mean to include a line
-in "Simusaes" main function in which the preload action is called
-(this should be called automatically, read below). This is almost
-implemented.
-
-  Please, take a look at: `openhmitester/testbench/desktop/main.cpp`, line 12
-  Manual preload can be enabled/disabled in `openhmitester/testbench/desktop/simusaes.pro`, line 36
- 
-
-- *TODO_2*: Do the preload automatically. While in linux it is implemented using the LD_PRELOAD
+- *TODO*: Do the preload automatically in Windows. While in linux it is implemented using the LD_PRELOAD
 environment variable, in windows I found several options:
 
   - Option 1: Use registry keys. The problem is that security in Windows will not allow us to do it. You can read this: https://en.wikipedia.org/wiki/DLL_injection
