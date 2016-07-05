@@ -51,7 +51,7 @@ Please, contact me at pedrolmn@gmail.com
 
 With OHT you can create test cases for your application. Then, test cases can be replayed one by one, or all in a row.
 
-[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/PiwPB8uwZOk/0.jpg)](http://www.youtube.com/watch?v=PiwPB8uwZOk)
+<a href="https://www.youtube.com/watch?v=PiwPB8uwZOk"><img src="http://img.youtube.com/vi/PiwPB8uwZOk/0.jpg" width="250"></a>
 
 https://www.youtube.com/watch?v=PiwPB8uwZOk
 
@@ -63,11 +63,27 @@ OHT provides a free, easy and fast way to test your web, as well as to automate 
 
 Note that this might produce unexpected results, as in the current implementation of the OHT, the test is recorded in the browser, not in the web page. We are working hard to provide a robust web-testing experience.
 
-[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/Smcj3WmdPdQ/0.jpg)](http://www.youtube.com/watch?v=Smcj3WmdPdQ)
+<a href="https://www.youtube.com/watch?v=Smcj3WmdPdQ"><img src="http://img.youtube.com/vi/Smcj3WmdPdQ/0.jpg" width="250"></a>
 
 https://www.youtube.com/watch?v=Smcj3WmdPdQ
 
-## Logging in tested application
+## Cross-platform experiment
+
+With OHT you can create test cases in Windows and play them into the same application compiled in Linux, and vice versa. Cross-platform testing is one of the strengths of OHT.
+
+<a href="https://www.youtube.com/watch?v=pb2upXYpHZA"><img src="http://img.youtube.com/vi/pb2upXYpHZA/0.jpg" width="250"></a>
+
+https://www.youtube.com/watch?v=pb2upXYpHZA
+
+## Robustness experiment
+
+OHT can foresee missing GUI widgets, thus no actions will be executed for them.
+
+<a href="https://www.youtube.com/watch?v=4rXnRWQ9dts"><img src="http://img.youtube.com/vi/4rXnRWQ9dts/0.jpg" width="250"></a>
+
+https://www.youtube.com/watch?v=4rXnRWQ9dts
+
+# Logging in tested application
 
 Two logs are generated with the standard and error output of the Application Under Test (AUT): 
 * oht_aut_stdout.log
