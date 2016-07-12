@@ -71,9 +71,9 @@ https://www.youtube.com/watch?v=Smcj3WmdPdQ
 
 With OHT you can create test cases in Windows and play them into the same application compiled in Linux, and vice versa. Cross-platform testing is one of the strengths of OHT.
 
-<a href="https://www.youtube.com/watch?v=pb2upXYpHZA"><img src="http://img.youtube.com/vi/pb2upXYpHZA/0.jpg" width="250"></a>
+<a href="https://www.youtube.com/watch?v=3WYmRFk7r7E"><img src="http://img.youtube.com/vi/3WYmRFk7r7E/0.jpg" width="250"></a>
 
-https://www.youtube.com/watch?v=pb2upXYpHZA
+https://www.youtube.com/watch?v=3WYmRFk7r7E
 
 ## Robustness experiment
 
