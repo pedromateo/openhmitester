@@ -41,6 +41,12 @@ OHT is open-source and ready to use.
 OHT can be adapted to **support different GUI platforms** and operating systems. An adaptation to Qt-Linux
 testing environments is provided in this repository.
 
+# Requirements
+
+OHT compiles with many different combinations of Qt and Boost libraries. Anyway, the authors suggest using:
+- Qt v5.x
+- Boost 1.60 or higher
+
 # Any question? Any bug?
 
 Please, contact me at pedrolmn@gmail.com
