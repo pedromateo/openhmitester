@@ -82,6 +82,43 @@ and <strong>robust basis</strong> to support the automation of GUI testing proce
 testing environments is provided in this repository.</p>
 
 <h1>
+<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Requirements</h1>
+
+<p>OHT compiles with many different combinations of Qt and Boost libraries. Anyway, the authors suggest using:</p>
+
+<ul>
+<li>
+<p>Qt v5.x (we are using Qt 5.5)</p>
+
+<pre><code>sudo apt-get install qt5-default qt5-qmake
+</code></pre>
+</li>
+<li>
+<p>Boost 1.60 or higher</p>
+
+<pre><code>sudo apt-get install libboost-system-dev libboost-thread-dev libboost-serialization-dev
+</code></pre>
+</li>
+</ul>
+
+<h1>
+<a id="compile-and-run-automatically" class="anchor" href="#compile-and-run-automatically" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compile and Run automatically</h1>
+
+<p>An Ansible(<a href="https://www.ansible.com/">https://www.ansible.com/</a>) script is provided. It automates:</p>
+
+<ul>
+<li>installing requirements/dependencies</li>
+<li>downloading this repository</li>
+<li>compiling sources</li>
+<li>run HMI Tester (the testing app of OHT)</li>
+</ul>
+
+<p>To execute it, just copy the file <code>download_compile_run.ansible.yml</code> to an empty directory and execute the following command:</p>
+
+<pre><code>ansible-playbook -i "localhost," -c local ansible_ubuntu.yml -K
+</code></pre>
+
+<h1>
 <a id="any-question-any-bug" class="anchor" href="#any-question-any-bug" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Any question? Any bug?</h1>
 
 <p>Please, contact me at <a href="mailto:pedrolmn@gmail.com">pedrolmn@gmail.com</a></p>
