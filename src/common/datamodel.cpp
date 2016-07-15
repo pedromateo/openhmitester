@@ -109,17 +109,31 @@ void TestSuite::deleteTestCase(const std::string& name) throw (not_found)
     //delete from the map
     tcMap_.erase (it);
 
-    //delete from the list
-    using namespace boost::lambda;
+    //delete from the list (old code - not compiles in some Qt-Boost combination)
+
+    /* using namespace boost::lambda;
     TestCaseList::iterator it2 =
             std::find_if (testCases_.begin(),
                           testCases_.end(),
                           bind<bool> (std::equal_to<uuid_t>(),
-                                           bind<uuid_t>(&TestCase::uuid, _1),
-                                           id));
-                          /*[&] (const TestCase& tc) {return tc.uuid() == id;});*/
+                                      bind<uuid_t>(&TestCase::uuid, _1),
+                                      id));
+    // [&] (const TestCase& tc) {return tc.uuid() == id;});
     // TODO check if this code from above works as expected
-    testCases_.erase (it2);
+
+    testCases_.erase (it2);*/
+
+
+    //delete from the list (new code - compiles in all Qt-Boost combinations)
+
+    TestCaseList::iterator it2 = testCases_.begin();
+    while (it2 != testCases_.end()){
+        if (it2->uuid() == id)
+            break;
+    }
+
+    if (it2 != testCases_.end())
+        testCases_.erase (it2);
 }
 
 // DataModel::TestCase*

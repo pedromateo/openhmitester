@@ -48,8 +48,8 @@ RESOURCES += $$PWD/resources.qrc
 
 # add here your boost includes if needed
 linux {
-    LIBS += -lboost_thread -lboost_system -lboost_serialization
+    LIBS += -lboost_thread -lboost_system
 }
 win32 {
-    LIBS += -lboost_thread-mgw49-mt-d-1_60 -lboost_system-mgw49-mt-d-1_60 -lboost_serialization-mgw49-mt-d-1_60
+    LIBS += -lboost_thread-mgw49-mt-d-1_60 -lboost_system-mgw49-mt-d-1_60
 }

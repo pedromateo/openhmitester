@@ -59,13 +59,3 @@ HEADERS += ../../preloaders/linuxpreloadingaction.h
 INCLUDEPATH += ../../datamodel_adapters
 SOURCES += ../../datamodel_adapters/xmldatamodeladapter.cpp
 HEADERS += ../../datamodel_adapters/xmldatamodeladapter.h
-
-
-###
-### lib includes
-###
-
-LIBS += -L/opt/boost/boost_1_60_0/lib/
-INCLUDEPATH += /opt/boost/boost_1_60_0/include/
-
-

@@ -29,8 +29,7 @@ MOC_DIR = $${BUILD_DIR}/mocs
 OBJECTS_DIR = $${BUILD_DIR}/objs
 
 # config
-QT       += core gui
-CONFIG += qtestlib no_keywords
+CONFIG += no_keywords
 
 # targets
 SUBDIRS += src/common
@@ -40,6 +39,8 @@ SUBDIRS += src/lib_preload
 SUBDIRS += src/qt_lib_preload
 SUBDIRS += src/linux/qt_linux_hmi_tester
 SUBDIRS += src/linux/qt_linux_lib_preload
+
+# testbench
 SUBDIRS += testbench/desktop
 testbench/desktop.file = testbench/desktop/simusaes.pro
 SUBDIRS += testbench/web
