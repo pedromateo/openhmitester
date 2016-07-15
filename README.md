@@ -52,6 +52,20 @@ OHT compiles with many different combinations of Qt and Boost libraries. Anyway,
 
         sudo apt-get install libboost-system-dev libboost-thread-dev libboost-serialization-dev
 
+# Compile and Run automatically
+
+An Ansible(https://www.ansible.com/) script is provided. It automates:
+
+- installing requirements/dependencies
+- downloading this repository
+- compiling sources
+- run HMI Tester (the testing app of OHT)
+
+To execute it, just copy the file `download_compile_run.ansible.yml` to an empty directory and execute the following command:
+
+    ansible-playbook -i "localhost," -c local ansible_ubuntu.yml -K
+
+
 # Any question? Any bug?
 
 Please, contact me at pedrolmn@gmail.com

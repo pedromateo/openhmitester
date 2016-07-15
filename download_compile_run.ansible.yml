@@ -1,0 +1,75 @@
+---
+
+- hosts: all
+  vars:
+    a_var: 1
+
+  tasks:
+  
+  - name: Install OHT requirements
+    apt: name={{ item }} state=present update_cache=yes
+    with_items:
+      - vim
+      - git
+      - build-essential
+      - qt5-default 
+      - qt5-qmake
+      - libboost-system-dev 
+      - libboost-thread-dev 
+      - libboost-serialization-dev
+    sudo: yes
+    tags:
+      - packages
+
+  - name: Get OHT Git repo
+    git: repo=git://github.com/pedromateo/openhmitester.git
+         dest=./repo/
+    tags:
+      - repo
+
+  - name: Create build dir for HMI Tester 
+    file: path=./repo/build/qt_linux_hmi_tester state=directory mode=0755
+    tags:
+      - compilation
+
+  - name: Compiling HMI Tester - qmake
+    command: qmake-qt5 -makefile ../../src/linux/qt_linux_hmi_tester/qt_linux_hmi_tester.pro
+    args:
+      chdir: ./repo/build/qt_linux_hmi_tester
+    tags:
+      - compilation
+
+  - name: Compiling HMI Tester - make
+    command: make -j3
+    args:
+      chdir: ./repo/build/qt_linux_hmi_tester
+    tags:
+      - compilation
+
+  - name: Create build dir for LibPreload
+    file: path=./repo/build/qt_linux_lib_preload state=directory mode=0755
+    tags:
+      - compilation
+
+  - name: Compiling LibPreload - qmake
+    command: qmake-qt5 -makefile ../../src/linux/qt_linux_lib_preload/qt_linux_lib_preload.pro
+    args:
+      chdir: ./repo/build/qt_linux_lib_preload
+    tags:
+      - compilation
+
+  - name: Compiling LibPreload - make
+    command: make -j3
+    args:
+      chdir: ./repo/build/qt_linux_lib_preload
+    tags:
+      - compilation
+
+  - name: Launching HMI Tester
+    command: ./qt_linux_hmi_tester 
+    args:
+      chdir: ./repo/build/qt_linux_hmi_tester
+    tags:
+      - execution
+
+
