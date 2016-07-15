@@ -44,8 +44,13 @@ testing environments is provided in this repository.
 # Requirements
 
 OHT compiles with many different combinations of Qt and Boost libraries. Anyway, the authors suggest using:
-- Qt v5.x
+- Qt v5.x (we are using Qt 5.5)
+
+        sudo apt-get install qt5-default qt5-qmake
+
 - Boost 1.60 or higher
+
+        sudo apt-get install libboost-system-dev libboost-thread-dev libboost-serialization-dev
 
 # Any question? Any bug?
 
