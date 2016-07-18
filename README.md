@@ -118,6 +118,27 @@ Please, note that lib_preload output is also included in these log files.
 
 2. The class deploying the OHT services into the target application is QtX11PreloadingControl (extends PreloadingControl) and it is in the Lib Preload. In Linux, it uses QWidget::x11Event in Qt4, or QWidget::nativeEvent in Qt5 to "automatically wake up" and start deploying event consumer and executor.
 
+### If I try to open and build the build_oht_qt_win.pro I get these messages:
+
+    cannot find -lboost_serialization-mgw49-mt-d-1_60
+    cannot find -lboost_thread-mgw49-mt-d-1_60
+    cannot find -lboost_system-mgw49-mt-d-1_60
+    
+You need to correctly reference Boost libraries:
+
+1. in `common/common.pri`, add correct Boost includes at the end of this file.
+2. change the name of all includes from `-lboost_system-mgw49-mt-d-1_60` to `-lboost_system-<your-compiler-version>-1_60`. Remember that Boost libraries have to be compiled with the same compiler used by Qt (`mingw` in this case).
+
+### I cannot compile `build_all_*.pro` project
+
+In this case, try to compile projects independently:
+
+1. Compile `qt_*_hmi_tester` project.
+2. Compile `qt_*_lib_preload` project.
+
+`*` means the operating system we are building OHT for.
+
+
 ### I am running an application using Qt 4.8 + Embedded Linux without X server (there is QWS from QtEmbedded built in my application instead). Does OHT support this kind of setup?
 
 OHT will support this kind of setup provided that you can "wake up" OHT within your application. With waking up I mean to find an event that is executed at your application launching, so you can handle it and start deploying OHT services.
