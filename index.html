@@ -28,46 +28,11 @@
     <div id="content-wrapper">
       <div class="inner clearfix">
         <section id="main-content">
-          <p><strong>July, the 1st -&gt; OHT is now cross-platform and works both in Linux (automatic preload) and Windows (using manual preload). There is one feature to implement: make "preload" to work in Windows. If you want to contribute, just email me or continue reading:</strong></p>
+          <p><strong>July, the 1st -&gt; OHT is now cross-platform and works both in Linux (automatic preload) and Windows (using manual preload). There is one feature to implement: make "preload" to work in Windows. If you want to contribute, just email me or <a href="#todo-windows-adaptation">continue reading here</a></strong></p>
 
-<p><em>TODO</em>: Do the preload automatically in Windows. While in linux it is implemented using the LD_PRELOAD
-environment variable, in windows I found several options:</p>
+<hr>
 
-<ul>
-<li><p>Option 1: Use registry keys. The problem is that security in most recent Windows versions do not allow us to do it. You can read this: <a href="https://en.wikipedia.org/wiki/DLL_injection">https://en.wikipedia.org/wiki/DLL_injection</a></p></li>
-<li>
-<p>Option 2: Create an application launcher (AppL) to launch the application under testing (AUT). The process would be as follows:</p>
-
-<ol>
-<li>The HMI Tester starts recording a test case, thus the AUT must be launched and the PreloadLibrary loaded into it.</li>
-<li>The HMI Tester calls the AppL with the path to the AUT as parameter.</li>
-<li>The AppL is a binary including the PreloadLibrary. Therefore, in its main function, it first calls to <code>QtPreloadingControl::Do_preload();</code>. Please, see <code>win_oht_launcher</code> subproject into the <code>build_all_win</code> project.</li>
-<li>The AppL loads the exe file of the AUT as a DLL. Some links supporting this approach:
-
-<ul>
-<li><a href="http://www.codeproject.com/Articles/1045674/Load-EXE-as-DLL-Mission-Possible">http://www.codeproject.com/Articles/1045674/Load-EXE-as-DLL-Mission-Possible</a></li>
-<li><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms684175%28v=vs.85%29.aspx">https://msdn.microsoft.com/en-us/library/windows/desktop/ms684175%28v=vs.85%29.aspx</a></li>
-<li><a href="http://stackoverflow.com/questions/8696653/dynamically-load-a-function-from-a-dll">http://stackoverflow.com/questions/8696653/dynamically-load-a-function-from-a-dll</a></li>
-</ul>
-</li>
-<li>The AppL calls the main function of the AUT to launch it, including the PreloadLibrary previously loaded.</li>
-</ol>
-
-<p>For this, <code>openhmitester/src/preloaders/winpreloadingaction.cpp</code> should be properly implemented to (option 1) change the registry and launch the AUT as a <code>QProcess</code> or (option 2) to call the AppL with the AUT path as parameter. Right now it holds the basic implementation with a lot of TODOs.</p>
-</li>
-</ul>
-
-<p>Additional info: <strong>PreloadModule</strong> is the library used to extract events from the application under test (AUT), and to execute actions on it as well. This module (encapsulated into a DLL library) has to:</p>
-
-<ol>
-<li>be preloaded into the AUT before the AUT is launched.</li>
-<li>detect any event (in linux we use an event called something like Qt nativeEvent) to automatically execute at startup and deploy the OHT services, thus the OHT controller will be able to communicate to and control the AUT.</li>
-</ol>
-
-<h1>
-<a id="oht-open-hmi-tester" class="anchor" href="#oht-open-hmi-tester" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>OHT: Open HMI Tester</h1>
-
-<p>"Open HMI Tester" or OHT is an application framework for the development of <strong>GUI testing tools</strong>. It uses
+<p>"Open HMI Tester" or OHT is an application framework for the development of <strong>GUI testing tools</strong>. It uses real-time
 GUI <strong>introspection</strong> to capture and simulate <strong>real user interaction</strong>, which enhances
 robustness and tolerance to changes during testing stage. </p>
 
@@ -76,13 +41,10 @@ it can be integrated into ongoing and legacy developments due to it being <stron
 As a result, the framework provides an adaptable, extensible, scalable,
 and <strong>robust basis</strong> to support the automation of GUI testing processes. </p>
 
-<p>OHT is open-source and ready to use.</p>
-
-<p>OHT can be adapted to <strong>support different GUI platforms</strong> and operating systems. An adaptation to Qt-Linux
-testing environments is provided in this repository.</p>
+<p>OHT is open-source and ready to use. It is cross-platform as well. Versions working in <strong>Qt-Linux</strong> and <strong>Qt-Windows</strong> environments are provided in this repository.</p>
 
 <h1>
-<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Requirements</h1>
+<a id="requirements--compile--run-oht" class="anchor" href="#requirements--compile--run-oht" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Requirements / Compile &amp; run OHT</h1>
 
 <p>OHT compiles with many different combinations of Qt and Boost libraries. Anyway, the authors suggest using:</p>
 
@@ -101,10 +63,7 @@ testing environments is provided in this repository.</p>
 </li>
 </ul>
 
-<h1>
-<a id="compile-and-run-automatically" class="anchor" href="#compile-and-run-automatically" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compile and Run automatically</h1>
-
-<p>An Ansible(<a href="https://www.ansible.com/">https://www.ansible.com/</a>) script is provided. It automates:</p>
+<p>An Ansible script (<a href="https://www.ansible.com/">https://www.ansible.com/</a>) is provided to compile and run OHT automatically. It automates:</p>
 
 <ul>
 <li>installing requirements/dependencies</li>
@@ -117,11 +76,6 @@ testing environments is provided in this repository.</p>
 
 <pre><code>ansible-playbook -i "localhost," -c local ansible_ubuntu.yml -K
 </code></pre>
-
-<h1>
-<a id="any-question-any-bug" class="anchor" href="#any-question-any-bug" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Any question? Any bug?</h1>
-
-<p>Please, contact me at <a href="mailto:pedrolmn@gmail.com">pedrolmn@gmail.com</a></p>
 
 <h1>
 <a id="oht-in-action" class="anchor" href="#oht-in-action" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>OHT in action</h1>
@@ -167,7 +121,7 @@ testing environments is provided in this repository.</p>
 <p><a href="https://www.youtube.com/watch?v=4rXnRWQ9dts">https://www.youtube.com/watch?v=4rXnRWQ9dts</a></p>
 
 <h1>
-<a id="logging-in-tested-application" class="anchor" href="#logging-in-tested-application" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Logging in tested application</h1>
+<a id="logs-in-the-aut-for-debug-actions" class="anchor" href="#logs-in-the-aut-for-debug-actions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Logs in the AUT for debug actions</h1>
 
 <p>Two logs are generated with the standard and error output of the Application Under Test (AUT): </p>
 
@@ -248,6 +202,48 @@ testing environments is provided in this repository.</p>
 </ul>
 
 <p>They are located in the same directory where the OHT binary is located. </p>
+
+<h1>
+<a id="todo-windows-adaptation" class="anchor" href="#todo-windows-adaptation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>TODO: Windows adaptation</h1>
+
+<p><em>TODO</em>: Do the preload automatically in Windows. While in linux it is implemented using the LD_PRELOAD
+environment variable, in windows I found several options:</p>
+
+<ul>
+<li><p>Option 1: Use registry keys. The problem is that security in most recent Windows versions do not allow us to do it. You can read this: <a href="https://en.wikipedia.org/wiki/DLL_injection">https://en.wikipedia.org/wiki/DLL_injection</a></p></li>
+<li>
+<p>Option 2: Create an application launcher (AppL) to launch the application under testing (AUT). The process would be as follows:</p>
+
+<ol>
+<li>The HMI Tester starts recording a test case, thus the AUT must be launched and the PreloadLibrary loaded into it.</li>
+<li>The HMI Tester calls the AppL with the path to the AUT as parameter.</li>
+<li>The AppL is a binary including the PreloadLibrary. Therefore, in its main function, it first calls to <code>QtPreloadingControl::Do_preload();</code>. Please, see <code>win_oht_launcher</code> subproject into the <code>build_all_win</code> project.</li>
+<li>The AppL loads the exe file of the AUT as a DLL. Some links supporting this approach:
+
+<ul>
+<li><a href="http://www.codeproject.com/Articles/1045674/Load-EXE-as-DLL-Mission-Possible">http://www.codeproject.com/Articles/1045674/Load-EXE-as-DLL-Mission-Possible</a></li>
+<li><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms684175%28v=vs.85%29.aspx">https://msdn.microsoft.com/en-us/library/windows/desktop/ms684175%28v=vs.85%29.aspx</a></li>
+<li><a href="http://stackoverflow.com/questions/8696653/dynamically-load-a-function-from-a-dll">http://stackoverflow.com/questions/8696653/dynamically-load-a-function-from-a-dll</a></li>
+</ul>
+</li>
+<li>The AppL calls the main function of the AUT to launch it, including the PreloadLibrary previously loaded.</li>
+</ol>
+
+<p>For this, <code>openhmitester/src/preloaders/winpreloadingaction.cpp</code> should be properly implemented to (option 1) change the registry and launch the AUT as a <code>QProcess</code> or (option 2) to call the AppL with the AUT path as parameter. Right now it holds the basic implementation with a lot of TODOs.</p>
+</li>
+</ul>
+
+<p>Additional info: <strong>PreloadModule</strong> is the library used to extract events from the application under test (AUT), and to execute actions on it as well. This module (encapsulated into a DLL library) has to:</p>
+
+<ol>
+<li>be preloaded into the AUT before the AUT is launched.</li>
+<li>detect any event (in linux we use an event called something like Qt nativeEvent) to automatically execute at startup and deploy the OHT services, thus the OHT controller will be able to communicate to and control the AUT.</li>
+</ol>
+
+<h1>
+<a id="any-question-any-bug" class="anchor" href="#any-question-any-bug" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Any question? Any bug?</h1>
+
+<p>Please, contact me at <a href="mailto:pedrolmn@gmail.com">pedrolmn@gmail.com</a></p>
 
 <h1>
 <a id="further-information" class="anchor" href="#further-information" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Further information</h1>
