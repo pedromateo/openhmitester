@@ -1,5 +1,5 @@
 
-**July, the 1st -> OHT is now cross-platform and works both in Linux (automatic preload) and Windows (using manual preload). There is one feature to implement: make "preload" to work in Windows. If you want to contribute, just email me or continue reading:**
+**July, the 1st -> OHT is now cross-platform and works both in Linux (automatic preload) and Windows (using manual preload). There is one feature to implement: make "preload" to work in Windows. If you want to contribute, just email me or [continue reading here](#todo-windows-adaptation)**
 
 
 
