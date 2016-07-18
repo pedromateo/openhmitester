@@ -1,7 +1,18 @@
 
 **July, the 1st -> OHT is now cross-platform and works both in Linux (automatic preload) and Windows (using manual preload). There is one feature to implement: make "preload" to work in Windows. If you want to contribute, just email me or [continue reading here](#todo-windows-adaptation)**
 
+---
 
+"Open HMI Tester" or OHT is an application framework for the development of **GUI testing tools**. It uses real-time
+GUI **introspection** to capture and simulate **real user interaction**, which enhances
+robustness and tolerance to changes during testing stage. 
+
+OHT provides a **cross-platform, open design** to support major event-based GUI platforms. Furthermore,
+it can be integrated into ongoing and legacy developments due to it being **not code-intrusive**. 
+As a result, the framework provides an adaptable, extensible, scalable,
+and **robust basis** to support the automation of GUI testing processes. 
+
+OHT is open-source and ready to use. It is cross-platform as well. Versions working in **Qt-Linux** and **Qt-Windows** environments are provided in this repository.
 
 # Requirements / Compile & run OHT
 
@@ -149,21 +160,6 @@ Additional info: **PreloadModule** is the library used to extract events from th
   1. be preloaded into the AUT before the AUT is launched.
   2. detect any event (in linux we use an event called something like Qt nativeEvent) to automatically execute at startup and deploy the OHT services, thus the OHT controller will be able to communicate to and control the AUT.
 
-
-
-"Open HMI Tester" or OHT is an application framework for the development of **GUI testing tools**. It uses
-GUI **introspection** to capture and simulate **real user interaction**, which enhances
-robustness and tolerance to changes during testing stage. 
-
-OHT provides a **cross-platform, open design** to support major event-based GUI platforms. Furthermore,
-it can be integrated into ongoing and legacy developments due to it being **not code-intrusive**. 
-As a result, the framework provides an adaptable, extensible, scalable,
-and **robust basis** to support the automation of GUI testing processes. 
-
-OHT is open-source and ready to use.
-
-OHT can be adapted to **support different GUI platforms** and operating systems. An adaptation to Qt-Linux
-testing environments is provided in this repository.
 
 # Any question? Any bug?
 
