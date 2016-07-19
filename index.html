@@ -63,7 +63,17 @@ and <strong>robust basis</strong> to support the automation of GUI testing proce
 </li>
 </ul>
 
-<p>An Ansible script (<a href="https://www.ansible.com/">https://www.ansible.com/</a>) is provided to compile and run OHT automatically. It automates:</p>
+<p>To build the project manually from Qt Creator (<a href="http://www.qt.io/ide/">http://www.qt.io/ide/</a>, recommended), follow these steps:</p>
+
+<ol>
+<li>Open the <code>build_all_*</code> project.</li>
+<li>Build <code>qt_*_hmi_tester</code> project.</li>
+<li>Build <code>qt_*_lib_preload</code> project.</li>
+</ol>
+
+<p><code>*</code> means the operating system we are building OHT for.</p>
+
+<p>Moreover, an Ansible script (<a href="https://www.ansible.com/">https://www.ansible.com/</a>) is provided to compile and run OHT automatically. It automates:</p>
 
 <ul>
 <li>installing requirements/dependencies</li>
@@ -176,6 +186,33 @@ and <strong>robust basis</strong> to support the automation of GUI testing proce
 <li><p>The class doing DLL injection before application launching is called LinuxPreloadingAction (extends PreloadingAction) and it is in the HMI Tester. In Linux, it uses the environment variable LD_PRELOAD to set the library to be preloaded before target application launching.</p></li>
 <li><p>The class deploying the OHT services into the target application is QtX11PreloadingControl (extends PreloadingControl) and it is in the Lib Preload. In Linux, it uses QWidget::x11Event in Qt4, or QWidget::nativeEvent in Qt5 to "automatically wake up" and start deploying event consumer and executor.</p></li>
 </ol>
+
+<h3>
+<a id="if-i-try-to-open-and-build-the-build_oht_qt_winpro-i-get-these-messages" class="anchor" href="#if-i-try-to-open-and-build-the-build_oht_qt_winpro-i-get-these-messages" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>If I try to open and build the build_oht_qt_win.pro I get these messages:</h3>
+
+<pre><code>cannot find -lboost_serialization-mgw49-mt-d-1_60
+cannot find -lboost_thread-mgw49-mt-d-1_60
+cannot find -lboost_system-mgw49-mt-d-1_60
+</code></pre>
+
+<p>You need to correctly reference Boost libraries:</p>
+
+<ol>
+<li>in <code>common/common.pri</code>, add correct Boost includes at the end of this file.</li>
+<li>change the name of all includes from <code>-lboost_system-mgw49-mt-d-1_60</code> to <code>-lboost_system-&lt;your-compiler-version&gt;-1_60</code>. Remember that Boost libraries have to be compiled with the same compiler used by Qt (<code>mingw</code> in this case).</li>
+</ol>
+
+<h3>
+<a id="i-cannot-compile-build_all_pro-project" class="anchor" href="#i-cannot-compile-build_all_pro-project" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>I cannot compile <code>build_all_*.pro</code> project</h3>
+
+<p>In this case, try to compile projects independently:</p>
+
+<ol>
+<li>Compile <code>qt_*_hmi_tester</code> project.</li>
+<li>Compile <code>qt_*_lib_preload</code> project.</li>
+</ol>
+
+<p><code>*</code> means the operating system we are building OHT for.</p>
 
 <h3>
 <a id="i-am-running-an-application-using-qt-48--embedded-linux-without-x-server-there-is-qws-from-qtembedded-built-in-my-application-instead-does-oht-support-this-kind-of-setup" class="anchor" href="#i-am-running-an-application-using-qt-48--embedded-linux-without-x-server-there-is-qws-from-qtembedded-built-in-my-application-instead-does-oht-support-this-kind-of-setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>I am running an application using Qt 4.8 + Embedded Linux without X server (there is QWS from QtEmbedded built in my application instead). Does OHT support this kind of setup?</h3>
