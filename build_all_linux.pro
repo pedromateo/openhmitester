@@ -30,13 +30,16 @@ OBJECTS_DIR = $${BUILD_DIR}/objs
 
 # config
 CONFIG += no_keywords
+CONFIG += ordered
 
-# targets
+# common targets
 SUBDIRS += src/common
-src/common.file = src/common/common.pri
+#src/common.file = src/common/common.pri
 SUBDIRS += src/hmi_tester
 SUBDIRS += src/lib_preload
 SUBDIRS += src/qt_lib_preload
+
+# targets
 SUBDIRS += src/linux/qt_linux_hmi_tester
 SUBDIRS += src/linux/qt_linux_lib_preload
 
