@@ -25,8 +25,15 @@ OHT compiles with many different combinations of Qt and Boost libraries. Anyway,
 
         sudo apt-get install libboost-system-dev libboost-thread-dev libboost-serialization-dev
 
+To build the project manually from Qt Creator (http://www.qt.io/ide/, recommended), follow these steps:
 
-An Ansible script (https://www.ansible.com/) is provided to compile and run OHT automatically. It automates:
+1. Open the `build_all_*` project.
+2. Build `qt_*_hmi_tester` project.
+3. Build `qt_*_lib_preload` project.
+
+`*` means the operating system we are building OHT for.
+
+Moreover, an Ansible script (https://www.ansible.com/) is provided to compile and run OHT automatically. It automates:
 
 - installing requirements/dependencies
 - downloading this repository
