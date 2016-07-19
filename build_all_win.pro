@@ -29,23 +29,27 @@ MOC_DIR = $${BUILD_DIR}/mocs
 OBJECTS_DIR = $${BUILD_DIR}/objs
 
 # config
-QT       += core gui
-CONFIG += qtestlib no_keywords
+CONFIG += no_keywords
+CONFIG += ordered
 
-# targets
-SUBDIRS += src/common \
-src/common.file = src/common/common.pri
+# common targets
+SUBDIRS += src/common
+#src/common.file = src/common/common.pri
 SUBDIRS += src/hmi_tester
 SUBDIRS += src/lib_preload
 SUBDIRS += src/qt_lib_preload
-SUBDIRS += src/win/qt_win_hmi_tester
-SUBDIRS += src/win/qt_win_lib_preload
+
+# targets
+SUBDIRS += src/linux/qt_win_hmi_tester
+SUBDIRS += src/linux/qt_win_lib_preload
+
+# testbench
 SUBDIRS += testbench/desktop
 testbench/desktop.file = testbench/desktop/simusaes.pro
 SUBDIRS += testbench/web
 testbench/web.file = testbench/web/fancybrowser.pro
 
 
-SUBDIRS += src/win/win_oht_launcher
+#SUBDIRS += src/win/win_oht_launcher
 
 
