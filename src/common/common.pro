@@ -4,7 +4,7 @@
 
 message("QMake common (all versions)")
 
-QT += network
+
 
 
 #CONFIG += debug

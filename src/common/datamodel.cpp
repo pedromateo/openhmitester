@@ -130,6 +130,7 @@ void TestSuite::deleteTestCase(const std::string& name) throw (not_found)
     while (it2 != testCases_.end()){
         if (it2->uuid() == id)
             break;
+        it2++;
     }
 
     if (it2 != testCases_.end())

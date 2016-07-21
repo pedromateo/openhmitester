@@ -24,16 +24,19 @@
 #include "edittsdialog.h"
 #include <ui_edittsdialog.h>
 #include <ohtbaseconfig.h>
+#include <datamodel.h>
 #include <debug.h>
 #include <qtutils.h>
+
 
 #include <QLabel>
 #include <QDir>
 #include <QFileInfo>
+#include <QStringListModel>
 
 EditTSDialog::EditTSDialog(DataModel::TestSuite *ts, QWidget *parent) :
-        QDialog(parent),
-        m_ui(new Ui::EditTSDialog)
+    QDialog(parent),
+    m_ui(new Ui::EditTSDialog)
 {
     m_ui->setupUi(this);
 
@@ -46,6 +49,16 @@ EditTSDialog::EditTSDialog(DataModel::TestSuite *ts, QWidget *parent) :
 
     aux = QString(_ts->appId().c_str());
     m_ui->le_aut->setText(aux);
+
+    QStringList tclist;
+    DataModel::TestSuite::TestCaseList::const_iterator it = _ts->testCases().begin();
+    while (it != _ts->testCases().end()){
+        tclist << QString(it->name().c_str());
+        it++;
+    }
+    QStringListModel* tclist_model = new QStringListModel();
+    tclist_model->setStringList(tclist);
+    m_ui->lv_testcases->setModel(tclist_model);
 }
 
 EditTSDialog::~EditTSDialog()
@@ -80,8 +93,8 @@ void EditTSDialog::on_pb_aut_clicked()
     lastAutDirectory = _settings.value(SETT_LAST_AUT_DIR, QDir::homePath()).toString();
     //ask for the binary
     QString aux = QtUtils::openFileDialog("Please, select the AUT (Application Under Test):",
-                                         lastAutDirectory,
-                                         "*");
+                                          lastAutDirectory,
+                                          "*");
 
     if (aux != NULL && aux != ""){
         // check is is a valid binary
@@ -128,4 +141,31 @@ void EditTSDialog::on_buttonBox_accepted()
 void EditTSDialog::on_buttonBox_rejected()
 {
     done(0);
+}
+
+
+
+///
+/// \brief delete testcase from testsuite
+///
+void EditTSDialog::on_pb_deleteTestcase_clicked()
+{
+    // get name of testcase to delete
+    QString tcname = m_ui->lv_testcases->model()->data(m_ui->lv_testcases->currentIndex()).toString();
+
+    // show warning
+    QString msg = "You are going to delete test case '";
+    msg += tcname;
+    msg += "'";
+    bool result = QtUtils::showOkCancelDialog(msg);
+
+    if (result){
+        // delete from gui model
+        m_ui->lv_testcases->model()->removeRows(m_ui->lv_testcases->currentIndex().row(),1);
+
+        // delete from testsuite
+        _ts->deleteTestCase(tcname.toStdString());
+
+        DEBUG(D_GUI,"(EditTSDialog::on_pb_deleteTestcase_clicked) Removed: " << tcname.toStdString());
+    }
 }

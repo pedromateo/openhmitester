@@ -2,7 +2,7 @@
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
 
-
+QT += network
 
 # directories ($$PWD) are set before files because of an error in Qt5
 

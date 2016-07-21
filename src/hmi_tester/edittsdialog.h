@@ -53,6 +53,8 @@ private slots:
 
     void on_le_tsName_editingFinished();
 
+    void on_pb_deleteTestcase_clicked();
+
 private:
     Ui::EditTSDialog *m_ui;
     //QString _tsPath;
