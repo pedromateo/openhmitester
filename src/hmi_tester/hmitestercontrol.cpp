@@ -146,6 +146,7 @@ void HMITesterControl::_initializeMenu()
     connect(ui.action_Open,SIGNAL(triggered(bool)),this,SLOT(action_open_triggered()));
     connect(ui.action_Edit,SIGNAL(triggered(bool)),this,SLOT(action_edit_triggered()));
     connect(ui.action_New,SIGNAL(triggered(bool)),this,SLOT(action_new_triggered()));
+    connect(ui.action_Close,SIGNAL(triggered(bool)),this,SLOT(action_close_triggered()));
     connect(ui.action_Exit,SIGNAL(triggered(bool)),this,SLOT(action_exit_triggered()));
 
 
@@ -154,39 +155,36 @@ void HMITesterControl::_initializeMenu()
     ///
 
     //file
-    _mainMenu = ui.menuBar->findChild<QMenu*> ( "menu_Main" );
-    assert ( _mainMenu );
-    _fileMenu = _mainMenu->findChild<QMenu*> ( "menu_File" );
-    assert ( _fileMenu );
+    _menu_Main = ui.menuBar->findChild<QMenu*> ( "menu_Main" );
+    assert ( _menu_Main );
+    _menu_File = _menu_Main->findChild<QMenu*> ( "menu_File" );
+    assert ( _menu_File );
     //test suite
-    _tsuiteMenu = _mainMenu->findChild<QMenu*> ( "menu_TestSuite" );
-    assert ( _tsuiteMenu );
-    _playTcaseMenu = _tsuiteMenu->findChild<QMenu*> ( "menu_Play_Test_Case" );
-    assert ( _playTcaseMenu );
-    _deleteTcaseMenu = _tsuiteMenu->findChild<QMenu*> ( "menu_Delete_Test_Case" );
-    assert ( _deleteTcaseMenu );
-    _playTestCaseActionGroup = new QActionGroup ( _playTcaseMenu );
-    _deleteTestCaseActionGroup = new QActionGroup ( _deleteTcaseMenu );
+    _menu_Testsuite = _menu_Main->findChild<QMenu*> ( "menu_TestSuite" );
+    assert ( _menu_Testsuite );
+    _menu_Play_Test_Case = _menu_Testsuite->findChild<QMenu*> ( "menu_Play_Test_Case" );
+    assert ( _menu_Play_Test_Case );
+    _playTestCaseActionGroup = new QActionGroup ( _menu_Play_Test_Case );
     //config
-    _configMenu = _mainMenu->findChild<QMenu*> ( "menu_Config" );
-    assert ( _configMenu );
-    _speedMenu = _configMenu->findChild<QMenu*> ( "menu_Speed" );
-    assert ( _speedMenu );
-    _speedActionGroup = new QActionGroup ( _speedMenu );
+    _menu_Config = _menu_Main->findChild<QMenu*> ( "menu_Config" );
+    assert ( _menu_Config );
+    _menu_Speed = _menu_Config->findChild<QMenu*> ( "menu_Speed" );
+    assert ( _menu_Speed );
+    _speedActionGroup = new QActionGroup ( _menu_Speed );
     _speedActionGroup->addAction( ui.action1x );
     _speedActionGroup->addAction( ui.action05x );
     _speedActionGroup->addAction( ui.action2x );
     _speedActionGroup->addAction( ui.action4x );
 
     // add popup menu to menu toolbutton
-    ui.tb_menu->setMenu(_mainMenu);
+    ui.tb_menu->setMenu(_menu_Main);
     ui.tb_menu->setPopupMode(QToolButton::InstantPopup);
 
     ///
     /// play test case menu
     ///
-    _playAndDeleteMenu = NULL;
-    _playAndDeleteMenu_agroup = NULL;
+    _playlistMenu = NULL;
+    _playlistMenu_agroup = NULL;
 }
 
 /// ///
@@ -211,7 +209,7 @@ void HMITesterControl::tb_play_clicked()
 
 
         //get the name of the selected testCase
-        QAction *actionSelected = _playAndDeleteMenu_agroup->checkedAction();
+        QAction *actionSelected = _playlistMenu_agroup->checkedAction();
         if ( !actionSelected )
         {
             QtUtils::newErrorDialog ( "There is not a selected Test Case." );
@@ -219,15 +217,15 @@ void HMITesterControl::tb_play_clicked()
         }
 
         // case: play all in a row
-        if (_playAndDeleteMenu_agroup->actions().last() == actionSelected)
+        if (_playlistMenu_agroup->actions().last() == actionSelected)
         {
             QString tcName;
             bool ok = false;
-            const int total_tc = _playAndDeleteMenu_agroup->actions().length() - 1;
+            const int total_tc = _playlistMenu_agroup->actions().length() - 1;
             // queue all test cases - avoid last QAction
             for (int i = 0; i < total_tc; i++)
             {
-                tcName = _playAndDeleteMenu_agroup->actions().at(i)->text();
+                tcName = _playlistMenu_agroup->actions().at(i)->text();
                 ok = _processControl->checkAndQueueTestCase(tcName.toStdString());
                 if (!ok)
                 {
@@ -343,9 +341,9 @@ void HMITesterControl::action_open_triggered()
 {
     DEBUG(D_GUI,"(HMITesterControl::action_open_triggered)");
 
-    QString lastOpenDir = QDir::homePath();
     _settings.beginGroup("HMITesterControl");
-    lastOpenDir = _settings.value(SETT_LAST_OPEN_DIR, QDir::homePath()).toString();
+    QString lastOpenDir = _settings.value(SETT_LAST_OPEN_DIR, QDir::homePath()).toString();
+
     //ask for the TestSuite
     QString path = "";
     path = QtUtils::openFileDialog("Please, select the file that contains the TestSuite:",
@@ -361,7 +359,11 @@ void HMITesterControl::action_open_triggered()
         return;
     }
 
-    _settings.setValue(SETT_LAST_OPEN_DIR, lastOpenDir);
+    // enable close menu option
+    ui.action_Close->setEnabled(true);
+
+    // do dirs
+    _settings.setValue(SETT_LAST_OPEN_DIR, path);
     _settings.endGroup();
 
     //reconfigure the GUI
@@ -372,9 +374,9 @@ void HMITesterControl::action_open_triggered()
 void HMITesterControl::action_edit_triggered()
 {
     DEBUG(D_GUI,"(HMITesterControl::action_edit_triggered)");
-    QString lastOpenDir = QDir::homePath();
     _settings.beginGroup("HMITesterControl");
-    lastOpenDir = _settings.value(SETT_LAST_OPEN_DIR, QDir::homePath()).toString();
+    QString lastOpenDir = _settings.value(SETT_LAST_OPEN_DIR, QDir::homePath()).toString();
+
     //ask for the TestSuite
     QString path = "";
     path = QtUtils::openFileDialog("Please, select the file that contains the TestSuite:",
@@ -407,7 +409,7 @@ void HMITesterControl::action_edit_triggered()
         // do nothing
     }
 
-    _settings.setValue(SETT_LAST_OPEN_DIR, lastOpenDir);
+    _settings.setValue(SETT_LAST_OPEN_DIR, path);
     _settings.endGroup();
 
     //reconfigure the GUI
@@ -441,6 +443,23 @@ void HMITesterControl::action_new_triggered()
     else{
         // do nothing
     }
+}
+
+void HMITesterControl::action_close_triggered()
+{
+    DEBUG(D_GUI,"(HMITesterControl::action_close_triggered)");
+
+    //close the testSuite
+    bool ok = _processControl->closeCurrentTestSuite();
+    if (!ok)
+    {
+        QtUtils::newErrorDialog("The TestSuite cannot be loaded.");
+        return;
+    }
+
+    // enable close menu option
+    ui.action_Close->setEnabled(true);
+
 }
 
 void HMITesterControl::action_exit_triggered()
@@ -516,71 +535,47 @@ void HMITesterControl::_playTestCaseSelected_triggered(bool)
 
 }
 
-void HMITesterControl::_deleteTestCaseSelected_triggered(bool)
-{
-    DEBUG(D_GUI,"(HMITesterControl::DeleteTestCaseSelected_triggered)");
 
-    //get the name of the selected testCase
-    QAction *actionSelected = _deleteTestCaseActionGroup->checkedAction();
-    if ( !actionSelected )
-    {
-        QtUtils::newErrorDialog ( "There is not a selected Test Case to delete." );
-        return;
-    }
-    QString tcName = actionSelected->text();
-
-    //if it can be deleted
-    if (_processControl->deleteTestCase(tcName.toStdString()))
-    {
-        QtUtils::newInfoDialog( "The Test Case " + tcName + " has been deleted." );
-    }
-    //if not
-    else
-    {
-        QtUtils::newErrorDialog ( "The Test Case " + tcName + " cannot be deleted." );
-    }
-}
 
 void HMITesterControl::updateTestSuiteInfo(DataModel::TestSuite* ts)
 {
     DEBUG(D_GUI,"(HMITesterControl::updateTestSuiteInfo)");
     //asserts
-    assert(_fileMenu);
-    assert(_tsuiteMenu);
-    assert(_playTcaseMenu);
-    assert(_deleteTcaseMenu);
-    assert(_configMenu);
-    assert(_speedMenu);
+    assert(_menu_File);
+    assert(_menu_Testsuite);
+    assert(_menu_Play_Test_Case);
+    assert(_menu_Config);
+    assert(_menu_Speed);
     assert(_playTestCaseActionGroup);
-    assert(_deleteTestCaseActionGroup);
     assert(_speedActionGroup);
 
-    //activating tSuite menu and set name
-    _tsuiteMenu->setEnabled(true);
+    /// If ts != NULL -> ts is valid and everything is set
+    /// If ts == NULL -> no valid ts and everything is reset to default
 
-    ui.actionTsuiteName->setText(QString(ts->name().c_str()));
+    ///
+    /// ts != NULL
 
-    //clearing testCase lists
-    QList<QAction*> actions = _playTestCaseActionGroup->actions();
-    foreach ( QAction *a, actions )
-    {
-        _playTestCaseActionGroup->removeAction ( a );
-        delete a;
-    }
-    actions = _deleteTestCaseActionGroup->actions();
-    foreach ( QAction *a, actions )
-    {
-        _deleteTestCaseActionGroup->removeAction ( a );
-        delete a;
-    }
+    if (ts != NULL){
 
-    //setting the test cases name in both
-    //play-list and delete-list
+        //activating tSuite menu and set name
+        _menu_Testsuite->setEnabled(true);
+        ui.actionTsuiteName->setText(QString(ts->name().c_str()));
 
-    //if testCase count > 0
-    if ( ts->count() > 0 )
-    {
-        /*QAction *action = NULL;
+        //clearing testCase lists
+        QList<QAction*> actions = _playTestCaseActionGroup->actions();
+        foreach ( QAction *a, actions )
+        {
+            _playTestCaseActionGroup->removeAction ( a );
+            delete a;
+        }
+
+        //setting the test cases name in both
+        //play-list and delete-list
+
+        //if testCase count > 0
+        if ( ts->count() > 0 )
+        {
+            /*QAction *action = NULL;
 
         DataModel::TestSuite::TestCaseList::const_iterator it;
         const DataModel::TestSuite::TestCaseList& tcList = ts->testCases();
@@ -609,77 +604,126 @@ void HMITesterControl::updateTestSuiteInfo(DataModel::TestSuite* ts)
         //enabling menus
         tsuiteMenu_->setEnabled ( true );
         playTcaseMenu_->setEnabled ( true );
-        deleteTcaseMenu_->setEnabled ( true );
 
         //selecting 1st testCase in play menu
         playTestCaseActionGroup_->actions().first()->setChecked(true);*/
 
-        ///
-        /// clean and fill _playAndDeleteMenu
-        ///
+            ///
+            /// clean and fill playlist
+            ///
 
-        // create menu if needed
-        if (_playAndDeleteMenu == NULL)
-            _playAndDeleteMenu = new QMenu(ui.tb_play);
-        if (_playAndDeleteMenu_agroup == NULL)
-            _playAndDeleteMenu_agroup = new QActionGroup(_playAndDeleteMenu);
+            // create menu if needed
+            if (_playlistMenu == NULL)
+                _playlistMenu = new QMenu(ui.tb_play);
+            if (_playlistMenu_agroup == NULL)
+                _playlistMenu_agroup = new QActionGroup(_playlistMenu);
 
-        // clear existing actions
-        foreach ( QAction *a, _playAndDeleteMenu_agroup->actions())
+            // clear existing actions
+            foreach ( QAction *a, _playlistMenu_agroup->actions())
+            {
+                _playlistMenu_agroup->removeAction(a);
+                delete a;
+            }
+
+            // add new actions for current test cases
+            QAction *a = NULL;
+            QMenu *m = NULL;
+            DataModel::TestSuite::TestCaseList::const_iterator tcit;
+            //for each test case at the list...
+            for(tcit = ts->testCases().begin(); tcit != ts->testCases().end(); tcit++)
+            {
+                const DataModel::TestCase &tc = *tcit;
+                QString qname(tc.name().c_str());
+
+                a = _playlistMenu->addAction(qname);
+                _playlistMenu_agroup->addAction(a);
+                a->setCheckable(true);
+                a->setChecked(false);
+                //connect(a, SIGNAL(triggered(bool)),
+                //        this, SLOT(_playTestCaseSelected_triggered(bool)));
+            }
+
+            // add extra action for "all in a row"
+            _playlistMenu->addSeparator();
+            a = _playlistMenu->addAction("All in a row");
+            _playlistMenu_agroup->addAction(a);
+            a->setCheckable(true);
+            a->setChecked(false);
+
+            // provide the tool button with the menu
+            ui.tb_play->setMenu(_playlistMenu);
+            // check first action by default
+            //_playlistMenu_agroup->actions().first()->setChecked(true);
+
+        }
+        //else disable the testSuite menu
+        else
         {
-            _playAndDeleteMenu_agroup->removeAction(a);
+            _menu_Play_Test_Case->setEnabled ( false );
+
+            /// disable playlist
+            ui.tb_play->setMenu(NULL);
+        }
+
+        //update the menu
+        ui.menuBar->update();
+
+        // set status
+        _set_statusbar_text(QString("Testsuite: ") + QString(ts->name().c_str()));
+    }
+
+    ///
+    /// ts == NULL
+
+    else {
+
+        //disabling tSuite menu
+        _menu_Testsuite->setEnabled(false);
+        ui.actionTsuiteName->setText("No testsuite loaded");
+
+        //clearing testCase lists
+        QList<QAction*> actions = _playTestCaseActionGroup->actions();
+        foreach ( QAction *a, actions )
+        {
+            _playTestCaseActionGroup->removeAction ( a );
             delete a;
         }
 
-        // add new actions for current test cases
-        QAction *a = NULL;
-        QMenu *m = NULL;
-        DataModel::TestSuite::TestCaseList::const_iterator tcit;
-        //for each test case at the list...
-        for(tcit = ts->testCases().begin(); tcit != ts->testCases().end(); tcit++)
-        {
-            const DataModel::TestCase &tc = *tcit;
-            QString qname(tc.name().c_str());
-
-            a = _playAndDeleteMenu->addAction(qname);
-            _playAndDeleteMenu_agroup->addAction(a);
-            a->setCheckable(true);
-            a->setChecked(false);
-            //connect(a, SIGNAL(triggered(bool)),
-            //        this, SLOT(_playTestCaseSelected_triggered(bool)));
-        }
-
-        // add extra action for "all in a row"
-        _playAndDeleteMenu->addSeparator();
-        a = _playAndDeleteMenu->addAction("All in a row");
-        _playAndDeleteMenu_agroup->addAction(a);
-        a->setCheckable(true);
-        a->setChecked(false);
-
-        // provide the tool button with the menu
-        ui.tb_play->setMenu(_playAndDeleteMenu);
-        // check first action by default
-        //_playAndDeleteMenu_agroup->actions().first()->setChecked(true);
-
-    }
-    //else disable the testSuite menu
-    else
-    {
-        _playTcaseMenu->setEnabled ( false );
-        _deleteTcaseMenu->setEnabled ( false );
+        _menu_Play_Test_Case->setEnabled ( false );
 
         ///
-        /// disable _playAndDeleteMenu
+        /// disable _playlistMenu
         ///
 
         ui.tb_play->setMenu(NULL);
+
+        //setting the test cases name in both
+        //play-list and delete-list
+
+
+        ///
+        /// clean _playlistMenu
+        ///
+
+        // create menu if needed
+        if (_playlistMenu == NULL)
+            _playlistMenu = new QMenu(ui.tb_play);
+        if (_playlistMenu_agroup == NULL)
+            _playlistMenu_agroup = new QActionGroup(_playlistMenu);
+
+        // clear existing actions
+        foreach ( QAction *a, _playlistMenu_agroup->actions())
+        {
+            _playlistMenu_agroup->removeAction(a);
+            delete a;
+        }
+
+        //update the menu
+        ui.menuBar->update();
+
+        // set status
+        _set_statusbar_text(QString("Testsuite: ") + QString(ts->name().c_str()));
     }
-
-    //update the menu
-    ui.menuBar->update();
-
-    // set status
-    _set_statusbar_text(QString("Testsuite: ") + QString(ts->name().c_str()));
 }
 
 

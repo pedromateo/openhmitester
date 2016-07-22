@@ -106,6 +106,7 @@ public slots:
     ///test suite
     DataModel::TestSuite* loadTestSuiteObject(const std::string&);
     bool openTestSuite(const std::string&);
+    bool closeCurrentTestSuite();
     bool newTestSuite(const std::string& file,
                       const std::string& name,
                       const std::string& binaryPath);

@@ -466,6 +466,30 @@ bool ProcessControl::openTestSuite(const std::string& file)
     return true;
 }
 
+
+
+bool ProcessControl::closeCurrentTestSuite()
+{
+    DEBUG(D_BOTH,"(ProcessControl::closeCurrentTestSuite)");
+
+    /// delete current testsuite object
+    if (_current_testsuite){
+        delete _current_testsuite;
+        _current_testsuite = NULL;
+    }
+
+    //save the current fileName
+    current_filename_ = "";
+
+    //update the internal state
+    _setState(STOP);
+    //update GUI
+    assert(gui_reference_);
+    gui_reference_->updateTestSuiteInfo(NULL);
+
+    return true;
+}
+
 bool ProcessControl::newTestSuite(const std::string& file,
                                   const std::string& name,
                                   const std::string& appId)

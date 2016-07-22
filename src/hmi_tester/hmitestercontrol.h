@@ -66,21 +66,20 @@ private:
     void _setEnableAndVisible(QWidget* target, bool b);
 
     //menus
-    QMenu *_mainMenu;
-    QMenu *_fileMenu;
-    QMenu *_tsuiteMenu;
-    QMenu *_playTcaseMenu;
-    QMenu *_deleteTcaseMenu;
-    QMenu *_configMenu;
-    QMenu *_speedMenu;
+    QMenu *_menu_Main;
+    QMenu *_menu_File;
+    QMenu *_menu_Testsuite;
+    QMenu *_menu_Play_Test_Case;
+    QMenu *_menu_Delete_Test_Case;
+    QMenu *_menu_Config;
+    QMenu *_menu_Speed;
     QActionGroup *_playTestCaseActionGroup;
-    QActionGroup *_deleteTestCaseActionGroup;
     QActionGroup *_speedActionGroup;
     QSettings _settings;
 
 
-    QMenu* _playAndDeleteMenu;
-    QActionGroup* _playAndDeleteMenu_agroup;
+    QMenu* _playlistMenu;
+    QActionGroup* _playlistMenu_agroup;
 
     // overall process controller
     ProcessControl* _processControl;
@@ -96,6 +95,7 @@ private slots:
     void action_open_triggered();
     void action_edit_triggered();
     void action_new_triggered();
+    void action_close_triggered();
     void action_exit_triggered();
     void action_speed1x_triggered();
     void action_speed05x_triggered();
@@ -106,7 +106,6 @@ private slots:
 
     //testSuite handling
     void _playTestCaseSelected_triggered(bool);
-    void _deleteTestCaseSelected_triggered(bool);
 
     //form visualization internal methods
     void _form_initState();

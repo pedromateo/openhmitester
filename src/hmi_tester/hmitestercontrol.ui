@@ -275,6 +275,7 @@
      <addaction name="action_New"/>
      <addaction name="action_Open"/>
      <addaction name="action_Edit"/>
+     <addaction name="action_Close"/>
      <addaction name="separator"/>
      <addaction name="action_Exit"/>
     </widget>
@@ -287,15 +288,9 @@
        <string>&amp;Play TestCase</string>
       </property>
      </widget>
-     <widget class="QMenu" name="menu_Delete_Test_Case">
-      <property name="title">
-       <string>&amp;Delete TestCase</string>
-      </property>
-     </widget>
      <addaction name="actionTsuiteName"/>
      <addaction name="separator"/>
      <addaction name="menu_Play_Test_Case"/>
-     <addaction name="menu_Delete_Test_Case"/>
     </widget>
     <widget class="QMenu" name="menu_Config">
      <property name="title">
@@ -425,6 +420,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+E</string>
+   </property>
+  </action>
+  <action name="action_Close">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Close</string>
    </property>
   </action>
  </widget>
