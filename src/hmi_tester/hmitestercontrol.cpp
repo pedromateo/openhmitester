@@ -342,6 +342,7 @@ void HMITesterControl::tb_rec_clicked()
 void HMITesterControl::action_open_triggered()
 {
     DEBUG(D_GUI,"(HMITesterControl::action_open_triggered)");
+
     QString lastOpenDir = QDir::homePath();
     _settings.beginGroup("HMITesterControl");
     lastOpenDir = _settings.value(SETT_LAST_OPEN_DIR, QDir::homePath()).toString();

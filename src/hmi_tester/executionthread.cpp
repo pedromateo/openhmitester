@@ -95,10 +95,13 @@ void ExecutionThread::operator()()
     /// for each testItem at the list...
     for (it = il.begin(); it != il.end(); ++it)
     {
-        const DataModel::TestItem& ti = *it;
+        DataModel::TestItem& ti = const_cast<DataModel::TestItem&>(*it);
 
         //counter control
         counter++;
+
+        // modifying sleep time according to selected speed
+        ti.timestamp(ti.timestamp() / _executionSpeed);
 
         //sending test item to preload module
         _comm->handleSendTestItem(ti);
@@ -140,11 +143,6 @@ void ExecutionThread::operator()()
         } else if (threadState_ == WANT_TERMINATE)
         {
             break; // exit
-        } else
-        {
-            //sleep in order to simulate execution speed
-            _sleep(_executionSpeed );
-            DEBUG(D_PLAYBACK, "(ExecutionThread::run) Wait the execution speed.");
         }
 
     } // for

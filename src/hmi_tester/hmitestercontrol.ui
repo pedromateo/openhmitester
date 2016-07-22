@@ -366,21 +366,36 @@
    </property>
   </action>
   <action name="action1x">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>1x</string>
    </property>
   </action>
   <action name="action2x">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>2x</string>
    </property>
   </action>
   <action name="action05x">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>0.5x</string>
    </property>
   </action>
   <action name="action4x">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>4x</string>
    </property>
