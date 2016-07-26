@@ -35,6 +35,7 @@ HEADERS += $$PWD/hmitestercontrol.h \
 SOURCES += $$PWD/qtutils.cpp
 HEADERS += $$PWD/qtutils.h
 
+
 FORMS += $$PWD/hmitestercontrol.ui \
     $$PWD/newtsdialog.ui \
     $$PWD/newtcdialog.ui \

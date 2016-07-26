@@ -41,9 +41,6 @@ ProcessControl::ProcessControl(PreloadingAction *pa, DataModelAdapter *dma)
     // store specific datamodel adapter
     assert(dma);
     dataModel_adapter_ = dma;
-
-    //state
-    _setState(INIT);
 }
 
 ProcessControl::~ProcessControl()
@@ -58,10 +55,6 @@ ProcessControl::~ProcessControl()
 
 void ProcessControl::initialize()
 {
-    ///
-    /// state
-    _setState(INIT);
-
     ///
     /// communication manager creation
     _comm.reset (new Comm(TCP_PORT, true));
@@ -115,6 +108,10 @@ void ProcessControl::initialize()
             this, SLOT(slot_handlePreloadingError(const std::string&)));
     connect(preloading_action_, SIGNAL(applicationClosed(int)),
             this, SLOT(slot_handleApplicationClosed(int)));
+
+    ///
+    /// state
+    _setState(INIT);
 }
 
 void ProcessControl::setGUIReference(HMITesterControl* h)
@@ -459,6 +456,7 @@ bool ProcessControl::openTestSuite(const std::string& file)
 
     //update the internal state
     _setState(STOP);
+
     //update GUI
     assert(gui_reference_);
     gui_reference_->updateTestSuiteInfo(_current_testsuite);
@@ -482,7 +480,8 @@ bool ProcessControl::closeCurrentTestSuite()
     current_filename_ = "";
 
     //update the internal state
-    _setState(STOP);
+    _setState(INIT);
+
     //update GUI
     assert(gui_reference_);
     gui_reference_->updateTestSuiteInfo(NULL);
@@ -842,7 +841,16 @@ void ProcessControl::handle_CTI_EventExecuted()
 void ProcessControl::_setState(OHTProcessState s)
 {
     //STOP
-    if (s == STOP && state_ != STOP)
+    if (s == INIT && state_ != INIT)
+    {
+        //internal
+        state_ = s;
+        //GUI update
+        if (gui_reference_ != NULL)
+            gui_reference_->setForm_initState();
+    }
+    //STOP
+    else if (s == STOP && state_ != STOP)
     {
         //internal
         state_ = s;

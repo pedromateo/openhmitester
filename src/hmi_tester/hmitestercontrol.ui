@@ -183,7 +183,7 @@
        </size>
       </property>
       <property name="shortcut">
-       <string>Space</string>
+       <string>Ctrl+Space</string>
       </property>
      </widget>
     </item>
@@ -279,19 +279,6 @@
      <addaction name="separator"/>
      <addaction name="action_Exit"/>
     </widget>
-    <widget class="QMenu" name="menu_TestSuite">
-     <property name="title">
-      <string>&amp;Test Suite</string>
-     </property>
-     <widget class="QMenu" name="menu_Play_Test_Case">
-      <property name="title">
-       <string>&amp;Play TestCase</string>
-      </property>
-     </widget>
-     <addaction name="actionTsuiteName"/>
-     <addaction name="separator"/>
-     <addaction name="menu_Play_Test_Case"/>
-    </widget>
     <widget class="QMenu" name="menu_Config">
      <property name="title">
       <string>&amp;Config</string>
@@ -310,8 +297,9 @@
      <addaction name="actionShowTesterOnTop"/>
     </widget>
     <addaction name="menu_File"/>
-    <addaction name="menu_TestSuite"/>
     <addaction name="menu_Config"/>
+    <addaction name="separator"/>
+    <addaction name="actionTsuiteName"/>
    </widget>
    <addaction name="menu_Main"/>
   </widget>
@@ -428,6 +416,11 @@
    </property>
    <property name="text">
     <string>&amp;Close</string>
+   </property>
+  </action>
+  <action name="action">
+   <property name="text">
+    <string>Testsuite</string>
    </property>
   </action>
  </widget>

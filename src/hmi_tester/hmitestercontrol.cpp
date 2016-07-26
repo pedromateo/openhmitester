@@ -159,12 +159,6 @@ void HMITesterControl::_initializeMenu()
     assert ( _menu_Main );
     _menu_File = _menu_Main->findChild<QMenu*> ( "menu_File" );
     assert ( _menu_File );
-    //test suite
-    _menu_Testsuite = _menu_Main->findChild<QMenu*> ( "menu_TestSuite" );
-    assert ( _menu_Testsuite );
-    _menu_Play_Test_Case = _menu_Testsuite->findChild<QMenu*> ( "menu_Play_Test_Case" );
-    assert ( _menu_Play_Test_Case );
-    _playTestCaseActionGroup = new QActionGroup ( _menu_Play_Test_Case );
     //config
     _menu_Config = _menu_Main->findChild<QMenu*> ( "menu_Config" );
     assert ( _menu_Config );
@@ -182,9 +176,11 @@ void HMITesterControl::_initializeMenu()
 
     ///
     /// play test case menu
-    ///
     _playlistMenu = NULL;
     _playlistMenu_agroup = NULL;
+
+    /// set default values
+    updateTestSuiteInfo(NULL);
 }
 
 /// ///
@@ -453,13 +449,9 @@ void HMITesterControl::action_close_triggered()
     bool ok = _processControl->closeCurrentTestSuite();
     if (!ok)
     {
-        QtUtils::newErrorDialog("The TestSuite cannot be loaded.");
+        QtUtils::newErrorDialog("The TestSuite cannot be closed.");
         return;
     }
-
-    // enable close menu option
-    ui.action_Close->setEnabled(true);
-
 }
 
 void HMITesterControl::action_exit_triggered()
@@ -520,6 +512,19 @@ void HMITesterControl::action_showTesterOnTop_triggered(bool b)
     w->setParent ( dynamic_cast<QWidget*> ( w->parent() ),static_cast<Qt::WindowFlags> ( flags ) );
 }
 
+
+/// ///
+///
+/////global shortcut
+///
+/// ///
+
+void HMITesterControl::action_global_shortcut_triggered()
+{
+    DEBUG(D_GUI,"(HMITesterControl::action_global_shortcut_triggered)");
+    _d("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxx");
+}
+
 /// ///
 ///
 /////testSuite handling
@@ -542,11 +547,8 @@ void HMITesterControl::updateTestSuiteInfo(DataModel::TestSuite* ts)
     DEBUG(D_GUI,"(HMITesterControl::updateTestSuiteInfo)");
     //asserts
     assert(_menu_File);
-    assert(_menu_Testsuite);
-    assert(_menu_Play_Test_Case);
     assert(_menu_Config);
     assert(_menu_Speed);
-    assert(_playTestCaseActionGroup);
     assert(_speedActionGroup);
 
     /// If ts != NULL -> ts is valid and everything is set
@@ -557,74 +559,29 @@ void HMITesterControl::updateTestSuiteInfo(DataModel::TestSuite* ts)
 
     if (ts != NULL){
 
-        //activating tSuite menu and set name
-        _menu_Testsuite->setEnabled(true);
+        //set tSuite name
         ui.actionTsuiteName->setText(QString(ts->name().c_str()));
 
-        //clearing testCase lists
-        QList<QAction*> actions = _playTestCaseActionGroup->actions();
-        foreach ( QAction *a, actions )
+        ///
+        /// clean and fill playlist
+        ///
+
+        // create menu if needed
+        if (_playlistMenu == NULL)
+            _playlistMenu = new QMenu(ui.tb_play);
+        if (_playlistMenu_agroup == NULL)
+            _playlistMenu_agroup = new QActionGroup(_playlistMenu);
+
+        // clear existing actions
+        foreach ( QAction *a, _playlistMenu_agroup->actions())
         {
-            _playTestCaseActionGroup->removeAction ( a );
+            _playlistMenu_agroup->removeAction(a);
             delete a;
         }
-
-        //setting the test cases name in both
-        //play-list and delete-list
 
         //if testCase count > 0
         if ( ts->count() > 0 )
         {
-            /*QAction *action = NULL;
-
-        DataModel::TestSuite::TestCaseList::const_iterator it;
-        const DataModel::TestSuite::TestCaseList& tcList = ts->testCases();
-
-        //for each test case at the list...
-        for(it = tcList.begin(); it != tcList.end(); it++)
-        {
-            const DataModel::TestCase &tc = *it;
-            QString qname(tc.name().c_str());
-            //play menu
-            action = playTcaseMenu_->addAction ( qname );
-            action->setCheckable ( true );
-            action->setChecked ( false );
-            playTestCaseActionGroup_->addAction ( action );
-
-            //delete menu
-            action = deleteTcaseMenu_->addAction ( qname );
-            action->setCheckable ( true );
-            action->setChecked ( false );
-            deleteTestCaseActionGroup_->addAction ( action );
-            //connect action to the trigger handler
-            connect(action, SIGNAL(toggled(bool)),
-                    this, SLOT(_deleteTestCaseSelected_triggered(bool)));
-        }
-
-        //enabling menus
-        tsuiteMenu_->setEnabled ( true );
-        playTcaseMenu_->setEnabled ( true );
-
-        //selecting 1st testCase in play menu
-        playTestCaseActionGroup_->actions().first()->setChecked(true);*/
-
-            ///
-            /// clean and fill playlist
-            ///
-
-            // create menu if needed
-            if (_playlistMenu == NULL)
-                _playlistMenu = new QMenu(ui.tb_play);
-            if (_playlistMenu_agroup == NULL)
-                _playlistMenu_agroup = new QActionGroup(_playlistMenu);
-
-            // clear existing actions
-            foreach ( QAction *a, _playlistMenu_agroup->actions())
-            {
-                _playlistMenu_agroup->removeAction(a);
-                delete a;
-            }
-
             // add new actions for current test cases
             QAction *a = NULL;
             QMenu *m = NULL;
@@ -656,12 +613,9 @@ void HMITesterControl::updateTestSuiteInfo(DataModel::TestSuite* ts)
             //_playlistMenu_agroup->actions().first()->setChecked(true);
 
         }
-        //else disable the testSuite menu
+        //else disable the playlist
         else
         {
-            _menu_Play_Test_Case->setEnabled ( false );
-
-            /// disable playlist
             ui.tb_play->setMenu(NULL);
         }
 
@@ -677,33 +631,18 @@ void HMITesterControl::updateTestSuiteInfo(DataModel::TestSuite* ts)
 
     else {
 
-        //disabling tSuite menu
-        _menu_Testsuite->setEnabled(false);
+        //set tSuite name
         ui.actionTsuiteName->setText("No testsuite loaded");
 
-        //clearing testCase lists
-        QList<QAction*> actions = _playTestCaseActionGroup->actions();
-        foreach ( QAction *a, actions )
-        {
-            _playTestCaseActionGroup->removeAction ( a );
-            delete a;
-        }
-
-        _menu_Play_Test_Case->setEnabled ( false );
 
         ///
-        /// disable _playlistMenu
-        ///
+        /// disable play menu
 
         ui.tb_play->setMenu(NULL);
-
-        //setting the test cases name in both
-        //play-list and delete-list
 
 
         ///
         /// clean _playlistMenu
-        ///
 
         // create menu if needed
         if (_playlistMenu == NULL)
@@ -722,7 +661,7 @@ void HMITesterControl::updateTestSuiteInfo(DataModel::TestSuite* ts)
         ui.menuBar->update();
 
         // set status
-        _set_statusbar_text(QString("Testsuite: ") + QString(ts->name().c_str()));
+        _set_statusbar_text(QString("No testsuite loaded"));
     }
 }
 
@@ -745,8 +684,10 @@ void HMITesterControl::_form_initState()
 {
     //menu
     ui.menu_File->setEnabled(true);
-    ui.menu_TestSuite->setEnabled(false);
-    ui.menu_Config->setEnabled(false);
+    ui.action_New->setEnabled(true);
+    ui.action_Open->setEnabled(true);
+    ui.action_Edit->setEnabled(true);
+    ui.action_Close->setEnabled(false);
     ui.menuBar->setVisible(false);
     //buttons
     _setEnableAndVisible(ui.tb_menu,true);
@@ -770,7 +711,10 @@ void HMITesterControl::_form_stopState()
     //menu
     _setEnableAndVisible(ui.tb_menu,true);
     ui.menu_File->setEnabled(true);
-    ui.menu_TestSuite->setEnabled(true);
+    ui.action_New->setEnabled(false);
+    ui.action_Open->setEnabled(false);
+    ui.action_Edit->setEnabled(false);
+    ui.action_Close->setEnabled(true);
     ui.menu_Config->setEnabled(true);
     ui.menuBar->setVisible(false);
     //buttons
@@ -792,7 +736,6 @@ void HMITesterControl::_form_playState()
 {
     //menu
     ui.menu_File->setEnabled(false);
-    ui.menu_TestSuite->setEnabled(false);
     ui.menu_Config->setEnabled(false);
     ui.menuBar->setVisible(false);
     //buttons
@@ -816,7 +759,6 @@ void HMITesterControl::_form_recState()
 {
     //menu
     ui.menu_File->setEnabled(false);
-    ui.menu_TestSuite->setEnabled(false);
     ui.menu_Config->setEnabled(false);
     ui.menuBar->setVisible(false);
     //buttons
@@ -840,7 +782,6 @@ void HMITesterControl::_form_pausePlayState()
 {
     //menu
     ui.menu_File->setEnabled(false);
-    ui.menu_TestSuite->setEnabled(false);
     ui.menu_Config->setEnabled(false);// TODO allow this
     ui.menuBar->setVisible(false);
     //buttons
@@ -863,7 +804,6 @@ void HMITesterControl::_form_pauseRecState()
 {
     //menu
     ui.menu_File->setEnabled(false);
-    ui.menu_TestSuite->setEnabled(false);
     ui.menu_Config->setEnabled(true);
     ui.menuBar->setVisible(false);
     //buttons

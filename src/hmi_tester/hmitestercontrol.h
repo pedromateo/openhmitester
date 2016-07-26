@@ -68,12 +68,8 @@ private:
     //menus
     QMenu *_menu_Main;
     QMenu *_menu_File;
-    QMenu *_menu_Testsuite;
-    QMenu *_menu_Play_Test_Case;
-    QMenu *_menu_Delete_Test_Case;
     QMenu *_menu_Config;
     QMenu *_menu_Speed;
-    QActionGroup *_playTestCaseActionGroup;
     QActionGroup *_speedActionGroup;
     QSettings _settings;
 
@@ -103,6 +99,9 @@ private slots:
     void action_speed4x_triggered();
     void action_keepAlive_triggered(bool);
     void action_showTesterOnTop_triggered(bool);
+
+    //global shortcut
+    void action_global_shortcut_triggered();
 
     //testSuite handling
     void _playTestCaseSelected_triggered(bool);
