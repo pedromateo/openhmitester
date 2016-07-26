@@ -1,5 +1,5 @@
 
-**July, the 1st -> OHT is now cross-platform and works both in Linux (automatic preload) and Windows (using manual preload). There is one feature to implement: make "preload" to work in Windows. If you want to contribute, just email me or [continue reading here](#todo-windows-adaptation)**
+**July, the 1st -> OHT is now cross-platform and works both in Linux (automatic preload) and Windows (using manual preload). There is one feature to implement: make "preload" to work in Windows. If you want to contribute, just email me or [continue reading here](https://github.com/pedromateo/openhmitester/issues/10)**
 
 ---
 
@@ -13,6 +13,10 @@ As a result, the framework provides an adaptable, extensible, scalable,
 and **robust basis** to support the automation of GUI testing processes. 
 
 OHT is open-source and ready to use. It is cross-platform as well. Versions working in **Qt-Linux** and **Qt-Windows** environments are provided in this repository.
+
+# Want to contribute?
+
+Please, check open enhancements [here!!](https://github.com/pedromateo/openhmitester/issues)
 
 # Requirements / Compile & run OHT
 
@@ -163,31 +167,6 @@ Two logs are generated with the standard and error output of the Application Und
 * oht_aut_stderr.log
 
 They are located in the same directory where the OHT binary is located. 
-
-# TODO: Windows adaptation
-
-*TODO*: Do the preload automatically in Windows. While in linux it is implemented using the LD_PRELOAD
-environment variable, in windows I found several options:
-
-  - Option 1: Use registry keys. The problem is that security in most recent Windows versions do not allow us to do it. You can read this: https://en.wikipedia.org/wiki/DLL_injection
-
-  - Option 2: Create an application launcher (AppL) to launch the application under testing (AUT). The process would be as follows:
-     1. The HMI Tester starts recording a test case, thus the AUT must be launched and the PreloadLibrary loaded into it.
-     2. The HMI Tester calls the AppL with the path to the AUT as parameter.
-     3. The AppL is a binary including the PreloadLibrary. Therefore, in its main function, it first calls to `QtPreloadingControl::Do_preload();`. Please, see `win_oht_launcher` subproject into the `build_all_win` project.
-     4. The AppL loads the exe file of the AUT as a DLL. Some links supporting this approach:
-        - http://www.codeproject.com/Articles/1045674/Load-EXE-as-DLL-Mission-Possible
-        - https://msdn.microsoft.com/en-us/library/windows/desktop/ms684175%28v=vs.85%29.aspx
-        - http://stackoverflow.com/questions/8696653/dynamically-load-a-function-from-a-dll
-     5. The AppL calls the main function of the AUT to launch it, including the PreloadLibrary previously loaded.
-
-  For this, `openhmitester/src/preloaders/winpreloadingaction.cpp` should be properly implemented to (option 1) change the registry and launch the AUT as a `QProcess` or (option 2) to call the AppL with the AUT path as parameter. Right now it holds the basic implementation with a lot of TODOs.
-
-Additional info: **PreloadModule** is the library used to extract events from the application under test (AUT), and to execute actions on it as well. This module (encapsulated into a DLL library) has to:
-
-  1. be preloaded into the AUT before the AUT is launched.
-  2. detect any event (in linux we use an event called something like Qt nativeEvent) to automatically execute at startup and deploy the OHT services, thus the OHT controller will be able to communicate to and control the AUT.
-
 
 # Any question? Any bug?
 
