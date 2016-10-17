@@ -31,7 +31,7 @@ else {
 }
 
 QT += script xml network
-CONFIG += debug
+CONFIG += debug c++11
 
 TARGET = qt_linux_hmi_tester
 TEMPLATE = app
