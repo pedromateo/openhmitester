@@ -177,16 +177,27 @@ void ProcessControl::onPlay_playClicked()
         {
             assert(_current_testsuite->appId().empty() == false);
             assert(current_libPreload_path_.empty() == false);
+            bool ok;
 
             // restart communications
             _comm->resetAndStart();
 
-            //launch the application
-            bool ok = preloading_action_->launchApplication(
+            QStringList listArgument = {};
+            // check application run with non-Argument or run with Argument
+            if (!_current_testsuite->app_argument().empty())
+            {
+                // convet string to list string
+                QString str_Argument = QString::fromLocal8Bit(_current_testsuite->app_argument().c_str());
+                listArgument = str_Argument.split(STR_SPACE_CHR);
+             }
+
+            //launch the application with argument
+            ok = preloading_action_->launchApplication(
                         _current_testsuite->appId(),//app
                         current_libPreload_path_,//preload lib
                         STANDARD_OUTPUT_LOG_FILE,//output file
-                        ERROR_OUTPUT_LOG_FILE);//error file
+                        ERROR_OUTPUT_LOG_FILE, //error file
+                        listArgument); //list argument of app
 
             //if not launched properly...
             if (!ok)
@@ -236,6 +247,8 @@ void ProcessControl::onPlay_playClicked()
         assert(0);//FIXME remove this assert
     }
 }
+
+
 
 void ProcessControl::onRecord_playClicked()
 {
@@ -365,12 +378,24 @@ void ProcessControl::onRecord_recClicked()
             // restart communications
             _comm->resetAndStart();
 
-            //launch the application
-            bool ok = preloading_action_->launchApplication(
+            bool ok;
+            QStringList listArgument = {};
+
+            if (!_current_testsuite->app_argument().empty())
+            {
+                // convet string to list string
+                QString str_Argument = QString::fromLocal8Bit(_current_testsuite->app_argument().c_str());
+                listArgument = str_Argument.split(STR_SPACE_CHR);
+            }
+
+            //launch the application with argument
+            ok = preloading_action_->launchApplication(
                         _current_testsuite->appId(),//app
                         current_libPreload_path_,//preload lib
                         STANDARD_OUTPUT_LOG_FILE,//output file
-                        ERROR_OUTPUT_LOG_FILE);//error file
+                        ERROR_OUTPUT_LOG_FILE, //error file
+                        listArgument);//list argument of app
+
 
             //if not is launched properly...
             if (!ok)
@@ -464,8 +489,6 @@ bool ProcessControl::openTestSuite(const std::string& file)
     return true;
 }
 
-
-
 bool ProcessControl::closeCurrentTestSuite()
 {
     DEBUG(D_BOTH,"(ProcessControl::closeCurrentTestSuite)");
@@ -491,7 +514,8 @@ bool ProcessControl::closeCurrentTestSuite()
 
 bool ProcessControl::newTestSuite(const std::string& file,
                                   const std::string& name,
-                                  const std::string& appId)
+                                  const std::string& appId,
+                                  const std::string& argument)
 {
     DEBUG(D_BOTH,"(ProcessControl::newTestSuite)");
     //create a new TestSuite
@@ -501,6 +525,7 @@ bool ProcessControl::newTestSuite(const std::string& file,
     //set the values to the test suite
     _current_testsuite->name(name);
     _current_testsuite->appId(appId);
+    _current_testsuite->app_argument(argument);
 
     //dump the testSuite to a file
     if (!saveTestSuite(_current_testsuite,file))
@@ -539,6 +564,11 @@ bool ProcessControl::saveTestSuite(DataModel::TestSuite* ts,
     catch(DataModelAdapter::conversion_error_exception&){
         return false;
     }
+}
+
+DataModel::TestSuite* ProcessControl::getCurrenTestSuite()
+{
+    return _current_testsuite;
 }
 
 
@@ -701,6 +731,8 @@ void ProcessControl::executionThreadTerminated(int i)
         preloading_action_->stopApplication();
         DEBUG(D_BOTH,"(ProcessControl::stopClicked) Keep alive disabled. Application stoped.");
     }
+
+    emit endExecutionTest();
 }
 
 void ProcessControl::completedPercentageNotification(int i)

@@ -43,6 +43,9 @@ public:
     //test suite info update
     void updateTestSuiteInfo(DataModel::TestSuite*);
 
+    // Automation, once command
+    void automationRunTestSuite(QString path);
+
     //form visualization and state
     void setForm_initState();
     void setForm_stopState();
@@ -54,6 +57,9 @@ public:
     void setForm_recordingStatus(int);
 
 
+    //handle with command line
+    void openFileAndSetupData(QString pathConfig);
+    void playAllTestCase();
 
 private:
     Ui::HMITesterWindow ui;
@@ -79,6 +85,9 @@ private:
 
     // overall process controller
     ProcessControl* _processControl;
+
+    // kill hmitester after finished test
+    bool _keepAlive;
 
 private slots:
     //button handlers
@@ -119,6 +128,8 @@ private slots:
     // status bar messages
     void _set_statusbar_text(const QString &msg, int timeout = 0);
     void _set_statusbar_text(const char* msg, int timeout = 0);
+
+    void _test_ended_handle();
 
 signals:
 

@@ -58,6 +58,7 @@ HMITesterControl::HMITesterControl(PreloadingAction *pa, DataModelAdapter *dma, 
     _initializeForm();
 
     this->resize(220,62); // FIXME try to fix this in the designer
+    this->_keepAlive = true;
 }
 
 HMITesterControl::~HMITesterControl()
@@ -113,6 +114,9 @@ void HMITesterControl::_initializeForm()
             Qt::QueuedConnection);
     connect(this, SIGNAL(form_recordingStatus(int)),
             this, SLOT(_form_recordingStatus(int)),
+            Qt::QueuedConnection);
+    connect(_processControl, SIGNAL(endExecutionTest()),
+            this, SLOT(_test_ended_handle()),
             Qt::QueuedConnection);
 
 
@@ -212,8 +216,11 @@ void HMITesterControl::tb_play_clicked()
             return;
         }
 
+        // get name of item have been selected by user
+        QString nameActionSelected = actionSelected->text();
+
         // case: play all in a row
-        if (_playlistMenu_agroup->actions().last() == actionSelected)
+        if (nameActionSelected == "All in a row")
         {
             QString tcName;
             bool ok = false;
@@ -239,9 +246,7 @@ void HMITesterControl::tb_play_clicked()
         // case: play a single test case
         else
         {
-            //set the test case to play
-            QString tcName = actionSelected->text();
-            bool ok = _processControl->checkAndQueueTestCase(tcName.toStdString());
+            bool ok = _processControl->checkAndQueueTestCase(nameActionSelected.toStdString());
             if (!ok)
             {
                 QtUtils::newErrorDialog ( "The selected Test Case is not valid." );
@@ -324,6 +329,30 @@ void HMITesterControl::tb_rec_clicked()
         }
     }
 }
+
+void HMITesterControl::openFileAndSetupData(QString path)
+{
+    DEBUG(D_GUI,"(HMITesterControl::openFileAndSetupData)");
+
+    if (path == "") return;
+
+    //open the testSuite
+    bool ok = _processControl->openTestSuite(path.toStdString());
+    if (!ok)
+    {
+        QtUtils::newErrorDialog("The TestSuite cannot be loaded.");
+        return;
+    }
+
+    // enable close menu option
+    ui.action_Close->setEnabled(true);
+
+    // do dirs
+    _settings.setValue(SETT_LAST_OPEN_DIR, path);
+    _settings.endGroup();
+
+}
+
 
 
 /// ///
@@ -426,7 +455,8 @@ void HMITesterControl::action_new_triggered()
         bool ok = _processControl->newTestSuite(
                     newtsd.getTestsuitePath().toStdString(),
                     newtsd.getTestsuiteName().toStdString(),
-                    newtsd.getAUTPath().toStdString());
+                    newtsd.getAUTPath().toStdString(),
+                    newtsd.getListArgument().toStdString());
 
         //process checking
         if (!ok)
@@ -666,6 +696,62 @@ void HMITesterControl::updateTestSuiteInfo(DataModel::TestSuite* ts)
 }
 
 
+
+///
+/// \brief automationRunTestSuite
+/// \param path
+///
+void HMITesterControl::automationRunTestSuite(QString path)
+{
+    this->openFileAndSetupData(path);
+    this->playAllTestCase();
+    this->_keepAlive = false;
+
+}
+
+///
+/// \brief HMITesterControl::playAllTestCase
+///
+void HMITesterControl::playAllTestCase()
+{
+    //if the state == STOP it has to provide the
+    //test case to play
+    if (_processControl->state() == ProcessControl::STOP)
+    {
+        // case: play all in a row
+        QString tcName;
+        bool ok = false;
+        const int total_tc = _playlistMenu_agroup->actions().length() - 1;
+        // queue all test cases - avoid last QAction
+        for (int i = 0; i < total_tc; i++)
+        {
+            tcName = _playlistMenu_agroup->actions().at(i)->text();
+            ok = _processControl->checkAndQueueTestCase(tcName.toStdString());
+            if (!ok)
+            {
+                DEBUG(D_ERROR,"(HMITesterControl::tb_play_clicked) Row playback. Test case not found.");
+            }
+            else{
+                DEBUG(D_GUI,"(HMITesterControl::tb_play_clicked) Queuing testcase "
+                      << i + 1 << "/" << total_tc);
+            }
+        }
+        // play test cases
+        _processControl->playQueuedTestCases();
+    }
+}
+
+///
+/// \brief _test_ended_handle
+///
+void HMITesterControl::_test_ended_handle()
+{
+    if (_keepAlive == false)
+    {
+        qDebug() <<"HMITesterControl::_test_ended_handle(), Automation mode, caling exit ...."<< "\n";
+        this->close();
+    }
+}
 
 
 /// ///

@@ -45,6 +45,8 @@ public:
     QString& getTestsuiteName();
     QString& getTestsuitePath();
     QString& getAUTPath();
+    QString getListArgument();
+    void setListArgument(QString txtARG);
 
 
 
@@ -60,12 +62,15 @@ private slots:
 
     void on_le_tsName_editingFinished();
 
+    void on_cb_CheckARG_clicked();
+
 private:
     Ui::NewTSDialog *m_ui;
     QString _tsPath;
     QString _autPath;
     QString _tsName;
     QSettings _settings;
+    QString _listArgument;
 };
 
 #endif // NewTSDialog_H

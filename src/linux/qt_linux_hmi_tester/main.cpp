@@ -28,7 +28,6 @@
 #include <xmldatamodeladapter.h>
 #include <debug.h>
 
-
 int main(int argc, char *argv[])
 {
     // create specific modules for qt-linux-xml adaptation
@@ -42,6 +41,30 @@ int main(int argc, char *argv[])
     // initialize and launch HMI Tester
     QApplication a(argc, argv);
     HMITesterControl w(pa,dma);
+
+    // get call argument
+    QStringList args = a.arguments();
+
+    // CASE: command run application has non-argument
+    if (args.size() > 2)
+    {
+        // TO DO: at user manual
+        return 0;
+    }
+    else
+    {
+        // run application with GUI
+        // CASE: command run application has argument
+        if (args.size() == 2)
+        {
+            // set config path is last element in listArgs
+            QString pathConfig(args.at(1));
+            w.automationRunTestSuite(pathConfig);
+
+            qDebug() << "Start read file and setup testcase by config file: " << pathConfig;
+        }
+    }
+
     w.show();
     return a.exec();
 }

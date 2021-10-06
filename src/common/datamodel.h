@@ -240,6 +240,9 @@ namespace DataModel
         std::string name() const;
         void name(const std::string&);
 
+        std::string app_argument() const;
+        void app_argument(const std::string&);
+
 #ifdef WANT_SERIALIZE
         //serialization
         friend class boost::serialization::access;
@@ -252,6 +255,7 @@ namespace DataModel
             ar & appId_;
             ar & tcMap_;
             ar & testCases_;
+            ar & app_argument_;
         }
 #endif
 
@@ -262,6 +266,7 @@ namespace DataModel
         TestCaseList testCases_;
         std::string appId_;
         std::string name_;
+        std::string app_argument_;
     };
 
 }
