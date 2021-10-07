@@ -18,7 +18,6 @@
  *
  *   This file is part of the Open-HMI Tester,
  *   http://openhmitester.sourceforge.net
- *
  */
 
 #include "linuxpreloadingaction.h"
@@ -44,7 +43,8 @@ std::string LinuxPreloadingAction::libPreloadPath()
 bool LinuxPreloadingAction::launchApplication ( const std::string &binaryPath,
                                                 const std::string &preloadLibraryPath,
                                                 const std::string &outputFile,
-                                                const std::string &errorFile) throw (bin_error_exception, lib_error_exception)
+                                                const std::string &errorFile,
+                                                const QStringList &listArgument) throw (bin_error_exception, lib_error_exception)
 {
     //checking if the binary exists
     if ( !QtUtils::isExecutable ( QString (binaryPath.c_str()) ) )
@@ -77,17 +77,17 @@ bool LinuxPreloadingAction::launchApplication ( const std::string &binaryPath,
     //setting preloading environment for the process
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
     env.insert(PRELOAD_ENVVAR, QString(preloadLibraryPath.c_str()));
+
     //env.insert(PRELOAD_ENVVAR, "/home/pedro/svn_catedra/anotaciones/testing/imp_HMITester_github/openhmitester/build/qt_linux_lib_preload/libOHTPreload.so");
     process_->setProcessEnvironment(env);
-
-    /*QStringList environment = process_->processEnvironment().toStringList();
-    for(int i=0; i < environment.size(); i++){
-        std::cout << environment.at(i).toLocal8Bit().constData() << std::endl;
-    }*/
 
     DEBUG(D_PRELOAD,"==========================================");
     DEBUG(D_PRELOAD,"(LinuxPreloadingAction::launchApplication) Launching application with:");
     DEBUG(D_PRELOAD," - binaryPath = " << binaryPath);
+    for (int index = 0; index < listArgument.size(); index ++)
+    {
+        DEBUG(D_PRELOAD," - listArgument = " << listArgument.at(index).toStdString());
+    }
     DEBUG(D_PRELOAD," - preloadLibraryPath = " << preloadLibraryPath);
     //DEBUG(D_PRELOAD," - envvar = " << envvar.toStdString());
     DEBUG(D_PRELOAD," - outputFile = " << outputFile);
@@ -95,7 +95,15 @@ bool LinuxPreloadingAction::launchApplication ( const std::string &binaryPath,
     DEBUG(D_PRELOAD,"==========================================");
 
     //process execution
-    process_->start(QString(binaryPath.c_str()));
+    if (listArgument.size() >= 1)
+    {
+        process_->start(QString(binaryPath.c_str()), listArgument);
+    }
+    else
+    {
+        process_->start(QString(binaryPath.c_str()));
+    }
+
     process_->waitForStarted();
 
     std::cout << "(LinuxPreloadingAction::launchApplication) Application launched." << std::endl;

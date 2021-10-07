@@ -19,7 +19,9 @@
  *   This file is part of the Open-HMI Tester,
  *   http://openhmitester.sourceforge.net
  *
+ *
  */
+
 #ifndef LINUXPRELOADINGACTION_H
 #define LINUXPRELOADINGACTION_H
 
@@ -48,7 +50,9 @@ public:
     virtual bool launchApplication ( const std::string &binaryPath,
                                      const std::string &preloadLibraryPath,
                                      const std::string &outputFile,
-                                     const std::string &errorFile) throw (bin_error_exception, lib_error_exception);
+                                     const std::string &errorFile,
+                                     const QStringList &listArgument = {}) throw (bin_error_exception, lib_error_exception);
+
     virtual bool stopApplication ();
 
 private slots:

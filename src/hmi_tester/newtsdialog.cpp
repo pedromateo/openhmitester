@@ -36,6 +36,13 @@ NewTSDialog::NewTSDialog(QWidget *parent) :
         m_ui(new Ui::NewTSDialog)
 {
     m_ui->setupUi(this);
+
+    // set cb_CheckARG is uncheck
+    m_ui->cb_CheckARG->setChecked(false);
+    m_ui->textArgument->setEnabled(false);
+
+    // set _listArgument is emty
+    _listArgument = "";
 }
 
 NewTSDialog::~NewTSDialog()
@@ -60,6 +67,25 @@ QString& NewTSDialog::getTestsuitePath()
 QString& NewTSDialog::getAUTPath()
 {
     return _autPath;
+}
+
+QString NewTSDialog::getListArgument()
+{
+    return _listArgument;
+}
+
+void NewTSDialog::setListArgument(QString txtARG)
+{
+    // set _listArgument is emty
+    _listArgument = "";
+
+    QString thisARGText = txtARG.trimmed();
+
+    if (!thisARGText.isEmpty())
+    {
+        // set _listArgument is list string split
+        _listArgument = thisARGText;
+    }
 }
 
 
@@ -149,6 +175,18 @@ void NewTSDialog::on_buttonBox_accepted()
         QtUtils::newErrorDialog("A valid path must be selected to store the test suite.");
         error = true;
     }
+    if (m_ui->cb_CheckARG->checkState())
+    {
+        // set list argument by textArgument
+        setListArgument(m_ui->textArgument->text());
+
+        if (_listArgument.isEmpty())
+        {
+            QtUtils::newErrorDialog("Textbox argument is emty.\n"
+                                    "This application will be run non-argument");
+            error = true;
+        }
+    }
 
     if (error) return;
 
@@ -162,4 +200,20 @@ void NewTSDialog::on_buttonBox_accepted()
 void NewTSDialog::on_buttonBox_rejected()
 {
     done(0);
+}
+
+void NewTSDialog::on_cb_CheckARG_clicked()
+{
+    bool isChecked = m_ui->cb_CheckARG->checkState();
+
+    if(isChecked)
+    {
+        // set textbox ARG is enable
+        m_ui->textArgument->setEnabled(true);
+    }
+    else
+    {
+        // set textbox ARG is unenable
+        m_ui->textArgument->setEnabled(false);
+    }
 }

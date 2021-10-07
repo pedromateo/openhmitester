@@ -215,6 +215,16 @@ void TestSuite::name(const std::string& s)
     name_ = s;
 }
 
+std::string TestSuite::app_argument() const
+{
+    return app_argument_;
+}
+
+void TestSuite::app_argument(const std::string& s)
+{
+    app_argument_ = s;
+}
+
 
 ///
 /// test case

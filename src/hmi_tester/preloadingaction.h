@@ -47,7 +47,8 @@ public:
     virtual bool launchApplication( const std::string &binaryPath,
                                     const std::string &preloadLibraryPath,
                                     const std::string &outputFile,
-                                    const std::string &errorFile) throw (bin_error_exception, lib_error_exception) = 0;
+                                    const std::string &errorFile,
+                                    const QStringList &listArgument = {}) throw (bin_error_exception, lib_error_exception) = 0;
 
     ///
     /// stops the binary

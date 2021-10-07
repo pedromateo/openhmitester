@@ -35,6 +35,8 @@
 #include <QObject>
 #include <memory>
 
+#define STR_SPACE_CHR " "
+
 // Fwd
 class HMITesterControl;
 
@@ -75,6 +77,11 @@ public:
 
 public:
 
+    // flag check has application has argument
+    bool isHasArgumentList;
+    // list argument of application
+    QStringList listArgument;
+
     ///
     /// ExecutionObserver implementation
     ///
@@ -109,9 +116,11 @@ public slots:
     bool closeCurrentTestSuite();
     bool newTestSuite(const std::string& file,
                       const std::string& name,
-                      const std::string& binaryPath);
+                      const std::string& binaryPath,
+                      const std::string& argument);
     bool saveTestSuite(DataModel::TestSuite* ts,
                        const std::string& file);
+    DataModel::TestSuite* getCurrenTestSuite();
 
     ///test case
     bool checkAndQueueTestCase(const std::string&);
@@ -212,6 +221,9 @@ private:
 
     //process context
     OHTProcessContext context_;
+
+signals:
+    void endExecutionTest();
 };
 
 #endif // PROCESSCONTROL_H

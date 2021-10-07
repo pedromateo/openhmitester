@@ -58,6 +58,7 @@ const QString TI_SUBTYPE = "subtype";
 const QString TI_TIMESTAMP = "timestamp";
 const QString KEY = "key";
 const QString VALUE = "value";
+const QString TS_APP_PARAM = "appParameter";
 
 /// ///
 /// xml tags
@@ -117,6 +118,11 @@ DataModel::TestSuite*
             else if ( e1.tagName() == TS_ID )
             {
                 tsuite->appId(e1.text().toStdString());
+            }
+            //TestSuite - app_argument
+            else if ( e1.tagName() == TS_APP_PARAM )
+            {
+                tsuite->app_argument(e1.text().toStdString());
             }
             //TestSuite - data
             else if ( e1.tagName() == DATA_VALUE )
@@ -316,6 +322,11 @@ QString XMLDataModelAdapter::visit_TestSuite(const DataModel::TestSuite& ts)
     xml += BEGo + TS_ID + ENDo +
            ts.appId().c_str() +
            BEGc + TS_ID + ENDc;
+
+    //application argument
+    xml += BEGo + TS_APP_PARAM + ENDo +
+           ts.app_argument().c_str() +
+           BEGc + TS_APP_PARAM + ENDc;
 
     //maps
     xml += _visit_TestBase (ts);
