@@ -46,7 +46,7 @@ Moreover, an Ansible script (https://www.ansible.com/) is provided to compile an
 
 To execute it, just copy the file `download_compile_run.ansible.yml` to an empty directory and execute the following command:
 
-    ansible-playbook -i "localhost," -c local ansible_ubuntu.yml -K
+    ansible-playbook -i "localhost," -c local download_compile_run.ansible.yml -K
 
 # OHT in action
 
