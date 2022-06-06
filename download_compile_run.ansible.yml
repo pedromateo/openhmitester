@@ -17,7 +17,7 @@
       - libboost-system-dev 
       - libboost-thread-dev 
       - libboost-serialization-dev
-    sudo: yes
+    become: yes
     tags:
       - packages
 
