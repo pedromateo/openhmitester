@@ -15,7 +15,6 @@ and **robust basis** to support the automation of GUI testing processes.
 OHT is open-source and ready to use. It is cross-platform as well. Versions working in **Qt-Linux** and **Qt-Windows** environments are provided in this repository.
 
 # Table of contents
-<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
 
 - [Want to contribute?](#want-to-contribute)
 - [Requirements / Compile & run OHT](#requirements--compile--run-oht)
@@ -26,7 +25,6 @@ OHT is open-source and ready to use. It is cross-platform as well. Versions work
 - [Any question? Any bug?](#any-question-any-bug)
 - [Further information](#further-information)
 
-<!-- TOC end -->
 
 # Want to contribute?
 
