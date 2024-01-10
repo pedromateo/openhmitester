@@ -20,21 +20,9 @@ OHT is open-source and ready to use. It is cross-platform as well. Versions work
 - [Want to contribute?](#want-to-contribute)
 - [Requirements / Compile & run OHT](#requirements--compile--run-oht)
 - [OHT in action](#oht-in-action)
-   * [Recording and playing desktop test cases](#recording-and-playing-desktop-test-cases)
-   * [Recording and playing web test cases](#recording-and-playing-web-test-cases)
-   * [Cross-platform experiment](#cross-platform-experiment)
-   * [Robustness experiment](#robustness-experiment)
 - [Logs in the AUT for debug actions](#logs-in-the-aut-for-debug-actions)
 - [Content of this repository](#content-of-this-repository)
-   * [OHT base architecture](#oht-base-architecture)
-   * [Qt-Linux OHT Adaptation](#qt-linux-oht-adaptation)
 - [FAQ](#faq)
-      + [How to adapt OHT to Windows environments?](#how-to-adapt-oht-to-windows-environments)
-      + [How does the injection + preloading process works?](#how-does-the-injection--preloading-process-works)
-      + [If I try to open and build the build_oht_qt_win.pro I get these messages:](#if-i-try-to-open-and-build-the-build_oht_qt_winpro-i-get-these-messages)
-      + [I cannot compile `build_all_*.pro` project](#i-cannot-compile-build_all_pro-project)
-      + [I am running an application using Qt 4.8 + Embedded Linux without X server (there is QWS from QtEmbedded built in my application instead). Does OHT support this kind of setup?](#i-am-running-an-application-using-qt-48--embedded-linux-without-x-server-there-is-qws-from-qtembedded-built-in-my-application-instead-does-oht-support-this-kind-of-setup)
-      + [The AUT is crashing and I don't know why. Are there any logs to see what's happening?](#the-aut-is-crashing-and-i-dont-know-why-are-there-any-logs-to-see-whats-happening)
 - [Any question? Any bug?](#any-question-any-bug)
 - [Further information](#further-information)
 
@@ -132,8 +120,6 @@ Please, note that lib_preload output is also included in these log files.
 * lib_preload: includes implementation of the library injected in the application to test.
 * build_oht_base: Qt Creator project to build the base architecture.
 
-
-
 ## Qt-Linux OHT Adaptation
 
 * qt_linux_hmi_tester: implementation of the OHT controller for a Qt-Linux testing environment.
@@ -142,20 +128,27 @@ Please, note that lib_preload output is also included in these log files.
 
 # FAQ
 
-### How to adapt OHT to Windows environments?
+- [How to adapt OHT to Windows environments?](#how-to-adapt-oht-to-windows-environments)
+- [How does the injection + preloading process works?](#how-does-the-injection--preloading-process-works)
+- [If I try to open and build the build_oht_qt_win.pro I get these messages:](#if-i-try-to-open-and-build-the-build_oht_qt_winpro-i-get-these-messages)
+- [I cannot compile `build_all_*.pro` project](#i-cannot-compile-build_all_pro-project)
+- [I am running an application using Qt 4.8 + Embedded Linux without X server (there is QWS from QtEmbedded built in my application instead). Does OHT support this kind of setup?](#i-am-running-an-application-using-qt-48--embedded-linux-without-x-server-there-is-qws-from-qtembedded-built-in-my-application-instead-does-oht-support-this-kind-of-setup)
+- [The AUT is crashing and I don't know why. Are there any logs to see what's happening?](#the-aut-is-crashing-and-i-dont-know-why-are-there-any-logs-to-see-whats-happening)
+
+## How to adapt OHT to Windows environments?
 
 1. In qt_linux_hmi_tester, find the class linuxpreloadingaction.h. 
 2. Create a similar class to support library preloading in windows.
 3. In qt_linux_lib_preload, find qtx11preloadingcontrol class.
 4. Create a similar class to "wake up" the OHT at application startup and start OHT installation process.
 
-### How does the injection + preloading process works?
+## How does the injection + preloading process works?
 
 1. The class doing DLL injection before application launching is called LinuxPreloadingAction (extends PreloadingAction) and it is in the HMI Tester. In Linux, it uses the environment variable LD_PRELOAD to set the library to be preloaded before target application launching.
 
 2. The class deploying the OHT services into the target application is QtX11PreloadingControl (extends PreloadingControl) and it is in the Lib Preload. In Linux, it uses QWidget::x11Event in Qt4, or QWidget::nativeEvent in Qt5 to "automatically wake up" and start deploying event consumer and executor.
 
-### If I try to open and build the build_oht_qt_win.pro I get these messages:
+## If I try to open and build the build_oht_qt_win.pro I get these messages:
 
     cannot find -lboost_serialization-mgw49-mt-d-1_60
     cannot find -lboost_thread-mgw49-mt-d-1_60
@@ -166,7 +159,7 @@ You need to correctly reference Boost libraries:
 1. in `common/common.pri`, add correct Boost includes at the end of this file.
 2. change the name of all includes from `-lboost_system-mgw49-mt-d-1_60` to `-lboost_system-<your-compiler-version>-1_60`. Remember that Boost libraries have to be compiled with the same compiler used by Qt (`mingw` in this case).
 
-### I cannot compile `build_all_*.pro` project
+## I cannot compile `build_all_*.pro` project
 
 In this case, try to compile projects independently:
 
@@ -176,7 +169,7 @@ In this case, try to compile projects independently:
 `*` means the operating system we are building OHT for.
 
 
-### I am running an application using Qt 4.8 + Embedded Linux without X server (there is QWS from QtEmbedded built in my application instead). Does OHT support this kind of setup?
+## I am running an application using Qt 4.8 + Embedded Linux without X server (there is QWS from QtEmbedded built in my application instead). Does OHT support this kind of setup?
 
 OHT will support this kind of setup provided that you can "wake up" OHT within your application. With waking up I mean to find an event that is executed at your application launching, so you can handle it and start deploying OHT services.
 
