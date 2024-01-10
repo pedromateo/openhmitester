@@ -5,14 +5,40 @@
 
 "Open HMI Tester" or OHT is an application framework for the development of **GUI testing tools**. It uses real-time
 GUI **introspection** to capture and simulate **real user interaction**, which enhances
-robustness and tolerance to changes during testing stage. 
+robustness and tolerance to changes during testing stage.
 
 OHT provides a **cross-platform, open design** to support major event-based GUI platforms. Furthermore,
-it can be integrated into ongoing and legacy developments due to it being **not code-intrusive**. 
+it can be integrated into ongoing and legacy developments due to it being **not code-intrusive**.
 As a result, the framework provides an adaptable, extensible, scalable,
-and **robust basis** to support the automation of GUI testing processes. 
+and **robust basis** to support the automation of GUI testing processes.
 
 OHT is open-source and ready to use. It is cross-platform as well. Versions working in **Qt-Linux** and **Qt-Windows** environments are provided in this repository.
+
+# Table of contents
+<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
+
+- [Want to contribute?](#want-to-contribute)
+- [Requirements / Compile & run OHT](#requirements--compile--run-oht)
+- [OHT in action](#oht-in-action)
+   * [Recording and playing desktop test cases](#recording-and-playing-desktop-test-cases)
+   * [Recording and playing web test cases](#recording-and-playing-web-test-cases)
+   * [Cross-platform experiment](#cross-platform-experiment)
+   * [Robustness experiment](#robustness-experiment)
+- [Logs in the AUT for debug actions](#logs-in-the-aut-for-debug-actions)
+- [Content of this repository](#content-of-this-repository)
+   * [OHT base architecture](#oht-base-architecture)
+   * [Qt-Linux OHT Adaptation](#qt-linux-oht-adaptation)
+- [FAQ](#faq)
+      + [How to adapt OHT to Windows environments?](#how-to-adapt-oht-to-windows-environments)
+      + [How does the injection + preloading process works?](#how-does-the-injection--preloading-process-works)
+      + [If I try to open and build the build_oht_qt_win.pro I get these messages:](#if-i-try-to-open-and-build-the-build_oht_qt_winpro-i-get-these-messages)
+      + [I cannot compile `build_all_*.pro` project](#i-cannot-compile-build_all_pro-project)
+      + [I am running an application using Qt 4.8 + Embedded Linux without X server (there is QWS from QtEmbedded built in my application instead). Does OHT support this kind of setup?](#i-am-running-an-application-using-qt-48--embedded-linux-without-x-server-there-is-qws-from-qtembedded-built-in-my-application-instead-does-oht-support-this-kind-of-setup)
+      + [The AUT is crashing and I don't know why. Are there any logs to see what's happening?](#the-aut-is-crashing-and-i-dont-know-why-are-there-any-logs-to-see-whats-happening)
+- [Any question? Any bug?](#any-question-any-bug)
+- [Further information](#further-information)
+
+<!-- TOC end -->
 
 # Want to contribute?
 
@@ -23,15 +49,15 @@ Please, check open enhancements [here!!](https://github.com/pedromateo/openhmite
 OHT compiles with many different combinations of Qt and Boost libraries. Anyway, the authors suggest using:
 - Qt v5.x (we are using Qt 5.5)
 
-        sudo apt-get install qt5-default qt5-qmake
+    sudo apt-get install qt5-default qt5-qmake
 
 - Boost 1.60 or higher
 
-        sudo apt-get install libboost-system-dev libboost-thread-dev libboost-serialization-dev
+    sudo apt-get install libboost-system-dev libboost-thread-dev libboost-serialization-dev
 
 To build the project manually from Qt Creator (http://www.qt.io/ide/, recommended), follow these steps:
 
-1. Open the `build_all_*` project.
+1. Open the `build_all_*.po` project.
 2. Build `qt_*_hmi_tester` project.
 3. Build `qt_*_lib_preload` project.
 
@@ -88,7 +114,7 @@ https://www.youtube.com/watch?v=4rXnRWQ9dts
 
 # Logs in the AUT for debug actions
 
-Two logs are generated with the standard and error output of the Application Under Test (AUT): 
+Two logs are generated with the standard and error output of the Application Under Test (AUT):
 * oht_aut_stdout.log
 * oht_aut_stderr.log
 
@@ -134,7 +160,7 @@ Please, note that lib_preload output is also included in these log files.
     cannot find -lboost_serialization-mgw49-mt-d-1_60
     cannot find -lboost_thread-mgw49-mt-d-1_60
     cannot find -lboost_system-mgw49-mt-d-1_60
-    
+
 You need to correctly reference Boost libraries:
 
 1. in `common/common.pri`, add correct Boost includes at the end of this file.
@@ -162,11 +188,11 @@ So, you need to create and adaptation of this class (e.g., QWSPreloadingControl)
 
 ### The AUT is crashing and I don't know why. Are there any logs to see what's happening?
 
-Two logs are generated with the standard and error output of the Application Under Test (AUT): 
+Two logs are generated with the standard and error output of the Application Under Test (AUT):
 * oht_aut_stdout.log
 * oht_aut_stderr.log
 
-They are located in the same directory where the OHT binary is located. 
+They are located in the same directory where the OHT binary is located.
 
 # Any question? Any bug?
 
